@@ -1,0 +1,4323 @@
+{UTF-8}
+INITIAL AVERAGE POWER OF CHARGING STATION=
+	350
+	~	kw/Charging stations
+	~		|
+
+MAXIMUM AVERAGE POWER OF CHARGING STATION=
+	350
+	~	kw/Charging stations
+	~		|
+
+AVERAGE CONSUMPTION PER KM FOR DIESEL TRUCK=
+	0.25
+	~	Litre/KM
+	~	0.25
+		*"sensitivity for different vehicle size (80%)"
+		
+		100 km, 27 litre
+		
+		ICCT report, table 1 page 9 = 0.27
+		
+		Basma, H., Saboori, A., & Rodríguez, F. (2021). Total cost of ownership \
+		for tractor-trailers in Europe: Battery electric versus diesel. ICCT: \
+		Berlin, Germany.
+	|
+
+"AVERAGE CONSUMPTION PER KM FOR E-TRUCK"=
+	1.5
+	~	kWh/KM
+	~	1.5
+		*"sensitivity for different vehicle size (80%)"
+		
+		
+		
+		
+		
+		1.5
+		ICCT report, table 1 page 9 = 1.5
+		
+		Basma, H., Saboori, A., & Rodríguez, F. (2021). Total cost of ownership for \
+		tractor-trailers in Europe: Battery electric versus diesel. ICCT: Berlin, \
+		Germany.
+		
+		.....................................................................................\
+		........
+		technology will decrease this number
+		Winter weather will increase the consumption of both electric and diesel trucks!
+		
+		maybe from 2015 from 1.5 to 2030=1
+	|
+
+CONSTRUCTION COST PER kW=
+	5142
+	~	SEK/kw
+	~	8673: average of REEL numbers
+		
+		5142:
+		REEL project report, page 52
+		
+		REEL. (2022). Regional Electrified Logistics. \
+		https://closer.lindholmen.se/sites/default/files/2022-11/reel-report.pdf
+		
+		12202:
+		REEL project page 48, 
+		REEL Regional Electrified Logistics Charging infrastructure for trucks 2024:02
+		https://closer.lindholmen.se/sites/default/files/2024-02/reel-charging-infra-for-truc\
+		ks-2024.02.pdf"
+		
+		19550:
+		Noll et al., 2022, Table 3, page 7
+		Noll, B., del Val, S., Schmidt, T. S., & Steffen, B. (2022). Analyzing the \
+		competitiveness of low-carbon drive-technologies in road-freight: A total \
+		cost of ownership analysis in Europe. Applied Energy, 306, 118079."
+	|
+
+AVERAGE MILEAGE PER VEHICLE PER YEAR=
+	90000
+	~	KM/(Vehicle*Year)
+	~	European EV Charging Infrastructure Masterplan, Page 37, weighted average of three \
+		of them=93k	Page 54-57
+		Average of four cases-REEL project=92063
+		
+		https://www.trafa.se/en/road-traffic/driving-distances-with-swedish-registe\
+		red-vehicles/
+	|
+
+OPERATION AND MAINTENANCE COST PER kWh UTILIZED CAPACITY=
+	0.25
+	~	SEK/kWh
+	~	"The annual cost of operating and maintaining a charging station. 
+		Karlsson, J., & Grauers, A. (2023). Energy distribution diagram used for \
+		cost-effective battery sizing of electric trucks. Energies, 16(2), 779.
+		Grauers, A. (2023). Electromobility: a system perspective [Course]. \
+		Swedish Electromobility Centre, Chalmers University of Technology."
+	|
+
+MARGIN OF CHARGING PROVIDERS FOR ELECTRICITY PRICE=
+	0.2
+	~	Dmnl [0,1,0.1]
+	~	20%
+		model assumption
+		
+		0.25
+		*"sensitivity for system with more depo vs. more public (50% )"
+	|
+
+"INITIAL PURCHASE COST OF E-TRUCKS"=
+	5.5131e+06
+	~	SEK/Vehicle
+	~	EV: 5,513,100  SEK/vehicle
+		Diesel: 1,759,500 SEK/vehicle
+		
+		EV: 470,000 EURO/vehicle
+		Diesel: 150,000 EURO/vehicle
+		EUR to SEK: 11.73 (14 May 2024)
+		
+		ICCT report, Figure 5, page 11
+		Basma, H., Saboori, A., & Rodríguez, F. (2021). Total cost of ownership \
+		for tractor-trailers in Europe: Battery electric versus diesel. ICCT: \
+		Berlin, Germany.
+	|
+
+sensitivity coefficient for VEHICLE SUBSIDY=
+	1
+	~	Dmnl
+	~		|
+
+MISTRUST EFFECT=
+	0.02
+	~	Dmnl
+	~	The percentage of awareness lost due to mistrust between freight companies
+		Based on expert interview
+		
+		((2010,0.05),(2025,0.05),(2035,0.5),(2050,0.05),(2100,0.05) )
+		
+		0.05+
+		STEP( 0.2 , 2030 )
+		
+		0.05+ 
+		0.2* PULSE(2030, 10 )
+		
+		
+		1%
+		between 0 and 1
+		How percentage of awareness will be ruin in the effect of mistrust.
+		negatively effect on the awareness
+	|
+
+"ON-OFF SWITCH for considering future charging demand"=
+	1
+	~	Dmnl [0,1,1]
+	~		|
+
+sensitivity coefficient for CHARGING SUBSIDY=
+	1
+	~	Dmnl
+	~		|
+
+sensitivity coefficient for DIESEL=
+	1
+	~	Dmnl
+	~	only use for sensitivity analysis
+	|
+
+sensitivity coefficient for PRICE OF ELECTRICITY=
+	1
+	~	Dmnl
+	~	using only for sensitivity analysis
+	|
+
+FACTOR OF GOV INVESTMENT ON THE TECH MATURITY=
+	1
+	~	Dmnl
+	~	magnitude of the impact of government investment on improving e-truck technology \
+		maturity.
+		Base scenario value: neutral position
+	|
+
+BASED UTILITY FOR DIESEL TRUCK=
+	100
+	~	Dmnl
+	~	The level of utility (attractiveness) of an d-truck
+		Based on the expert interview
+		
+		([(0,0)-(3000,100)],(2010,100),(2030,100),(2060,50) )
+	|
+
+CHARGING CAPEX TO OPEX CONVERSION FACTOR=
+	0.05
+	~	1/Year
+	~		|
+
+"operational & maintenance cost of a station (based on percentage of capex)"=
+	CHARGING CAPEX TO OPEX CONVERSION FACTOR
+	*CONSTRUCTION COST PER STATION
+	~	SEK/(Charging stations*Year)
+	~	The annual cost of operating and maintaining a charging station. 
+		Noll et al., 2022
+		Karlsson, J., & Grauers, A. (2023). Energy distribution diagram used for \
+		cost-effective battery sizing of electric trucks. Energies, 16(2), 779.
+		Grauers, A. (2023). Electromobility: a system perspective [Course]. \
+		Swedish Electromobility Centre, Chalmers University of Technology.
+	|
+
+construction cost per station paid by infra providers=
+	CONSTRUCTION COST PER STATION*(1-"GOV. SUBSIDY PERCENTAGE ON CONSTRUCTION COST OF CHARGING STATIONS"\
+		)
+	~	SEK/Charging stations
+	~		|
+
+CONSTRUCTION COST PER STATION=
+	Average Power of Charging Station*CONSTRUCTION COST PER kW
+	~	SEK/Charging stations
+	~	"REEL project report, page 52
+		REEL. (2022). Regional Electrified Logistics. \
+		https://closer.lindholmen.se/sites/default/files/2022-11/reel-report.pdf"
+	|
+
+"annual gov. subsidy on charging 2"=
+	Building Charging Station*CONSTRUCTION COST PER STATION*"GOV. SUBSIDY PERCENTAGE ON CONSTRUCTION COST OF CHARGING STATIONS"
+	~	SEK/Year
+	~		|
+
+operation cost per station per year=
+	(cost of electricity per station per year+ "operational & maintenance cost of a station (based on percentage of capex)"\
+		)
+	~	SEK/(Charging stations*Year)
+	~		|
+
+"R&D PERCENTAGE OF ANNUAL EARNING OF DIESEL TRUCKS"=
+	0.015
+	*(1-ratio of technology maturity to goal)
+	~	Dmnl
+	~	IF THEN ELSE(Time<=2020, 0 ,  
+		
+		0.015
+		*(1-ratio of technology maturity to goal))
+		-----------------------------------------
+		The portion of income from diesel vehicle sales invested in research and development.
+		Based on interviews with Scania experts, we assume that 1,5% of the income \
+		from diesel vehicle sales will be invested on R&D for improving technology \
+		maturity of electric vehicles.
+	|
+
+"R&D PERCENTAGE OF ANNUAL EARNING OF E-TRUCKS"=
+	0.035
+	*(1-ratio of technology maturity to goal)
+	~	Dmnl [0,1,0.01]
+	~	IF THEN ELSE(Time<=2020, 0 ,  
+		
+		0.035
+		*(1-ratio of technology maturity to goal))
+		
+		---------------------------------------------------------
+		The portion of income from electric vehicle sales invested in research and \
+		development.
+		
+		Based on interviews with Scania experts, we assume that 3,5% of the income from \
+		electric vehicle sales will be invested on R&D for improving technology \
+		maturity of electric vehicles.
+		
+		0.05: According to Liu and Xiao, 2018, appendix, equation 26
+		
+		Scania expert estimate: total R&D budget is around 5% which around 2% will \
+		invest in electric trucks
+	|
+
+DIESEL RETAIL PRICE=
+	(0.286*time for diesel price-562.16)*sensitivity coefficient for DIESEL
+	~	SEK/Litre
+	~	swedish diesel price energimyndigheten
+		https://www.energimyndigheten.se/en/
+	|
+
+PURCHASE COST OF DIESEL TRUCK=
+	1.7595e+06
+	~	SEK/Vehicle
+	~	EV: 5,513,100  SEK/vehicle
+		Diesel: 1,759,500 SEK/vehicle
+		
+		EV: 470,000 EURO/vehicle
+		Diesel: 150,000 EURO/vehicle
+		EUR to SEK: 11.73 (14 May 2024)
+		
+		ICCT report, Figure 5, page 11
+		Basma, H., Saboori, A., & Rodríguez, F. (2021). Total cost of ownership for \
+		tractor-trailers in Europe: Battery electric versus diesel. ICCT: Berlin, \
+		Germany.
+		
+		
+		............
+		
+		DIESEL TRUCK PURCHASE TAX= 13%
+		
+		1M
+		2.18475e+06
+	|
+
+"TIME TO SPEND R&D FUNDS"=
+	3
+	~	Year
+	~	The duration over which research and development funds are spent.
+	|
+
+TECHNOLOGY IMPROVEMENT PER SEK SPENT=
+	1/(7.5*10^9)
+	~	technology/SEK
+	~	1/(7.5*10^9)
+		
+		7*10^9:
+		10 times the annual R&D budget - considering that the technology will be mature in \
+		10 years. Estimation from Scania expert
+		We summed the R&D investment from 2015 until 10 years
+		
+		Maximum value for this variable, if we want to introduce "more" delay, \
+		then we decrease this further.
+	|
+
+"operational & maintenance cost of a station (based on utilisation)"=
+	OPERATION AND MAINTENANCE COST PER kWh UTILIZED CAPACITY
+	*utilized capacity of a station per year
+	~	SEK/(Charging stations*Year)
+	~		|
+
+TEHNOLOGY MATURITY OF POWER OF CHARGING STATION = WITH LOOKUP (
+	time for tech maturity of power of charging station,
+		([(2017,0)-(2100,1)],(2017,0),(2022.25,0.0570176),(2026.99,0.171053),(2030.93,0.302632\
+		),(2033.55,0.5),(2035.97,0.732456),(2040.21,0.859649),(2044.75,0.960526),(2050,1),(\
+		2100,1) ))
+	~	Dmnl
+	~	using look up to creat an S-shape growth
+		
+		([(2017,0)-(2060,1)],(2017,0),(2024.1,0.0394737),(2031.46,0.149123),(2036.2\
+		,0.298246),(2038.43,0.5),(2041.85,0.684211),(2047.11,0.833333),(2053.69,0.9\
+		47368),(2060,1) )
+	|
+
+time for tech maturity of power of charging station = WITH LOOKUP (
+	Time,
+		([(0,0)-(10,10)],(2000,2000),(2001,2001),(2002,2002),(2003,2003),(2004,2004),(2005,\
+		2005),(2006,2006),(2007,2007),(2008
+		,2008),(2009,2009),(2010,2010),(2011,2011),(2012,2012),(2013,2013),(2014,2014),(2015\
+		,2015),(2016,2016),(2017,2017),(2018
+		,2018),(2019,2019),(2020,2020),(2021,2021),(2022,2022),(2023,2023),(2024,2024),(2025\
+		,2025),(2026,2026),(2027,2027),(2028
+		,2028),(2029,2029),(2030,2030),(2031,2031),(2032,2032),(2033,2033),(2034,2034),(2035\
+		,2035),(2036,2036),(2037,2037),(2038
+		,2038),(2039,2039),(2040,2040),(2041,2041),(2042,2042),(2043,2043),(2044,2044),(2045\
+		,2045),(2046,2046),(2047,2047),(2048
+		,2048),(2049,2049),(2050,2050),(2051,2051),(2052,2052),(2053,2053),(2054,2054),(2055\
+		,2055),(2056,2056),(2057,2057),(2058
+		,2058),(2059,2059),(2060,2060),(2061,2061),(2062,2062),(2063,2063),(2064,2064),(2065\
+		,2065),(2066,2066),(2067,2067),(2068
+		,2068),(2069,2069),(2070,2070),(2071,2071),(2072,2072),(2073,2073),(2074,2074),(2075\
+		,2075),(2076,2076),(2077,2077),(2078
+		,2078),(2079,2079),(2080,2080),(2081,2081),(2082,2082),(2083,2083),(2084,2084),(2085\
+		,2085),(2086,2086),(2087,2087),(2088
+		,2088),(2089,2089),(2090,2090),(2091,2091),(2092,2092),(2093,2093),(2094,2094),(2095\
+		,2095),(2096,2096),(2097,2097),(2098
+		,2098),(2099,2099),(2100,2100) ))
+	~	Dmnl
+	~		|
+
+Average Power of Charging Station= INTEG (
+	Increase in Average Power of Charging Station,
+		INITIAL AVERAGE POWER OF CHARGING STATION)
+	~	kw/Charging stations
+	~		|
+
+maximum available capacity of a station per year=
+	"maximum nominal capacity of a charging station per year (NEW)"*"max possible utilization rate of a station (lookup number of e-trucks)"
+	~	kWh/(Year*Charging stations)
+	~		|
+
+"maximum nominal capacity of a charging station per year (NEW)"=
+	Average Power of Charging Station*TOTAL HOURS IN A YEAR
+	~	kWh/(Year*Charging stations)
+	~		|
+
+"Purchase Cost of E-trucks"= INTEG (
+	-"Decrease in purchase cost of e-truck",
+		"INITIAL PURCHASE COST OF E-TRUCKS")
+	~	SEK/Vehicle
+	~	EV: 5,513,100  SEK/vehicle
+		Diesel: 1,759,500 SEK/vehicle
+		
+		EV: 470,000 EURO/vehicle
+		Diesel: 150,000 EURO/vehicle
+		EUR to SEK: 11.73 (14 May 2024)
+		
+		ICCT report, Figure 5, page 11
+		Basma, H., Saboori, A., & Rodríguez, F. (2021). Total cost of ownership \
+		for tractor-trailers in Europe: Battery electric versus diesel. ICCT: \
+		Berlin, Germany.
+	|
+
+ADJ TIME OF POWER OF CHARGING STATION=
+	5
+	~	Year
+	~		|
+
+Increase in Average Power of Charging Station=
+	TEHNOLOGY MATURITY OF POWER OF CHARGING STATION*average power of charging station gap\
+		/ADJ TIME OF POWER OF CHARGING STATION
+	~	kw/Charging stations/Year
+	~		|
+
+average power of charging station gap=
+	MAXIMUM AVERAGE POWER OF CHARGING STATION-Average Power of Charging Station
+	~	kw/Charging stations
+	~		|
+
+TOTAL HOURS IN A YEAR=
+	8760
+	~	kWh/kw/Year
+	~	Total number of hours in a year = 24*365 = 8760
+	|
+
+utilization rate of a station=
+	Min ("max possible utilization rate of a station (lookup number of e-trucks)",Average energy demand from each station per year
+	/"maximum nominal capacity of a charging station per year (NEW)"
+	)
+	~	Dmnl
+	~		|
+
+utilized capacity of a station per year=
+	"maximum nominal capacity of a charging station per year (NEW)"*utilization rate of a station
+	~	kWh/(Year*Charging stations)
+	~		|
+
+"share of e-truck in total fleet in percentage"=
+	"e-truck share in total fleet"*100
+	~	Dmnl
+	~		|
+
+WEIGHT OF MATURITY=
+	0.15
+	~	Dmnl [0,1,0.05]
+	~	this variable represents the weight of the vehicle technology maturity influence on \
+		the e-truck utility, in comparison with the other influences
+		Based on the expert interview
+		
+		(1-WEIGHT OF AVAILABILITY)/2.2
+		1-(FACTOR OF AVAILABILITY+FACTOR OF NETWORK EFFECT)
+	|
+
+WEIGHT OF AWARENESS=
+	0.4
+	~	Dmnl [0,1,0.05]
+	~	this variable represents the weight of the awareness influence on the e-truck \
+		utility, in comparison with the other influences
+		Based on the expert interview
+		
+		WEIGHT OF MATURITY*1.2
+	|
+
+emission level goal for 2030=
+	0.3
+	~	Dmnl
+	~		|
+
+emission level goal for 2045=
+	0
+	~	Dmnl
+	~		|
+
+emission level of 2010=
+	1
+	~	Dmnl
+	~		|
+
+Annual operational emission from diesel trucks=
+	"annual fuel consumption (kWh) for diesel fleet"*
+	
+	Carbon intensity of diesel fuel by considering biofuel
+	
+	*factor for correction emission
+	~	kgCO2eq/Year
+	~		|
+
+factor for correction emission=
+	0.612
+	~	Dmnl
+	~	model assumption based on discussion with SCB (Statistikmyndigheten) \
+		experts
+	|
+
+SWEDEN ROAD LENGHT=
+	579556
+	~	KM
+	~	Road lenght: 579 556
+		https://www.statistikdatabasen.scb.se/pxweb/en/ssd/START__MI__MI0803__MI0803X/Vaglang\
+		dHallare/table/tableViewLayout1/
+		
+		Road area in Sweden:395040
+		https://www.statistikdatabasen.scb.se/pxweb/en/ssd/START__MI__MI0803__MI080\
+		3A/VagArealKategori/table/tableViewLayout1/
+	|
+
+Goal of charging stations for full adoption of electric trucks=
+	SWEDEN ROAD LENGHT*IDEAL DENSITY OF CHARGING STATIONS BASED ON EU REGULATIONS
+	~	Charging stations
+	~	45000
+		1200 open chargers plus 12500 depo charger with 100 kw that could be calculated to \
+		4700 chargers with 350 kw capacity
+		
+		
+		AFID goal for higher power charging station by 2030 --> 40,000-50,000 Plus 270,000 \
+		low power open chargers (over night)
+		
+		2030 EQUAL TO 4700
+		
+		IF THEN ELSE(Time<=2030, 4700 , 0 )
+	|
+
+IDEAL DENSITY OF CHARGING STATIONS BASED ON EU REGULATIONS=
+	1/50
+	~	Charging stations/KM
+	~	1 station for every 50 km
+		Based on interviews and Masterplan
+		ACEA. (2022). Research Whitepaper, European EV Charging Infrastructure Masterplan. \
+		https://www.acea.auto/files/Research-Whitepaper-A-European-EV-Charging-Infr\
+		astructure-Masterplan.pdf
+		
+		if we have every 100 km2, three charhers, it would be enough!
+		equal to every 33 km2, we have 1 station
+	|
+
+"Reference mode of SWEDEN total truck fleet size (2017-2023)" = WITH LOOKUP (
+	Time,
+		([(2010,0)-(2100,90000)],(2010,78923),(2011,80739),(2012,79727),(2013,79130),(2014,\
+		79544),(2015,80046),(2016,81430),(2017,83025),(2018,83977),(2019,84153),(2020,84333\
+		),(2021,85554),(2022,86060),(2023,85431),(2100,85430) ))
+	~	Dmnl
+	~		|
+
+SWICH FOR NEW REGULATION EFFECT=
+	1
+	~	Dmnl
+	~		|
+
+Biofuel share=
+	IF THEN ELSE(SWICH FOR NEW REGULATION EFFECT=0, 
+	
+	Min (1,
+	emission reduction based on previous regulation/
+	
+	(1-CARBON INTENSITY OF BIOFUEL/CARBON INTENSITY OF DIESEL))
+	
+	 , Min (1,
+	emission reduction based on new regulation/
+	
+	(1-CARBON INTENSITY OF BIOFUEL/CARBON INTENSITY OF DIESEL)) )
+	~	Dmnl
+	~	energimyndigheten. (2021). Greenhouse gas reduction mandate. Energimyndigheten. \
+		https://www.energimyndigheten.se/en/sustainability/sustainable-fuels/greenh\
+		ouse-gas-reduction-mandate/
+		
+		Min (1, (4.6227*Time - 9317.1)/100)
+		Min (1, (1.9685*Time - 3951.7)/100)
+	|
+
+emission reduction based on new regulation=
+	IF THEN ELSE( 
+	
+	time for emission reduction>=2024 , 0.06 , 
+	
+	IF THEN ELSE(
+	
+	time for emission reduction=2022:OR:time for emission reduction=2023, 0.305,
+	
+	(1.7606*time for emission reduction - 3534.5)/100 ))
+	~	Dmnl
+	~	energimyndigheten. (2021). Greenhouse gas reduction mandate. \
+		Energimyndigheten. \
+		https://www.energimyndigheten.se/en/sustainability/sustainable-fuels/greenh\
+		ouse-gas-reduction-mandate/
+	|
+
+emission reduction based on previous regulation=
+	Min (1,
+	
+	IF THEN ELSE( time for emission reduction<=2021 , (1.7606*time for emission reduction\
+		 - 3534.5)/100  , 
+	
+	(4.4667*time for emission reduction - 9000.5)/100 ))
+	~	Dmnl
+	~	energimyndigheten. (2021). Greenhouse gas reduction mandate. \
+		Energimyndigheten. \
+		https://www.energimyndigheten.se/en/sustainability/sustainable-fuels/greenh\
+		ouse-gas-reduction-mandate/
+	|
+
+time for emission reduction = WITH LOOKUP (
+	Time,
+		([(0,0)-(10,10)],(2000,2000),(2001,2001),(2002,2002),(2003,2003),(2004,2004),(2005,\
+		2005),(2006,2006),(2007,2007),(2008
+		,2008),(2009,2009),(2010,2010),(2011,2011),(2012,2012),(2013,2013),(2014,2014),(2015\
+		,2015),(2016,2016),(2017,2017),(2018
+		,2018),(2019,2019),(2020,2020),(2021,2021),(2022,2022),(2023,2023),(2024,2024),(2025\
+		,2025),(2026,2026),(2027,2027),(2028
+		,2028),(2029,2029),(2030,2030),(2031,2031),(2032,2032),(2033,2033),(2034,2034),(2035\
+		,2035),(2036,2036),(2037,2037),(2038
+		,2038),(2039,2039),(2040,2040),(2041,2041),(2042,2042),(2043,2043),(2044,2044),(2045\
+		,2045),(2046,2046),(2047,2047),(2048
+		,2048),(2049,2049),(2050,2050),(2051,2051),(2052,2052),(2053,2053),(2054,2054),(2055\
+		,2055),(2056,2056),(2057,2057),(2058
+		,2058),(2059,2059),(2060,2060),(2061,2061),(2062,2062),(2063,2063),(2064,2064),(2065\
+		,2065),(2066,2066),(2067,2067),(2068
+		,2068),(2069,2069),(2070,2070),(2071,2071),(2072,2072),(2073,2073),(2074,2074),(2075\
+		,2075),(2076,2076),(2077,2077),(2078
+		,2078),(2079,2079),(2080,2080),(2081,2081),(2082,2082),(2083,2083),(2084,2084),(2085\
+		,2085),(2086,2086),(2087,2087),(2088
+		,2088),(2089,2089),(2090,2090),(2091,2091),(2092,2092),(2093,2093),(2094,2094),(2095\
+		,2095),(2096,2096),(2097,2097),(2098
+		,2098),(2099,2099),(2100,2100) ))
+	~	Dmnl
+	~	time=time
+		for solving unit check!
+	|
+
+"Annual Emission (without any e-trucks)"=
+	total annual amount of energy*Carbon intensity of diesel fuel by considering biofuel
+	~	kgCO2eq/Year
+	~		|
+
+"annual fuel consumption (kWh) for diesel fleet"=
+	"annual fuel consumption (kWh) per diesel truck"*Diesel Truck Fleet Size
+	~	kWh/Year
+	~		|
+
+Carbon intensity of diesel fuel by considering biofuel=
+	(Biofuel share*CARBON INTENSITY OF BIOFUEL+ (1-Biofuel share)*CARBON INTENSITY OF DIESEL\
+		)
+	/Kwh to Litre converter
+	~	kgCO2eq/kWh
+	~		|
+
+"E-truck Sales"=
+	Total Truck Sales* "effect of utility-to-cost"
+	~	Vehicle/Year
+	~	Number of new electric trucks that are sold in each year
+	|
+
+"max possible utilization rate of a station (lookup number of e-trucks)" = WITH LOOKUP\
+		 (
+	"e-truck share in total fleet",
+		([(0,0)-(2,0.9)],(0,0.1),(1,0.7),(2,0.7) ))
+	~	Dmnl
+	~	min of 0.1; max of 0.7
+		Based on interviews and Anders Grauers course
+		Grauers, A. (2023). Electromobility: a system perspective [Course]. \
+		Swedish Electromobility Centre, Chalmers University of Technology.
+	|
+
+"perceived e-truck utility function (attractiveness)"=
+	(availability of charging station^WEIGHT OF AVAILABILITY
+	
+	*awareness of the technology^WEIGHT OF AWARENESS
+	
+	* effect of technology maturity^WEIGHT OF MATURITY)
+	
+	/1000
+	~	Dmnl
+	~	Cobb-Douglas Utility Function (very common to calculate utility in economics), also \
+		use for production function
+		
+		https://bit.ly/3SWxNsh
+	|
+
+"Decrease in purchase cost of e-truck"=
+	ratio of technology maturity to goal*purchase cost gap/LEARNING EFFECT DELAY
+	~	SEK/(Year*Vehicle)
+	~		|
+
+"Annual gov. subsidy on vehicle purchase cost"=
+	"GOV. SUBSIDY PERCENTAGE ON DIFFERENCE BETWEEN E-TRUCK & DIESEL TRUCK PURCHASE COSTS"
+	
+	* ("Purchase Cost of E-trucks"-PURCHASE COST OF DIESEL TRUCK)
+	
+	*"E-truck Sales"
+	~	SEK/Year
+	~		|
+
+purchase cost gap=
+	"Purchase Cost of E-trucks"-PURCHASE COST OF DIESEL TRUCK
+	~	SEK/Vehicle
+	~		|
+
+"annual operation cost (opex) of each e-truck"=
+	(cost of electricity per km+"MAINTENANCE COST PER KM FOR E-TRUCK")
+	*AVERAGE MILEAGE PER VEHICLE PER YEAR
+	~	SEK/(Vehicle*Year)
+	~	Refueling cost should added to here!
+	|
+
+MAINTENANCE COST PER KM FOR DIESEL TRUCK=
+	1.32*0
+	~	SEK/KM
+	~	Wang, G., Miller, M., & Fulton, L. (2022). Estimating maintenance and repair costs \
+		for battery electric and fuel cell heavy duty trucks.
+		
+		...............
+		Diesel: 0.74*11.73=8.6802
+		EV: 0.47*11.73=5.5131
+		
+		EUR to SEK: 11.73 (14 May 2024)
+		ITF report, page 50: 
+		O&M costs in this analysis are assumed to be EUR 0.74/km for diesel and FCEV \
+		vehicles and EUR 0.47/km for BEVs
+		
+		Decarbonising Europe’s Trucks: How to Minimise Cost Uncertainty:
+		https://www.itf-oecd.org/decarbonising-europes-trucks-minimise-cost-uncerta\
+		inty
+	|
+
+"annual operation cost (Opex) of each diesel truck"=
+	(cost of diesel fuel per km+MAINTENANCE COST PER KM FOR DIESEL TRUCK)
+	*AVERAGE MILEAGE PER VEHICLE PER YEAR
+	~	SEK/(Vehicle*Year)
+	~		|
+
+LEARNING EFFECT DELAY=
+	2
+	~	Year
+	~	Model assumption
+	|
+
+"annual R&D investment from e-truck earnings"=
+	"E-truck Sales"*"Purchase Cost of E-trucks"*"R&D PERCENTAGE OF ANNUAL EARNING OF E-TRUCKS"
+	~	SEK/Year
+	~	Investment allocated to research and development from electric vehicle \
+		sales revenue.
+	|
+
+"annual fuel consumption (Litr) per diesel truck"=
+	AVERAGE MILEAGE PER VEHICLE PER YEAR*AVERAGE CONSUMPTION PER KM FOR DIESEL TRUCK
+	~	Litre/(Vehicle*Year)
+	~		|
+
+diesel truck discounted total opex=
+	"annual operation cost (Opex) of each diesel truck"*discount factor for diesel truck
+	~	SEK/Vehicle
+	~		|
+
+diesel truck total cost=
+	PURCHASE COST OF DIESEL TRUCK+diesel truck discounted total opex
+	~	SEK/Vehicle
+	~		|
+
+"MAINTENANCE COST PER KM FOR E-TRUCK"=
+	0.99*0
+	~	SEK/KM
+	~	Wang, G., Miller, M., & Fulton, L. (2022). Estimating maintenance and repair costs \
+		for battery electric and fuel cell heavy duty trucks.
+		
+		.................................
+		Diesel: 0.74*11.73=8.6802
+		EV: 0.47*11.73=5.5131
+		
+		EUR to SEK: 11.73 (14 May 2024)
+		ITF report, page 50: 
+		O&M costs in this analysis are assumed to be EUR 0.74/km for diesel and FCEV \
+		vehicles and EUR 0.47/km for BEVs
+		
+		Decarbonising Europe’s Trucks: How to Minimise Cost Uncertainty:
+		https://www.itf-oecd.org/decarbonising-europes-trucks-minimise-cost-uncerta\
+		inty
+	|
+
+purchase cost paid by freight companies=
+	"Purchase Cost of E-trucks"
+	-("GOV. SUBSIDY PERCENTAGE ON DIFFERENCE BETWEEN E-TRUCK & DIESEL TRUCK PURCHASE COSTS"\
+		*
+	("Purchase Cost of E-trucks"- PURCHASE COST OF DIESEL TRUCK))
+	~	SEK/Vehicle
+	~	Price e-truck - Subsidy percentage* (Diffference between electric and regular)
+		
+		Cost of one charger should add!
+		We can add "E-TRUCK PURCHASE TAX" with a step function from year 2025 for \
+		example
+	|
+
+cost of diesel fuel per km=
+	AVERAGE CONSUMPTION PER KM FOR DIESEL TRUCK
+	*DIESEL RETAIL PRICE
+	~	SEK/KM
+	~		|
+
+cost of electricity per km=
+	"AVERAGE CONSUMPTION PER KM FOR E-TRUCK"
+	*CHARGE RETAIL PRICE
+	~	SEK/KM
+	~		|
+
+"R&D Spending"=
+	"R&D Fund of E-trucks"/"TIME TO SPEND R&D FUNDS"
+	~	SEK/Year
+	~	Expenditure on research and development
+	|
+
+"R&D Fund of E-trucks"= INTEG (
+	"R&D Investment"-"R&D Spending",
+		1.6e+08)
+	~	SEK
+	~	Total funds available for electric trucks research and development.
+	|
+
+"annual gov. funding for improving e-truck technology"=
+	"total annual R&D investment (corporates)"
+	*FACTOR OF GOV INVESTMENT ON THE TECH MATURITY
+	*(1-ratio of technology maturity to goal)
+	~	SEK/Year
+	~	Annual public investment to improve e-truck technology
+		 
+		It can be an increasing slop during the first years and then stop in a constant or \
+		be Zero
+		
+		8e+07
+	|
+
+"R&D Investment"=
+	"annual gov. funding for improving e-truck technology"
+	+"total annual R&D investment (corporates)"
+	~	SEK/Year
+	~	Funds allocated to improve e-truck technology and innovation per year
+	|
+
+"Technology Development of E-truck"=
+	"R&D Spending"*TECHNOLOGY IMPROVEMENT PER SEK SPENT
+	~	technology/Year
+	~	The process of acquiring knowledge and improvements in e-truck technology
+	|
+
+"max possible utilization rate of a station-percentage"=
+	"max possible utilization rate of a station (lookup number of e-trucks)"*100
+	~	Dmnl
+	~		|
+
+charging station profitability index=
+	((revenue per station per year-operation cost per station per year)*discount factor for stations\
+		)
+	
+	/
+	
+	construction cost per station paid by infra providers
+	~	Dmnl
+	~	charging station profitability index after gov. subsidy
+		
+		IRR=Discount revenue minus Opex / Capex after subsidy
+		
+		
+		we assume that the interest rate is zero first: each year, we have (Revenue-opex) as \
+		a profit, so our return rate is (Revenue-opex)/capex
+		we have a profit rate of each year = 1 = 8/8
+		
+		
+		Now, if we have an interest rate=0.04 in the lifetime of 8 years
+		we have a discount factor equal to 6.73 
+		
+		6.73 is the sigma of all profit until the last year; we need to divide it into total \
+		lifetime to achieve an average profit each year!
+		
+		6.73/lifetime= 6.73/8= 0.84 because we have less value of future cash flow!
+	|
+
+"annual R&D investment from diesel truck earnings"=
+	diesel truck sale
+	*
+	PURCHASE COST OF DIESEL TRUCK
+	*
+	"R&D PERCENTAGE OF ANNUAL EARNING OF DIESEL TRUCKS"
+	*
+	STOP INVESTING SWITCH
+	~	SEK/Year
+	~	Investment allocated to research and development from diesel vehicle sales \
+		revenue.
+	|
+
+STOP INVESTING SWITCH=
+	IF THEN ELSE(Time>=2040 :AND: "e-truck share in total fleet"<=0.1, 0 ,1)
+	~	Dmnl
+	~	if we are in the year 2040 and we have a lower than 10% market share of electric \
+		trucks, that shows that the electric truck project failed, and we should \
+		stop investing in this project, then we stop investing from the income of \
+		diesel trucks. 
+		It helps model in extreme conditions: when we don't have any e-truck \
+		sales, we don't have any technology maturity!
+	|
+
+Sensitivity of private investors to profitability index = WITH LOOKUP (
+	charging station profitability index,
+		([(0,0)-(10,10)],(0,0),(1,0),(5,1),(10,1) ))
+	~	Dmnl
+	~	The sensitivity of private investors to the profitability index/how important a high \
+		profitability index is for investment decisions.
+		PI > 1: The project is profitable.
+		PI = 1: The project breaks even.
+		PI < 1: The project is not profitable, as the costs exceed the returns.
+		
+		In the base scenario, investor sensitivity is moderate. When the profitability index \
+		reaches 5, investors are likely to invest at maximum level. 
+		In the scenario with more depots, investors are less sensitive to the \
+		profitability of charging stations, and we assume maximum investment \
+		occurs when the profitability index reaches 4. Conversely, in the scenario \
+		with more public, investors are more sensitive to profitability, with \
+		maximum investment assumed when the profitability index reaches 6.
+	|
+
+Lookup for unsteady scenario for EL = WITH LOOKUP (
+	Time,
+		([(0,0)-(3000,3000)],(2017,1.2),(2018,1.2),(2019,1.2),(2020,1.2),(2021,0.8),(2022,0.8\
+		),(2023,0.8),(2024,0.8),(2025,1.2),(2026,1.2),(2027,1.2),(2028,1.2),(2029,0.8),(2030\
+		,0.8),(2031,0.8),(2032,0.8),(2033,1.2),(2034,1.2),(2035,1.2),(2036,1.2),(2037,0.8),\
+		(2038,0.8),(2039,0.8),(2040,0.8),(2041,1.2),(2042,1.2),(2043,1.2),(2044,1.2),(2045,\
+		0.8),(2046,0.8),(2047,0.8),(2048,0.8),(2049,1.2),(2050,1.2),(2051,1.2),(2052,1.2),(\
+		2053,0.8),(2054,0.8),(2055,0.8),(2056,0.8),(2057,1.2),(2058,1.2),(2059,1.2),(2060,1.2\
+		) )
+		)
+	~	Dmnl
+	~	([(0,0)-(3000,3000)],(2017, 1.5), (2018, 1.5), (2019, 1.5), (2020, 1.5), \
+		(2021, 0.5), (2022, 0.5), (2023, 0.5), (2024, 0.5), (2025, 1.5), (2026, \
+		1.5), (2027, 1.5), (2028, 1.5), (2029, 0.5), (2030, 0.5), (2031, 0.5), \
+		(2032, 0.5), (2033, 1.5), (2034, 1.5), (2035, 1.5), (2036, 1.5), (2037, \
+		0.5), (2038, 0.5), (2039, 0.5), (2040, 0.5), (2041, 1.5), (2042, 1.5), \
+		(2043, 1.5), (2044, 1.5), (2045, 0.5), (2046, 0.5), (2047, 0.5), (2048, \
+		0.5), (2049, 1.5), (2050, 1.5), (2051, 1.5), (2052, 1.5), (2053, 0.5), \
+		(2054, 0.5), (2055, 0.5), (2056, 0.5), (2057, 1.5), (2058, 1.5), (2059, \
+		1.5), (2060, 1.5) )
+	|
+
+"Lookup for unsteady scenario for switch on-off" = WITH LOOKUP (
+	Time,
+		([(0,0)-(3000,3000)],(2017,0),(2018,0),(2019,0),(2020,0),(2021,1),(2022,1),(2023,1)\
+		,(2024,1),(2025,0),(2026,0),(2027,0),(2028,0),(2029,1),(2030,1),(2031,1),(2032,1),(\
+		2033,0),(2034,0),(2035,0),(2036,0),(2037,1),(2038,1),(2039,1),(2040,1),(2041,0),(2042\
+		,0),(2043,0),(2044,0),(2045,1),(2046,1),(2047,1),(2048,1),(2049,0),(2050,0),(2051,0\
+		),(2052,0),(2053,1),(2054,1),(2055,1),(2056,1),(2057,0),(2058,0),(2059,0),(2060,0) \
+		))
+	~	Dmnl
+	~		|
+
+Gov total fund per vehicle=
+	"Total Gov. Funds"/"E-truck Fleet Size"
+	~	SEK/Vehicle
+	~		|
+
+Governmnet Fund Balance by Five Levers= INTEG (
+	Annual Gov Funding by Five Levers,
+		0)
+	~	SEK
+	~		|
+
+Annual Gov Funding by Five Levers=
+	-("Annual gov. subsidy on charging"+"Annual gov. subsidy on vehicle purchase cost"+"annual gov. funding for improving e-truck technology"\
+		+annual gov fund on EL price+Annual Gov Fund on Diesel Price)
+	~	SEK/Year
+	~		|
+
+"100 line"=
+	100
+	~	Dmnl
+	~		|
+
+"Charging station Capacity to demand ratio-percentage"=
+	charging station capacity to demand ratio*100
+	~	Dmnl
+	~		|
+
+annual gov fund on EL price=
+	(0.0415*time for price of electricity - 83.286)
+	
+	*"charging consumption per e-truck per year"
+	
+	*"E-truck Fleet Size"
+	
+	*(1-sensitivity coefficient for PRICE OF ELECTRICITY)
+	~	SEK/Year
+	~	Positive amounts show that governments pay subsidies on EL 
+		Negative amounts show that governments receive taxes on EL
+	|
+
+Gov Fund on Diesel Price= INTEG (
+	Annual Gov Fund on Diesel Price,
+		0)
+	~	SEK
+	~		|
+
+Gov fund on EL price stock= INTEG (
+	annual gov fund on EL price,
+		0)
+	~	SEK
+	~		|
+
+Annual Gov Fund on Diesel Price=
+	(0.286*time for diesel price-562.16)
+	
+	*"annual fuel consumption (Litr) per diesel truck"
+	
+	*Diesel Truck Fleet Size
+	
+	*(1-sensitivity coefficient for DIESEL)
+	~	SEK/Year
+	~	Positive amounts show that governments pay subsidies on DIESEL
+		Negative amounts show that governments receive taxes on DIESEL
+	|
+
+"utilization in total-percentage"=
+	utilization in total*100
+	~	Dmnl
+	~		|
+
+Lookup for unsteady scenario for all levers except EL = WITH LOOKUP (
+	Time,
+		([(0,0)-(3000,3000)], (2017,0.8),(2018,0.8),(2019,0.8),(2020,0.8),(2021,1.2),(2022,\
+		1.2),(2023,1.2),(2024,1.2),(2025,0.8),(2026,0.8),(2027,0.8),(2028,0.8),(2029,1.2),(\
+		2030,1.2),(2031,1.2),(2032,1.2),(2033,0.8),(2034,0.8),(2035,0.8),(2036,0.8),(2037,1.2\
+		),(2038,1.2),(2039,1.2),(2040,1.2),(2041,0.8),(2042,0.8),(2043,0.8),(2044,0.8),(2045\
+		,1.2),(2046,1.2),(2047,1.2),(2048,1.2),(2049,0.8),(2050,0.8),(2051,0.8),(2052,0.8),\
+		(2053,1.2),(2054,1.2),(2055,1.2),(2056,1.2),(2057,0.8),(2058,0.8),(2059,0.8),(2060,\
+		0.8)))
+	~	Dmnl
+	~	([(0,0)-(3000,3000)],(2017,0.5),(2018,0.5),(2019,0.5),(2020,0.5),(2021,1.5)\
+		,(2022,1.5),(2023,1.5),(2024,1.5),(2025,0.5),(2026,0.5),(2027,0.5),(2028,0.\
+		5),(2029,1.5),(2030,1.5),(2031,1.5),(2032,1.5),(2033,0.5),(2034,0.5),(2035,\
+		0.5),(2036,0.5),(2037,1.5),(2038,1.5),(2039,1.5),(2040,1.5),(2041,0.5),(204\
+		2,0.5),(2043,0.5),(2044,0.5),(2045,1.5),(2046,1.5),(2047,1.5),(2048,1.5),(2\
+		049,0.5),(2050,0.5),(2051,0.5),(2052,0.5),(2053,1.5),(2054,1.5),(2055,1.5),\
+		(2056,1.5),(2057,0.5),(2058,0.5),(2059,0.5),(2060,0.5) )
+	|
+
+"GOV. SUBSIDY PERCENTAGE ON DIFFERENCE BETWEEN E-TRUCK & DIESEL TRUCK PURCHASE COSTS"\
+		=
+	max (0,
+	0.4*
+	(1-"e-truck share in total fleet")
+	*sensitivity coefficient for VEHICLE SUBSIDY)
+	~	Dmnl [0,1,0.1]
+	~	Klimatklivet:Funding 40% of the additional cost compared to a similar conventional \
+		truck.
+		https://www.naturvardsverket.se/klimatklivet
+	|
+
+"GOV. SUBSIDY PERCENTAGE ON CONSTRUCTION COST OF CHARGING STATIONS"=
+	max (0, Min(0.99, 
+	0.7*
+	(1-"e-truck share in total fleet")
+	*sensitivity coefficient for CHARGING SUBSIDY))
+	~	Dmnl [0,1,0.1]
+	~	https://www.naturvardsverket.se/amnesomraden/klimatomstallningen/klimatklivet/for-dig\
+		-som-vill-soka-stod/underlag-du-behover-ta-fram/publik-laddning/
+		
+		put a maximum to avoid to be more than 1! 
+		put a minimum to avoid to be less than 0! 
+		
+		
+		IF THEN ELSE( (Time<=2020) , (1.2*0.7) , IF THEN ELSE((2020<Time<=2024), \
+		(0.8*0.7) , IF THEN ELSE((2024<Time<=2028), (1.2*0.7) , IF THEN ELSE( \
+		(2028<Time<=2032) , (0.8*0.7) , IF THEN ELSE( (2032<Time<=2036) , \
+		(1.2*0.7) , IF THEN ELSE( (2036<Time<=2040) , (0.8*0.7) , 0 ) ) ) ) ) ))
+	|
+
+total capacity of all installed station=
+	maximum available capacity of a station per year*Installed Charging Stations
+	~	kWh/Year
+	~		|
+
+total consumption of electric fleet=
+	"charging consumption per e-truck per year"*"E-truck Fleet Size"
+	~	kWh/Year
+	~		|
+
+utilization in total=
+	total consumption of electric fleet/total capacity of all installed station
+	~	Dmnl
+	~		|
+
+demand of charging station=
+	("E-truck Fleet Size"*"charging consumption per e-truck per year")
+	/
+	maximum available capacity of a station per year
+	~	Charging stations
+	~		|
+
+future demand of charging station=
+	(SMOOTH("E-truck Sales",TIMEFRAME OF AVERAGE)*"charging consumption per e-truck per year"\
+		*PLANNING HORIZON)
+	/
+	maximum available capacity of a station per year
+	~	Charging stations
+	~	We used "e-truck sales" because we wanted to add future growth of demand to current \
+		demand, so we calculated how many new trucks will need charging stations.
+		
+		
+		Smooth is the moving average:
+		
+		We calculated average of three previous year and cross it to 5 years as we assume \
+		how many demand will create in 5 year
+		
+		Average time=three years
+		Plannning horizon=five year
+		
+		
+		
+		https://www.vensim.com/documentation/20480.html?q=smooth+function
+		We will write the equation
+		
+		expected demand=SMOOTH(demand, time to form expectations)
+		
+		This equation is exactly the same as:
+		
+		expected demand =INTEG((demand-expected demand)/ time to form \
+		expectations,demand)
+	|
+
+Gov Charging subsidy stock 2= INTEG (
+	"annual gov. subsidy on charging 2",
+		0)
+	~	SEK
+	~		|
+
+private portion of investment per station=
+	CONSTRUCTION COST PER STATION*(1-"GOV. SUBSIDY PERCENTAGE ON CONSTRUCTION COST OF CHARGING STATIONS"\
+		)
+	~	SEK/Charging stations
+	~	Capex*(1-alfa)+Opex
+	|
+
+"Annual Gov. Tech Maturity Fund"=
+	"annual gov. funding for improving e-truck technology"
+	~	SEK/Year
+	~	The annual public investment in technology maturity of e-trucks
+	|
+
+Gov Tech Maturity Fund Stock= INTEG (
+	"Annual Gov. Tech Maturity Fund",
+		0)
+	~	SEK
+	~	The accumulation of public funds contributes to the technological maturity \
+		of electric trucks.
+	|
+
+PRICE OF ELECTRICITY=
+	(0.0415*time for price of electricity - 83.286)*sensitivity coefficient for PRICE OF ELECTRICITY
+	~	SEK/kWh
+	~	(0.0415*time for price of electricity - 83.286)
+		
+		https://www.vattenfall.se/elavtal/elpriser/rorligt-elpris/
+		
+		
+		can be an average of two or three charging time pricing
+		High-load, off-load, regular
+		
+		https://www.statista.com/statistics/418124/electricity-prices-for-household\
+		s-in-sweden/
+	|
+
+"utilization rate of a station-percentage"=
+	utilization rate of a station*100
+	~	Dmnl
+	~		|
+
+CARBON INTENSITY OF DIESEL=
+	3424/1000
+	~	kgCO2eq/Litre
+	~	https://www.energimyndigheten.se/en/sustainability/sustainable-fuels/greenhouse-gas-r\
+		eduction-mandate/
+		Excel: https://energimyndigheten.a-w2m.se/Home.mvc?ResourceId=208409
+	|
+
+"Carbon intensity of electricity (fuel)"=
+	0
+	~	kgCO2eq/kWh
+	~	driving carbon intensity equal to zero
+		
+		max (((-0.426*Time + 871.81)/1000), 0.005)
+		
+		0.034: Moro and Lonza 2018, average of table 2 for Sweden
+	|
+
+CARBON INTENSITY OF BIOFUEL=
+	361/1000
+	~	kgCO2eq/Litre
+	~	https://www.energimyndigheten.se/en/sustainability/sustainable-fuels/greenhouse-gas-r\
+		eduction-mandate/
+		Excel: https://energimyndigheten.a-w2m.se/Home.mvc?ResourceId=208409
+	|
+
+"Awareness of the technology-percentage"=
+	awareness of the technology/1000
+	~	Dmnl
+	~		|
+
+"Effect of technology maturity-percentage"=
+	effect of technology maturity/1000
+	~	Dmnl
+	~		|
+
+"Availability of charging station-percentage"=
+	availability of charging station/1000
+	~	Dmnl
+	~		|
+
+market gap for charging stations=
+	max(0,
+	demand of charging station
+	+(future demand of charging station*"ON-OFF SWITCH for considering future charging demand"\
+		)
+	-Installed Charging Stations)
+	~	Charging stations
+	~	We consider charging station that we need in depo charging as a min point
+		
+		max (1200, (Demand of Charging Station-Installed Charging Stations))
+	|
+
+"Annual Total Gov. Funds"=
+	"Annual gov. subsidy on charging"
+	
+	+"Annual gov. subsidy on vehicle purchase cost"
+	
+	+"annual gov. funding for improving e-truck technology"
+	~	SEK/Year
+	~		|
+
+"Annual income of electricity (inflow)"=
+	"charging consumption per e-truck per year"*"E-truck Fleet Size"*PRICE OF ELECTRICITY
+	~	SEK/Year
+	~		|
+
+Diesel Truck Fleet Size=
+	max(0, Total Truck Fleet Size-"E-truck Fleet Size")
+	~	Vehicle
+	~		|
+
+Average energy demand from each station per year=
+	("charging consumption per e-truck per year"*"E-truck Fleet Size")
+	/
+	max (10^-9, Installed Charging Stations)
+	~	kWh/(Charging stations*Year)
+	~	to avoid being zero in the denominator
+	|
+
+"Annual operational emission from e-trucks"=
+	"charging consumption per e-truck per year"*"E-truck Fleet Size"
+	*"Carbon intensity of electricity (fuel)"
+	~	kgCO2eq/Year
+	~		|
+
+"discount factor for e-truck"=
+	"r (common ratio in geometric series)"
+	
+	*
+	
+	(1-"r (common ratio in geometric series)"^("E-TRUCK LIFETIME"/time unit))
+	
+	/
+	
+	(1-"r (common ratio in geometric series)")
+	
+	*time unit
+	~	Year
+	~		|
+
+"Power supply per e-truck per year"=
+	Total power supply by all charging station per year/"E-truck Fleet Size"
+	~	kWh/(Year*Vehicle)
+	~		|
+
+gap of number of charging stations based on regulation=
+	max (0, Goal of charging stations for full adoption of electric trucks
+	- Installed Charging Stations)
+	~	Charging stations
+	~		|
+
+"ratio e-truck to charging station"=
+	"E-truck Fleet Size"/max (10^-9, Installed Charging Stations)
+	~	Vehicle/Charging stations
+	~		|
+
+total annual amount of energy=
+	Diesel Truck Fleet Size*"annual fuel consumption (kWh) per diesel truck"
+	+
+	"E-truck Fleet Size"*"charging consumption per e-truck per year"
+	~	kWh/Year
+	~		|
+
+Total power supply by all charging station per year=
+	utilized capacity of a station per year*Installed Charging Stations
+	~	kWh/Year
+	~		|
+
+diesel truck sale=
+	Total Truck Sales-"E-truck Sales"
+	~	Vehicle/Year
+	~	Number of new diesel trucks that are sold in each year
+	|
+
+GOAL OF TECHNOLOGY MATURITY FUND=
+	1
+	~	technology
+	~	maximum level of technology maturity
+		
+		expert estimate: 10*annual R&D budget: consider for 10 years
+	|
+
+Decaying Charging Station=
+	DELAY FIXED
+	 (Finishing Charging Station, LIFETIME OF A STATION , INITIAL CHARGING STATIONS/LIFETIME OF A STATION\
+		)
+	~	Charging stations/Year
+	~	IF THEN ELSE(Time=2017+LIFETIME OF A STATION, 
+		
+		(DELAY FIXED (Finishing Charging Station+INITIAL CHARGING STATIONS, LIFETIME OF A \
+		STATION , 0))
+		
+		 , (DELAY FIXED (Finishing Charging Station, LIFETIME OF A STATION , 0) ))
+		
+		
+		
+		DELAY FIXED
+		 (Finishing Charging Station, LIFETIME OF A STATION , 0)
+	|
+
+effect of technology maturity=
+	Min (100*1000, ratio of technology maturity to goal*100*1000)
+	~	Dmnl
+	~		|
+
+awareness of the technology=
+	Min(awareness coefficient*"e-truck share in total fleet",100*1000)
+	~	Dmnl
+	~	The concept of technology awareness is equivalent to the notion of "word of mouth" \
+		by Sterman (2000), "willingness-to-consider" by Struben & Sterman (2008), \
+		and "knowledge and awareness of technology" within the Technological \
+		Innovation System (TIS) framework (Ortt & Kamp, 2022).
+		
+		to avoid to create number between 0 and 1 in the first year of simulation, we cross \
+		here to 1000 and then devided in 1000 in perceived utility
+		
+		It is ok because both base and power are between 0 and 1:
+		
+		problem with cobbduglas function in the number between 0 and 1
+		if 0<awareness<1 equal to 1 otherwise, use previous formule
+		
+		We use this number (2125) for tunning the model: 
+		when we arrive the planned market share in 2030, ntetwork effect should be maximum.
+		
+		Smooth is moving average, we assume averge of 4 years impact on the network effect
+		
+		Max utility will be 100
+		
+		
+		Min(1700*SMOOTH(Share of electric truck in total fleet size,4)*10/8,100)
+	|
+
+Building Charging Station=
+	(Actual Private Investment in Charging Stations+Actual Government Investment in Charging Stations\
+		)/CONSTRUCTION COST PER STATION
+	~	Charging stations/Year
+	~		|
+
+INITIAL CHARGING STATIONS=
+	(0.5*90000*1.5)/(0.1*350*8760)
+	~	Charging stations
+	~	(1*51000*1.5)/(0.1*350*8760)
+		
+		1/3.5
+		
+		We calculated based on 350 KW chargers. here we assume in the year of 2015, there is \
+		86 trucks that leeds to 86 charger with 100 KW power. we evided by 3.5 to \
+		make it synchronozed!
+		
+		71
+		1191
+	|
+
+"INITIAL E-TRUCK FLEET SIZE"=
+	1
+	~	Vehicle [0,?]
+	~	The starting number of electric trucks in the fleet
+		Ref: https://www.trafa.se/vagtrafik/fordon/
+		LB Tab 11-12
+	|
+
+availability of charging station=
+	max(0, Min(100*1000,(charging station capacity to demand ratio*100*1000)))
+	~	Dmnl
+	~	(SMOOTH(Charging station Capacity to demand ratio,1)/EXPECTED AVAILABILITY OF \
+		CHARGING STATION)*100
+		
+		
+		*We use smooth function to calculte average of one year (previous year) to make \
+		availability a little smoother
+		
+		
+		* To avoid miscalculation for Cobb-Douglas Utility Function 
+		It is number less than one, so we calculated as a percentage
+		0.2 equal to 20 percent
+	|
+
+"E-truck fleet size in target"=
+	"E-truck Fleet Size"
+	~	Vehicle
+	~	IF THEN ELSE(Time=2030, "E-truck Fleet Size" ,0 )
+	|
+
+"E-TRUCK LIFETIME"=
+	12
+	~	Year
+	~	The average operational lifespan of electric vehicles
+		Ref: Noll et al., 2022 --> 8 years
+		Page 7, section 3.2.7. (Discount rate and lifetime)
+		Noll, B., del Val, S., Schmidt, T. S., & Steffen, B. (2022). Analyzing the \
+		competitiveness of low-carbon drive-technologies in road-freight: A total \
+		cost of ownership analysis in Europe. Applied Energy, 306, 118079.
+		
+		Ref: ACEA. (2022). Research Whitepaper, European EV Charging \
+		Infrastructure Masterplan. \
+		https://www.acea.auto/files/Research-Whitepaper-A-European-EV-Charging-Infr\
+		astructure-Masterplan.pdf --> 13 years
+	|
+
+TIME TO BUILD A CHARGING STATION=
+	2
+	~	Year
+	~	Based on interviews and REEL report
+		REEL. (2022). Regional Electrified Logistics. \
+		https://closer.lindholmen.se/sites/default/files/2022-11/reel-report.pdf
+	|
+
+ratio of technology maturity to goal = WITH LOOKUP (
+	"Technology Maturity of E-truck"/GOAL OF TECHNOLOGY MATURITY FUND,
+		([(0,0)-(10,10)],(0,0),(1,1),(2,1) ))
+	~	Dmnl
+	~		|
+
+"effect of utility-to-cost" = WITH LOOKUP (
+	U2P ratio,
+		([(0,0)-(10,10)],(0,0),(1,1),(2,1) ))
+	~	Dmnl
+	~	rate of utility to cost of e-truck to d-truck scaled between 0 and 1
+		
+		Not anymore: we change unit of Dml to 1/Year by using a lookup function
+		
+		([(0,0)-(1,1)],(0,0),(0.058104,0.02),(0.119266,0.06),(0.171254,0.11),(0.21,0.2),(0.22\
+		3242,0.26),(0.24,0.34),(0.27,0.504386),(0.287462,0.565789),(0.321101,0.6491\
+		23),(0.366972,0.723684),(0.431193,0.789474),(0.486239,0.833333),(0.574924,0\
+		.881579),(0.623853,0.903509),(0.672783,0.916667),(0.755352,0.95614),(0.8440\
+		37,0.986842),(1,1) )
+		
+		IF THEN ELSE( U2P ratio<0.1, 0.0001*POWER(2.71828,U2P \
+		ratio*210),0.004*POWER(2.71828,U2P ratio*40))
+		
+		([(0,0)-(10,10)],(0,0),(0.008,0.007),(0.01,0.02),(0.02,0.03),(0.04,0.06),(0.05,0.07),\
+		(0.06,0.09),(0.1,0.12),(0.5,0.6) )
+		
+		
+		
+		([(0,0)-(0.5,0.5)],(0,0),(0.008,0.007),(0.01,0.018),(0.02,0.016),(0.03,0.027),(0.05,0\
+		.045),(0.06,0.054),(0.1,0.08),(0.5,0.4) )
+		
+		
+		([(0,0)-(1,1)],(0,0),(0.008,0.007),(0.01,0.018),(0.02,0.016),(0.03,0.027),(0.05,0.045\
+		),(0.06,0.054),(0.1,0.08),(0.5,0.4),(0.6,0.5),(0.7,0.6),(0.8,0.7),(0.9,0.85\
+		),(1,1) )
+		
+		
+		New>
+		([(0,0)-(2,1)],(0,0),(0.008,0.007),(0.01,0.018),(0.02,0.016),(0.03,0.027),(\
+		0.05,0.045),(0.06,0.054),(0.1,0.08),(0.5,0.4),(0.6,0.5),(0.7,0.6),(0.8,0.7)\
+		,(0.9,0.85),(1,1),(2,1) )
+	|
+
+Total Truck Fleet Size= INTEG (
+	Total Truck Sales-Total Truck Decommission,
+		INITIAL TOTAL TRUCK FLEET SIZE)
+	~	Vehicle
+	~	The total number of trucks in the fleet
+	|
+
+Finishing Charging Station=
+	Charging Stations under construction/TIME TO BUILD A CHARGING STATION
+	~	Charging stations/Year
+	~		|
+
+"e-truck share in new sales"=
+	"E-truck Sales"/Total Truck Sales
+	~	Dmnl
+	~	The proportion of the total truck fleet that is sold to the market
+	|
+
+charging station capacity to demand ratio=
+	Installed Charging Stations/demand of charging station
+	~	Dmnl
+	~		|
+
+"Technology Maturity of E-truck"= INTEG (
+	"Technology Development of E-truck",
+		0)
+	~	technology
+	~	The level of advancement and development of electric truck technology, indicating \
+		how close it is to reaching its full potential and goals.
+		structure is based on Nieuwenhuijsen et al., 2018
+		Nieuwenhuijsen, J., de Almeida Correia, G. H., Milakis, D., Van Arem, B., \
+		& van Daalen, E. (2018). Towards a quantitative method to analyze the \
+		long-term innovation diffusion of automated vehicles technology using \
+		system dynamics. Transportation Research Part C: Emerging Technologies, \
+		86, 300-327.
+	|
+
+Charging Stations under construction= INTEG (
+	Building Charging Station-Finishing Charging Station,
+		INITIAL CHARGING STATIONS UNDER CONSTRUCTION)
+	~	Charging stations
+	~		|
+
+"E-truck Decommission"=
+	DELAY FIXED (
+	"E-truck Sales", "E-TRUCK LIFETIME" , "INITIAL E-TRUCK FLEET SIZE"/"E-TRUCK LIFETIME"\
+		)
+	~	Vehicle/Year
+	~	Number of electric trucks that are removed from use in each year
+		
+		Average truck lifetime is 13 years in EU based on Infra. Masterplan.
+		
+		We have 0 scrapping until year 13 and then we start to scrap trucks that we produced \
+		in first year (2017)
+		
+		Delays the input X for a fixed time T starting with I.
+	|
+
+Installed Charging Stations= INTEG (
+	max (0,(Finishing Charging Station-Decaying Charging Station)),
+		INITIAL CHARGING STATIONS)
+	~	Charging stations [0,?]
+	~	to avoid negative amount
+	|
+
+Total Truck Decommission=
+	DELAY FIXED (
+	Total Truck Sales, DIESEL TRUCK LIFETIME , INITIAL TOTAL TRUCK FLEET SIZE/DIESEL TRUCK LIFETIME\
+		)
+	~	Vehicle/Year
+	~	Number of total trucks that are removed from use in each year
+	|
+
+Share of diesel truck in total fleet size=
+	Diesel Truck Fleet Size/Total Truck Fleet Size
+	~	Dmnl
+	~		|
+
+INITIAL CHARGING STATIONS UNDER CONSTRUCTION=
+	(3*90000*1.5)/(0.1*350*8760)
+	~	Charging stations
+	~	(3*90000*1.5)/(0.1*350*8760)
+		
+		3/3.5
+		
+		42
+		443
+	|
+
+Total Truck Sales=
+	148.556*time for truck sales - 292712
+	~	Vehicle/Year
+	~	Number of new trucks (both electric and diesel) that are sold in each year
+		Ref:https://www.trafa.se/en/road-traffic/vehicle-statistics/
+		Detailed calculation on "fleet calculation excel"
+	|
+
+"e-truck share in total fleet"=
+	"E-truck Fleet Size"/Total Truck Fleet Size
+	~	Dmnl
+	~	The proportion of the total truck fleet that is electric
+	|
+
+time for truck sales = WITH LOOKUP (
+	Time,
+		([(0,0)-(10,10)],(2000,2000),(2001,2001),(2002,2002),(2003,2003),(2004,2004),(2005,\
+		2005),(2006,2006),(2007,2007),(2008,2008),(2009,2009),(2010,2010),(2011,2011),(2012\
+		,2012),(2013,2013),(2014,2014),(2015,2015),(2016,2016),(2017,2017),(2018,2018),(2019\
+		,2019),(2020,2020),(2021,2021),(2022,2022),(2023,2023),(2024,2024),(2025,2025),(2026\
+		,2026),(2027,2027),(2028,2028),(2029,2029),(2030,2030),(2031,2031),(2032,2032),(2033\
+		,2033),(2034,2034),(2035,2035),(2036,2036),(2037,2037),(2038,2038),(2039,2039),(2040\
+		,2040),(2041,2041),(2042,2042),(2043,2043),(2044,2044),(2045,2045),(2046,2046),(2047\
+		,2047),(2048,2048),(2049,2049),(2050,2050),(2051,2051),(2052,2052),(2053,2053),(2054\
+		,2054),(2055,2055),(2056,2056),(2057,2057),(2058,2058),(2059,2059),(2060,2060),(2061\
+		,2061),(2062,2062),(2063,2063),(2064,2064),(2065,2065),(2066,2066),(2067,2067),(2068\
+		,2068),(2069,2069),(2070,2070),(2071,2071),(2072,2072),(2073,2073),(2074,2074),(2075\
+		,2075),(2076,2076),(2077,2077),(2078,2078),(2079,2079),(2080,2080),(2081,2081),(2082\
+		,2082),(2083,2083),(2084,2084),(2085,2085),(2086,2086),(2087,2087),(2088,2088),(2089\
+		,2089),(2090,2090),(2091,2091),(2092,2092),(2093,2093),(2094,2094),(2095,2095),(2096\
+		,2096),(2097,2097),(2098,2098),(2099,2099),(2100,2100) ))
+	~	Vehicle/Year
+	~	time=time
+		for solving unit check!
+	|
+
+INITIAL TOTAL TRUCK FLEET SIZE=
+	83025
+	~	Vehicle
+	~	The starting number of total trucks in the fleet
+		Ref:https://www.trafa.se/en/road-traffic/vehicle-statistics/
+	|
+
+"E-truck Fleet Size"= INTEG (
+	"E-truck Sales"-"E-truck Decommission",
+		"INITIAL E-TRUCK FLEET SIZE")
+	~	Vehicle
+	~	The total number of electric trucks in the fleet
+	|
+
+"total annual R&D investment (corporates)"=
+	"annual R&D investment from e-truck earnings"+"annual R&D investment from diesel truck earnings"
+	~	SEK/Year
+	~	Funds allocated by private sector to research and development activities \
+		to improve technology and innovation per year.
+	|
+
+time for utilization= WITH LOOKUP (
+	Time,
+		 ([(0,0)-(10,10)],(2000,2000),(2001,2001),(2002,2002),(2003,2003),(2004,2004),(2005\
+		,2005),(2006,2006),(2007,2007),(2008,2008),(2009,2009),(2010,2010),(2011,2011),(2012\
+		,2012),(2013,2013),(2014,2014),(2015,2015),(2016,2016),(2017,2017),(2018,2018),(2019\
+		,2019),(2020,2020),(2021,2021),(2022,2022),(2023,2023),(2024,2024),(2025,2025),(2026\
+		,2026),(2027,2027),(2028,2028),(2029,2029),(2030,2030),(2031,2031),(2032,2032),(2033\
+		,2033),(2034,2034),(2035,2035),(2036,2036),(2037,2037),(2038,2038),(2039,2039),(2040\
+		,2040),(2041,2041),(2042,2042),(2043,2043),(2044,2044),(2045,2045),(2046,2046),(2047\
+		,2047),(2048,2048),(2049,2049),(2050,2050),(2051,2051),(2052,2052),(2053,2053),(2054\
+		,2054),(2055,2055),(2056,2056),(2057,2057),(2058,2058),(2059,2059),(2060,2060),(2061\
+		,2061),(2062,2062),(2063,2063),(2064,2064),(2065,2065),(2066,2066),(2067,2067),(2068\
+		,2068),(2069,2069),(2070,2070),(2071,2071),(2072,2072),(2073,2073),(2074,2074),(2075\
+		,2075),(2076,2076),(2077,2077),(2078,2078),(2079,2079),(2080,2080),(2081,2081),(2082\
+		,2082),(2083,2083),(2084,2084),(2085,2085),(2086,2086),(2087,2087),(2088,2088),(2089\
+		,2089),(2090,2090),(2091,2091),(2092,2092),(2093,2093),(2094,2094),(2095,2095),(2096\
+		,2096),(2097,2097),(2098,2098),(2099,2099),(2100,2100) ))
+	~	Dmnl
+	~	time=time
+		for solving unit check problem!
+	|
+
+time for diesel price= WITH LOOKUP (
+	Time,
+		 ([(0,0)-(10,10)],(2000,2000),(2001,2001),(2002,2002),(2003,2003),(2004,2004),(2005\
+		,2005),(2006,2006),(2007,2007),(2008,2008),(2009,2009),(2010,2010),(2011,2011),(2012\
+		,2012),(2013,2013),(2014,2014),(2015,2015),(2016,2016),(2017,2017),(2018,2018),(2019\
+		,2019),(2020,2020),(2021,2021),(2022,2022),(2023,2023),(2024,2024),(2025,2025),(2026\
+		,2026),(2027,2027),(2028,2028),(2029,2029),(2030,2030),(2031,2031),(2032,2032),(2033\
+		,2033),(2034,2034),(2035,2035),(2036,2036),(2037,2037),(2038,2038),(2039,2039),(2040\
+		,2040),(2041,2041),(2042,2042),(2043,2043),(2044,2044),(2045,2045),(2046,2046),(2047\
+		,2047),(2048,2048),(2049,2049),(2050,2050),(2051,2051),(2052,2052),(2053,2053),(2054\
+		,2054),(2055,2055),(2056,2056),(2057,2057),(2058,2058),(2059,2059),(2060,2060),(2061\
+		,2061),(2062,2062),(2063,2063),(2064,2064),(2065,2065),(2066,2066),(2067,2067),(2068\
+		,2068),(2069,2069),(2070,2070),(2071,2071),(2072,2072),(2073,2073),(2074,2074),(2075\
+		,2075),(2076,2076),(2077,2077),(2078,2078),(2079,2079),(2080,2080),(2081,2081),(2082\
+		,2082),(2083,2083),(2084,2084),(2085,2085),(2086,2086),(2087,2087),(2088,2088),(2089\
+		,2089),(2090,2090),(2091,2091),(2092,2092),(2093,2093),(2094,2094),(2095,2095),(2096\
+		,2096),(2097,2097),(2098,2098),(2099,2099),(2100,2100) ))
+	~	SEK/Litre
+	~	time=time
+		for solving unit check problem.
+	|
+
+time for carbon cost= WITH LOOKUP (
+	Time,
+		 ([(0,0)-(10,10)],(2000,2000),(2001,2001),(2002,2002),(2003,2003),(2004,2004),(2005\
+		,2005),(2006,2006),(2007,2007),(2008,2008),(2009,2009),(2010,2010),(2011,2011),(2012\
+		,2012),(2013,2013),(2014,2014),(2015,2015),(2016,2016),(2017,2017),(2018,2018),(2019\
+		,2019),(2020,2020),(2021,2021),(2022,2022),(2023,2023),(2024,2024),(2025,2025),(2026\
+		,2026),(2027,2027),(2028,2028),(2029,2029),(2030,2030),(2031,2031),(2032,2032),(2033\
+		,2033),(2034,2034),(2035,2035),(2036,2036),(2037,2037),(2038,2038),(2039,2039),(2040\
+		,2040),(2041,2041),(2042,2042),(2043,2043),(2044,2044),(2045,2045),(2046,2046),(2047\
+		,2047),(2048,2048),(2049,2049),(2050,2050),(2051,2051),(2052,2052),(2053,2053),(2054\
+		,2054),(2055,2055),(2056,2056),(2057,2057),(2058,2058),(2059,2059),(2060,2060),(2061\
+		,2061),(2062,2062),(2063,2063),(2064,2064),(2065,2065),(2066,2066),(2067,2067),(2068\
+		,2068),(2069,2069),(2070,2070),(2071,2071),(2072,2072),(2073,2073),(2074,2074),(2075\
+		,2075),(2076,2076),(2077,2077),(2078,2078),(2079,2079),(2080,2080),(2081,2081),(2082\
+		,2082),(2083,2083),(2084,2084),(2085,2085),(2086,2086),(2087,2087),(2088,2088),(2089\
+		,2089),(2090,2090),(2091,2091),(2092,2092),(2093,2093),(2094,2094),(2095,2095),(2096\
+		,2096),(2097,2097),(2098,2098),(2099,2099),(2100,2100) ))
+	~	SEK/kgCO2eq
+	~	time=time
+		for solving unit check problem
+	|
+
+CARBON SOCIETY COST=
+	0.0336*time for carbon cost-60.7712
+	~	SEK/kgCO2eq
+	~	Equal to carbon tax
+		
+		https://www.government.se/government-policy/swedens-carbon-tax/swedens-carbon-tax/#: \
+		:text=Swedish%20carbon%20tax%20rates&text=The%20carbon%20tax%20was%20introd\
+		uced,of%20SEK%2010.87%20per%20EUR)
+		
+		1.33 in 2023
+		
+		
+		In total, the tax has increased from
+		corresponding to SEK 0.25/kg carbon dioxide (1991) to SEK 1.15/kg
+		(2018).
+	|
+
+time for price of electricity= WITH LOOKUP (
+	Time,
+		 ([(0,0)-(10,10)],(2000,2000),(2001,2001),(2002,2002),(2003,2003),(2004,2004),(2005\
+		,2005),(2006,2006),(2007,2007),(2008,2008),(2009,2009),(2010,2010),(2011,2011),(2012\
+		,2012),(2013,2013),(2014,2014),(2015,2015),(2016,2016),(2017,2017),(2018,2018),(2019\
+		,2019),(2020,2020),(2021,2021),(2022,2022),(2023,2023),(2024,2024),(2025,2025),(2026\
+		,2026),(2027,2027),(2028,2028),(2029,2029),(2030,2030),(2031,2031),(2032,2032),(2033\
+		,2033),(2034,2034),(2035,2035),(2036,2036),(2037,2037),(2038,2038),(2039,2039),(2040\
+		,2040),(2041,2041),(2042,2042),(2043,2043),(2044,2044),(2045,2045),(2046,2046),(2047\
+		,2047),(2048,2048),(2049,2049),(2050,2050),(2051,2051),(2052,2052),(2053,2053),(2054\
+		,2054),(2055,2055),(2056,2056),(2057,2057),(2058,2058),(2059,2059),(2060,2060),(2061\
+		,2061),(2062,2062),(2063,2063),(2064,2064),(2065,2065),(2066,2066),(2067,2067),(2068\
+		,2068),(2069,2069),(2070,2070),(2071,2071),(2072,2072),(2073,2073),(2074,2074),(2075\
+		,2075),(2076,2076),(2077,2077),(2078,2078),(2079,2079),(2080,2080),(2081,2081),(2082\
+		,2082),(2083,2083),(2084,2084),(2085,2085),(2086,2086),(2087,2087),(2088,2088),(2089\
+		,2089),(2090,2090),(2091,2091),(2092,2092),(2093,2093),(2094,2094),(2095,2095),(2096\
+		,2096),(2097,2097),(2098,2098),(2099,2099),(2100,2100) ))
+	~	SEK/kWh
+	~	time=time
+		for solving unit check problem
+	|
+
+TIMEFRAME OF AVERAGE=
+	3
+	~	Year
+	~		|
+
+PLANNING HORIZON=
+	5
+	~	Year
+	~	How many years we want to consider as future demand and bring it into our \
+		calculation.
+		
+		We calculated the average of three previous years and crossed it over to \
+		the planning horizon (3 years) to calculate the total demand of three \
+		coming years.
+	|
+
+Saving emission converted to money due to electrification=
+	Saving emission by transit to electrification*CARBON SOCIETY COST
+	~	SEK
+	~		|
+
+Saving emission by transit to electrification=
+	"Cumulative Emission without any e-trucks"-"Cumulative Emission with having e-trucks"
+	~	kgCO2eq
+	~		|
+
+CHARGE RETAIL PRICE=
+	Min (((("Construction cost paid by infra providers per station per year (discounted)"\
+		+operation cost per station per year)
+	/
+	utilized capacity of a station per year)
+	
+	*(1+MARGIN OF CHARGING PROVIDERS FOR ELECTRICITY PRICE))
+	
+	, 5*PRICE OF ELECTRICITY)
+	~	SEK/kWh
+	~	a ceil of 5*price of EL is considered to control the model in extreme test.
+		
+		Min((("Construction cost paid by infra providers per station per year \
+		(discounted)"+Operation cost per station per year
+		)
+		/
+		Utilized capacity of a station per year)
+		
+		*(1+MARGIN OF CHARGING PROVIDERS FOR ELECTRICITY PRICE)
+		
+		, 1.5*PRICE OF ELECTRICITY)
+		
+		
+		...............
+		
+		(construction cost+operation cost)/utilized capacity *1.3
+		
+		Min (formula, 1.5* electricity price)
+		
+		Margin=1.14
+		1.14 + (0.2609+0.05*(Time-2015))
+		
+		(1.14 + (0.0415*Time - 83.286))
+	|
+
+Monetarized saving emissions per investment unit in electrification=
+	Saving emission converted to money due to electrification/"Total Gov. Funds"
+	~	Dmnl
+	~		|
+
+awareness coefficient=
+	100*1000
+	*(1-MISTRUST EFFECT)
+	~	Dmnl [?,?,5]
+	~	a coefficient to implement the mistruct effect
+	|
+
+Addition of Government Investment in Charging Stations=
+	IF THEN ELSE( 
+	
+	Time<=2030 :AND: "Total annual emission from trucks (tank to wheel)"<=goal of emission level in 2030\
+		, 0 , 
+	
+	IF THEN ELSE
+	( Time<=2045:AND: "Total annual emission from trucks (tank to wheel)"<=goal of emission level in 2045\
+		 , 0 , 
+	
+	
+	(max(0,(gap of number of charging stations based on regulation * "gov. portion of investment per station"\
+		)
+	
+	-Potential Government Investment in Charging Stations))
+	
+	/"TIME TO CLOSE GAP FOR GOV." ))
+	~	SEK/Year
+	~	if time<=2030 & Emission reduction>=reducion goal 2030, 0, otherwise:
+		
+		if time<=2040 & Emission reduction>=reducion goal 2040, 0, otherwise:
+		
+		WE DO INVEST (because we didn't reach our goals yet)
+		
+		invest formulation:
+		(gap based on regulation*Gov portion)-stock of gov fund)
+		/time
+	|
+
+EMISSION REDUCTION GOAL IN 2030=
+	0.7
+	~	Dmnl
+	~		|
+
+EMISSION REDUCTION GOAL IN 2045=
+	1
+	~	Dmnl
+	~		|
+
+emission reduction factor compared to 2010 level=
+	1+("Total annual emission from trucks (tank to wheel)"-EMISSION LEVEL IN 2010)
+	/EMISSION LEVEL IN 2010
+	~	Dmnl
+	~		|
+
+goal of emission level in 2045=
+	EMISSION LEVEL IN 2010*(1-EMISSION REDUCTION GOAL IN 2045)
+	~	kgCO2eq/Year
+	~	emission 2010*%10
+	|
+
+goal of emission level in 2030=
+	EMISSION LEVEL IN 2010*(1-EMISSION REDUCTION GOAL IN 2030)
+	~	kgCO2eq/Year
+	~	emission 2010*%30
+	|
+
+EMISSION LEVEL IN 2010=
+	4.7313e+09
+	~	kgCO2eq/Year
+	~	9,722,048,406
+		4,731,300,000
+		
+		6,704,860,969
+	|
+
+"Cumulative Emission without any e-trucks"= INTEG (
+	"Annual Emission (without any e-trucks)",
+		10^-9)
+	~	kgCO2eq
+	~	small initial value near to zero
+	|
+
+Annual carbon cost=
+	"Total annual emission from trucks (tank to wheel)"*CARBON SOCIETY COST
+	~	SEK/Year
+	~		|
+
+"annual fuel consumption (kWh) per diesel truck"=
+	"annual fuel consumption (Litr) per diesel truck"*Kwh to Litre converter
+	~	kWh/Vehicle/Year
+	~		|
+
+"Total Gov. Funds"= INTEG (
+	"Annual Total Gov. Funds",
+		10^-9)
+	~	SEK
+	~	small initial value near to zero
+	|
+
+"Annual Emission (with having e-trucks)"=
+	"Total annual emission from trucks (tank to wheel)"
+	~	kgCO2eq/Year
+	~		|
+
+"Cumulative Emission with having e-trucks"= INTEG (
+	"Annual Emission (with having e-trucks)",
+		10^-9)
+	~	kgCO2eq
+	~	small initial value near to zero
+	|
+
+discount factor for diesel truck=
+	"r (common ratio in geometric series)"
+	
+	*
+	
+	(1-"r (common ratio in geometric series)"^(DIESEL TRUCK LIFETIME/time unit))
+	
+	/
+	
+	(1-"r (common ratio in geometric series)")
+	
+	*time unit
+	~	Year
+	~		|
+
+"DIESEL RETAIL PRICE (SEK/kWh)"=
+	DIESEL RETAIL PRICE/Kwh to Litre converter
+	~	SEK/kWh
+	~		|
+
+"total operational cost per station, accumulated over lifetime years"=
+	operation cost per station per year*discount factor for stations
+	~	SEK/Charging stations
+	~	It is a Geometric series:
+		
+		r^1 + r^2 + r^3 + ... + r^n = (1-r^n)/(1-r)*r
+		
+		
+		
+		Discount factor: 
+		(1/(1+i))^1 + (1/(1+i))^2 + (1/(1+i))^3 + ... + (1/(1+i))^n
+		
+		-->> r=(1/(1+i))
+		
+		-->> (1-(1/(1+i))^n)/(1-(1/(1+i)))*(1/(1+i))
+		
+		
+		
+		
+		https://en.wikipedia.org/wiki/Geometric_series
+	|
+
+"Construction cost paid by infra providers per station per year (discounted)"=
+	construction cost per station paid by infra providers/discount factor for stations
+	~	SEK/(Charging stations*Year)
+	~		|
+
+Actual Government Investment in Charging Stations=
+	IF THEN ELSE(Potential Government Investment in Charging Stations>0, 
+	
+	Actual Private Investment in Charging Stations*"ratio of gov. to private investment"\
+		 , 
+	
+	0 )
+	~	SEK/Year
+	~	if stock>0, public investment, otherwise 0
+	|
+
+"Emission per kwh, annually"=
+	"Total annual emission from trucks (tank to wheel)"/total annual amount of energy
+	~	kgCO2eq/kWh
+	~		|
+
+Kwh to Litre converter=
+	9.8
+	~	kWh/Litre
+	~	Energy content in kWh per liter of diesel fuel
+		Energy content in MJ per liter: 36 MJ
+		Conversion factor: 1 MJ = 0.277778 kWh
+		https://www.eia.gov/totalenergy/data/annual/
+	|
+
+"Total annual emission from trucks (tank to wheel)"=
+	("Annual operational emission from e-trucks"+Annual operational emission from diesel trucks\
+		)
+	~	kgCO2eq/Year
+	~		|
+
+"Income of Diesel (Stock)"= INTEG (
+	"Annual Income of Diesel (inflow)",
+		0)
+	~	SEK
+	~		|
+
+"Annual Income of Diesel (inflow)"=
+	"annual fuel consumption (Litr) per diesel truck"*Diesel Truck Fleet Size*DIESEL RETAIL PRICE
+	~	SEK/Year
+	~		|
+
+income of electricity stock= INTEG (
+	"Annual income of electricity (inflow)",
+		0)
+	~	SEK
+	~		|
+
+"Annual gov. subsidy on charging"=
+	Actual Government Investment in Charging Stations
+	~	SEK/Year
+	~		|
+
+"Gov. vehicle subsidy stock"= INTEG (
+	"Annual gov. subsidy on vehicle purchase cost",
+		0)
+	~	SEK
+	~		|
+
+Gov Charging subsidy stock= INTEG (
+	"Annual gov. subsidy on charging",
+		0)
+	~	SEK
+	~		|
+
+"charging consumption per e-truck per year"=
+	AVERAGE MILEAGE PER VEHICLE PER YEAR*"AVERAGE CONSUMPTION PER KM FOR E-TRUCK"
+	~	kWh/Vehicle/Year
+	~		|
+
+sale revenue=
+	utilized capacity of a station per year*CHARGE RETAIL PRICE
+	~	SEK/(Charging stations*Year)
+	~		|
+
+cost of electricity per station per year=
+	utilized capacity of a station per year*PRICE OF ELECTRICITY
+	~	SEK/(Charging stations*Year)
+	~		|
+
+"Utility Function of E-truck"= INTEG (
+	Change In Utility,
+		INITIAL UTILITY FUNCTION)
+	~	Dmnl
+	~	The level of utility (attractiveness) of an e-truck
+	|
+
+INITIAL POTENTIAL PRIVATE FUND=
+	1e+06
+	~	SEK
+	~	1.3e+09
+	|
+
+INITIAL POTENTIAL PUBLIC FUND=
+	1.648e+06
+	~	SEK
+	~	 according to the klimatklivet data:  1,648,000 kr
+	|
+
+INITIAL UTILITY FUNCTION=
+	0.2
+	~	Dmnl
+	~	initial value for utility function of e-trucks
+		Model assumption
+	|
+
+"Reference mode of SWEDEN e-truck fleet size (2017-2023)" = WITH LOOKUP (
+	Time,
+		([(2017,0)-(2100,500)],(2017,1),(2018,4),(2019,11),(2020,29),(2021,72),(2022,231),(\
+		2023,482),(2100,482) ))
+	~	Dmnl
+	~		|
+
+Potential Private Investment in Charging Stations= INTEG (
+	Addition of Private Investment in Charging Stations-"Deciding not to invest (reluctance to invest)"\
+		-Actual Private Investment in Charging Stations,
+		INITIAL POTENTIAL PRIVATE FUND)
+	~	SEK
+	~		|
+
+Potential Government Investment in Charging Stations= INTEG (
+	Addition of Government Investment in Charging Stations-Actual Government Investment in Charging Stations\
+		,
+		INITIAL POTENTIAL PUBLIC FUND)
+	~	SEK [0,?]
+	~		|
+
+"e-truck discounted total Opex"=
+	"annual operation cost (opex) of each e-truck"*"discount factor for e-truck"
+	~	SEK/Vehicle
+	~		|
+
+discount factor for stations=
+	("r (common ratio in geometric series)"
+	
+	*
+	(1-"r (common ratio in geometric series)"^(LIFETIME OF A STATION/time unit))
+	
+	/
+	(1-"r (common ratio in geometric series)"))
+	*time unit
+	~	Year
+	~	Note: we are using ONE YEAR to fix unit problem in calculation of discount factor
+		
+		It is a Geometric series:
+		
+		r^1 + r^2 + r^3 + ... + r^n = r*(1-r^n)/(1-r)
+		
+		
+		
+		Discount factor: 
+		(1/(1+i))^1 + (1/(1+i))^2 + (1/(1+i))^3 + ... + (1/(1+i))^n
+		
+		-->> r=(1/(1+i))
+		
+		-->> (1-(1/(1+i))^n)/(1-(1/(1+i)))*(1/(1+i))
+		
+		
+		
+		
+		https://en.wikipedia.org/wiki/Geometric_series
+	|
+
+electric truck total cost=
+	(purchase cost paid by freight companies+"e-truck discounted total Opex")
+	~	SEK/Vehicle
+	~		|
+
+"r (common ratio in geometric series)"=
+	(1/(1+DISCOUNT RATE))
+	~	Dmnl
+	~		|
+
+Ancillary revenue=
+	0
+	~	SEK/(Charging stations*Year)
+	~	Carbon dioxide emission income can be added!
+		V2G revenue can add
+		Previous amount> 750000
+	|
+
+U2P ratio=
+	max (10^-9,"utility-to-cost of e-truck")
+	/max (10^-9,"utility-to-cost of diesel truck")
+	~	Dmnl
+	~	to prevent denominator (makhraj) from being negative in the extreme test:
+		
+		max (10^-9,"U2P of E-truck")
+		/max (10^-9,Expected U2P based on industry)
+	|
+
+"utility-to-cost of diesel truck"=
+	BASED UTILITY FOR DIESEL TRUCK/diesel truck total cost
+	~	Dmnl*(Vehicle)/SEK
+	~	the utility devided by total cost of d-trucks
+	|
+
+"utility-to-cost of e-truck"=
+	"Utility Function of E-truck"/
+	
+	(electric truck total cost)
+	~	Dmnl*(Vehicle)/SEK
+	~	the utility devided by total cost of e-trucks
+	|
+
+DIESEL TRUCK LIFETIME=
+	12
+	~	Year
+	~	Ref: Noll et al., 2022
+		Page 7, section 3.2.7. (Discount rate and lifetime)
+		Noll, B., del Val, S., Schmidt, T. S., & Steffen, B. (2022). Analyzing the \
+		competitiveness of low-carbon drive-technologies in road-freight: A total \
+		cost of ownership analysis in Europe. Applied Energy, 306, 118079.
+		
+		
+		It should consider equal to e-truck lifetime, otherwise; it creates bias \
+		in calculation Capex
+	|
+
+DIESEL TRUCK PURCHASE TAX=
+	0.13
+	~	Dmnl
+	~	this is excluding VAT
+		VAT=0.25
+		With VAT, it should be 0.38
+	|
+
+"Deciding not to invest (reluctance to invest)"=
+	Potential Private Investment in Charging Stations*RELUCTANCE TO INVEST RATE
+	~	SEK/Year
+	~	This could be reluctance in investing in electric charging station and we \
+		can go for other refueling option instead (like hydogen, biofuel), based \
+		on the comment by Astrid in SD transport SIG
+	|
+
+RELUCTANCE TO INVEST RATE=
+	0
+	~	1/Year
+	~	Percentage of investors that decide not to invest in the charging infrastructure \
+		even after all assessments.
+		They are between 0 to 5 percent random number
+		
+		RANDOM NORMAL(0, 0.05 , 0 , 1 , 0 )
+	|
+
+MAX NOMINAL CAPACITY OF A STATION PER YEAR=
+	350*8760
+	~	kWh/(Year*Charging stations)
+	~	Charger Power (kw/station)* 8760 hour/year
+		
+		Capacity in Kwh: 350 per station (including piles)
+		a year has 8760 h
+	|
+
+time unit=
+	1
+	~	Year
+	~	Formulation of the unit for IRR is complicated. Thus we used this vriable \
+		to fix unit left and hand right problem. It doesn't change the model
+	|
+
+WEIGHT OF AVAILABILITY=
+	0.45
+	~	Dmnl [0,1,0.05]
+	~	this variable represents the weight of the availability of infrastructure influence \
+		on the e-truck utility, in comparison with the other influences
+		Based on the expert interview
+		
+		RANDOM UNIFORM( 0.2 , 0.5 , 0.3 )
+	|
+
+DISCOUNT RATE=
+	0.1
+	~	Dmnl
+	~	Ref: Noll et al., 2022
+		Page 7, section 3.2.7. (Discount rate and lifetime)
+		Noll, B., del Val, S., Schmidt, T. S., & Steffen, B. (2022). Analyzing the \
+		competitiveness of low-carbon drive-technologies in road-freight: A total \
+		cost of ownership analysis in Europe. Applied Energy, 306, 118079.
+	|
+
+LIFETIME OF A STATION=
+	8
+	~	Year
+	~	EU report page 204: 10 Year
+		REEL project report: 6 Year
+		European Commission. (2021). Impact Assessment: Proposal for a Regulation of the \
+		European Parliament and of the Council on the deployment of alternative \
+		fuels infrastructure, and repealing Directive 2014/94/EU of the European \
+		Parliament and of the Council. 
+		REEL. (2022). Regional Electrified Logistics. \
+		https://closer.lindholmen.se/sites/default/files/2022-11/reel-report.pdf
+	|
+
+Addition of Private Investment in Charging Stations=
+	(market gap for charging stations*private portion of investment per station
+	
+	*Sensitivity of private investors to profitability index)
+	
+	/TIME TO CLOSE GAP FOR PRIVATE SECTOR
+	~	SEK/Year
+	~	We consider whole investment container as Market Gap*total cost
+		
+		which percentage will be happen? it depends on Look up function (between 0 \
+		and 1)
+	|
+
+TIME TO CLOSE GAP FOR PRIVATE SECTOR=
+	1
+	~	Year
+	~		|
+
+TIME TO PERCEIVED UTILITY=
+	1
+	~	Year
+	~	The time it takes for users to recognize the benefits of adopting e-trucks.
+	|
+
+"ratio of gov. to private investment"=
+	"gov. portion of investment per station"/private portion of investment per station
+	~	Dmnl
+	~		|
+
+revenue per station per year=
+	sale revenue+Ancillary revenue
+	~	SEK/(Charging stations*Year)
+	~		|
+
+"gov. portion of investment per station"=
+	CONSTRUCTION COST PER STATION*"GOV. SUBSIDY PERCENTAGE ON CONSTRUCTION COST OF CHARGING STATIONS"
+	~	SEK/Charging stations
+	~	Capex*alfa
+	|
+
+TIME STEP  = 0.0625
+	~	Year
+	~		|
+
+"TIME TO CLOSE GAP FOR GOV."=
+	4
+	~	Year
+	~	Model assumption based on the time distance between elections
+	|
+
+Change In Utility=
+	max(0,
+	("perceived e-truck utility function (attractiveness)"-"Utility Function of E-truck"\
+		)/TIME TO PERCEIVED UTILITY)
+	~	Dmnl/Year
+	~	The rate of annual change for the utility function
+	|
+
+Actual Private Investment in Charging Stations=
+	(Potential Private Investment in Charging Stations/TIME TO INVESTMENT FOR PRIVATE SECTOR\
+		)
+	~	SEK/Year
+	~		|
+
+TIME TO INVESTMENT FOR PRIVATE SECTOR=
+	1
+	~	Year
+	~	previous naming: MATERALIZED PRIVATE INVESTMENT RATE PER YEAR
+		RANDOM NORMAL(0.4, 0.6 , 0 , 1 , 0 )
+		
+		RANDOM NORMAL(1.5, 2.5 , 0 , 1 , 0 )
+	|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 2060
+	~	Year
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 2017
+	~	Year
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Year [0,?]
+	~	The frequency with which output is stored.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Vehicle fleet sector
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,75,0
+10,1,"E-truck Fleet Size",615,477,64,36,3,131,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,2,48,392,477,16,8,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,3,5,2,100,0,0,22,0,192,0,-1--1--1,,1|(435,473)|
+1,4,5,1,4,0,0,22,0,192,0,-1--1--1,,1|(515,473)|
+11,5,48,471,473,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,"E-truck Sales",471,492,44,11,40,131,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,7,48,827,464,16,8,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,8,10,1,100,0,0,22,0,192,0,-1--1--1,,1|(708,472)|
+1,9,10,7,4,0,0,22,0,192,0,-1--1--1,,1|(784,472)|
+11,10,48,748,472,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,"E-truck Decommission",748,499,52,19,40,131,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,12,"INITIAL E-TRUCK FLEET SIZE",612,572,57,19,8,3,0,32,-1,0,0,0,-1--1--1,192-255-192,Calibri|12||0-0-0,0,0,0,0,0,0
+1,13,12,1,1,0,0,0,0,192,1,-1--1--1,,1|(620,541)|
+10,14,"E-TRUCK LIFETIME",848,592,52,28,8,131,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,15,14,11,1,0,0,0,0,192,0,-1--1--1,,1|(776,548)|
+1,16,6,11,1,0,0,0,0,64,0,-1--1--1,,1|(568,616)|
+10,17,Time,304,97,28,11,8,2,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,18,"e-truck share in new sales",219,337,64,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,19,6,18,1,0,0,0,0,64,0,-1--1--1,,1|(267,417)|
+10,20,Total Truck Fleet Size,620,204,80,36,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,21,48,383,204,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,22,24,20,4,0,0,22,0,0,0,-1--1--1,,1|(508,204)|
+1,23,24,21,100,0,0,22,0,0,0,-1--1--1,,1|(424,204)|
+11,24,48,464,204,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,25,Total Truck Sales,464,223,57,11,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,26,25,6,1,0,0,0,0,64,0,-1--1--1,,1|(496,357)|
+10,27,INITIAL TOTAL TRUCK FLEET SIZE,691,89,64,19,8,3,0,32,0,0,0,0,-1--1--1,192-255-192,Calibri|12||0-0-0,0,0,0,0,0,0
+1,28,27,20,1,0,0,0,0,64,1,-1--1--1,,1|(616,109)|
+1,29,25,18,1,0,0,0,0,64,0,-1--1--1,,1|(300,264)|
+10,30,"e-truck share in total fleet",963,356,76,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,31,1,30,1,0,0,0,0,64,0,-1--1--1,,1|(792,385)|
+1,32,20,30,1,0,0,0,0,64,0,-1--1--1,,1|(740,317)|
+12,33,48,875,204,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,34,36,33,4,0,0,22,0,0,0,-1--1--1,,1|(828,204)|
+1,35,36,20,100,0,0,22,0,0,0,-1--1--1,,1|(735,204)|
+11,36,48,779,204,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,37,Total Truck Decommission,779,233,52,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,38,12,11,0,0,0,0,0,64,1,-1--1--1,,1|(672,540)|
+10,39,DIESEL TRUCK LIFETIME,903,121,53,19,8,2,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,40,39,37,1,0,0,0,0,64,0,-1--1--1,,1|(835,168)|
+1,41,25,37,1,0,0,0,0,64,0,-1--1--1,,1|(580,269)|
+1,42,27,37,1,0,0,0,0,64,1,-1--1--1,,1|(775,140)|
+10,43,time for truck sales,419,132,48,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,44,17,43,1,0,0,0,0,192,0,-1--1--1,,1|(400,112)|
+1,45,43,25,0,0,0,0,0,192,0,-1--1--1,,1|(439,175)|
+10,46,"effect of utility-to-cost",288,600,68,28,8,130,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+12,47,0,1367,185,164,152,3,188,0,0,2,0,0,0,0,0,0,0,0,0
+"E-truck Fleet Size",Graph
+12,48,0,1719,185,165,149,3,188,0,0,2,0,0,0,0,0,0,0,0,0
+Installed Charging Stations,Graph
+12,49,0,1368,505,164,148,3,188,0,0,2,0,0,0,0,0,0,0,0,0
+"e-truck share in total fleet",Graph
+12,50,0,1716,501,164,148,3,188,0,0,2,0,0,0,0,0,0,0,0,0
+"e-truck share in new sales",Graph
+12,51,0,1371,833,168,148,3,188,0,0,2,0,0,0,0,0,0,0,0,0
+"Utility Function of E-truck",Graph
+12,52,0,1720,833,164,149,3,188,0,0,2,0,0,0,0,0,0,0,0,0
+charging station profitability index,Graph
+10,53,Installed Charging Stations,1960,176,64,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,54,46,6,0,0,0,0,0,64,0,-1--1--1,,1|(387,541)|
+10,55,charging station profitability index,1988,769,91,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Utility function sector
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,75,0
+10,1,BASED UTILITY FOR DIESEL TRUCK,2528,-9,72,25,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-128-0,0,0,0,0,0,0
+10,2,"perceived e-truck utility function (attractiveness)",2477,455,84,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,3,"Utility Function of E-truck",2881,396,100,36,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,4,48,2620,388,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,5,7,3,4,0,0,22,0,0,0,-1--1--1,,1|(2745,392)|
+1,6,7,4,100,0,0,22,0,0,0,-1--1--1,,1|(2661,392)|
+11,7,48,2701,392,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,8,Change In Utility,2701,411,56,11,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,9,2,8,1,0,0,0,0,64,0,-1--1--1,,1|(2565,372)|
+1,10,3,8,1,0,0,0,0,64,0,-1--1--1,,1|(2836,423)|
+10,11,TIME TO PERCEIVED UTILITY,2781,492,67,19,8,3,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,12,11,8,1,0,0,0,0,64,0,-1--1--1,,1|(2708,463)|
+10,13,CONSTRUCTION COST PER STATION,1609,188,72,19,8,2,1,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,14,"effect of utility-to-cost",3112,4,48,19,8,131,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,15,LIFETIME OF A STATION,2245,163,56,19,8,2,1,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,16,WEIGHT OF AVAILABILITY,2129,251,64,32,8,131,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-128-0,0,0,0,0,0,0
+10,17,WEIGHT OF AWARENESS,2197,632,56,36,8,131,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,18,16,2,1,0,0,0,0,192,0,-1--1--1,,1|(2293,323)|
+1,19,17,2,1,0,0,0,0,192,0,-1--1--1,,1|(2408,527)|
+10,20,Time,2785,-61,28,11,8,2,1,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,21,"utility-to-cost of e-truck",2825,159,55,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,22,3,21,1,0,0,0,0,64,0,-1--1--1,,1|(2800,291)|
+10,23,electric truck total cost,2632,179,49,19,8,2,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,24,diesel truck total cost,2528,80,44,19,8,130,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,25,23,21,1,0,0,0,0,64,0,-1--1--1,,1|(2693,156)|
+10,26,"utility-to-cost of diesel truck",2725,55,55,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,27,1,26,0,0,0,0,0,64,0,-1--1--1,,1|(2628,23)|
+1,28,24,26,0,0,0,0,0,64,0,-1--1--1,,1|(2616,67)|
+10,29,U2P ratio,2936,47,32,11,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,30,26,29,1,0,0,0,0,64,0,-1--1--1,,1|(2840,39)|
+1,31,21,29,1,0,0,0,0,64,0,-1--1--1,,1|(2892,120)|
+10,32,"Reference mode of SWEDEN e-truck fleet size (2017-2023)",3137,1039,89,28,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,33,Time,2948,1087,28,11,8,2,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,34,INITIAL UTILITY FUNCTION,3105,335,53,19,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-128-0,0,0,0,0,0,0
+1,35,34,3,1,0,0,0,0,64,1,-1--1--1,,1|(2989,387)|
+1,36,33,32,0,0,0,0,0,64,0,-1--1--1,,1|(3005,1072)|
+10,37,awareness of the technology,2653,615,59,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,38,37,2,1,0,0,0,0,64,0,-1--1--1,,1|(2505,495)|
+10,39,awareness coefficient,2853,724,37,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,40,39,37,0,0,0,0,0,64,0,-1--1--1,,1|(2759,671)|
+10,41,"E-truck fleet size in target",2320,967,57,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,42,WEIGHT OF MATURITY,1945,411,64,28,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,43,42,2,1,0,0,0,3,64,0,0-0-255,|12||0-0-0,1|(2196,431)|
+12,44,0,3712,167,269,168,3,188,0,32,2,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+Installed Charging Stations,Graph
+12,45,0,3705,524,271,168,3,188,0,32,2,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+"ratio e-truck to charging station",Graph
+12,46,0,4288,531,267,163,3,188,0,32,2,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+"Utility Function of E-truck",Graph
+10,47,MISTRUST EFFECT,3069,816,35,19,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,48,47,39,1,0,0,0,0,64,0,-1--1--1,,1|(2972,736)|
+1,49,29,14,1,0,0,0,0,192,0,-1--1--1,,1|(2996,-9)|
+10,50,availability of charging station,2028,320,60,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,51,50,2,1,0,0,0,0,192,0,-1--1--1,,1|(2237,359)|
+10,52,"e-truck share in total fleet",2953,627,60,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,53,52,37,0,0,0,0,0,192,0,-1--1--1,,1|(2809,621)|
+10,54,"Technology Maturity of E-truck",1476,188,112,41,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,55,48,1140,179,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,56,58,54,4,0,0,22,0,0,0,-1--1--1,,1|(1312,179)|
+1,57,58,55,100,0,0,22,0,0,0,-1--1--1,,1|(1197,179)|
+11,58,48,1252,179,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,59,"Technology Development of E-truck",1252,215,55,28,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,60,"annual gov. funding for improving e-truck technology",521,76,79,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,61,"R&D PERCENTAGE OF ANNUAL EARNING OF E-TRUCKS",961,539,75,28,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,62,GOAL OF TECHNOLOGY MATURITY FUND,1829,16,60,28,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,63,ratio of technology maturity to goal,1664,99,65,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,64,54,63,1,0,0,0,0,64,0,-1--1--1,,1|(1601,95)|
+1,65,62,63,1,0,0,0,0,64,0,-1--1--1,,1|(1740,56)|
+10,66,effect of technology maturity,1913,500,68,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,67,63,66,1,0,0,0,0,64,0,-1--1--1,,1|(1689,340)|
+10,68,"annual R&D investment from e-truck earnings",737,508,81,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,69,61,68,1,0,0,0,0,64,0,-1--1--1,,1|(832,539)|
+10,70,"annual R&D investment from diesel truck earnings",488,520,89,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,71,PURCHASE COST OF DIESEL TRUCK,344,619,73,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,72,71,70,1,0,0,0,0,64,0,-1--1--1,,1|(397,567)|
+10,73,"total annual R&D investment (corporates)",493,388,84,19,8,131,0,32,0,0,0,0,-1--1--1,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,74,70,73,0,0,0,0,0,64,0,-1--1--1,,1|(489,460)|
+1,75,68,73,1,0,0,0,0,64,0,-1--1--1,,1|(652,427)|
+10,76,diesel truck sale,493,616,55,11,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,77,76,70,0,0,0,0,0,64,0,-1--1--1,,1|(491,576)|
+1,78,73,60,1,0,0,0,0,64,0,-1--1--1,,1|(476,236)|
+10,79,FACTOR OF GOV INVESTMENT ON THE TECH MATURITY,276,68,76,28,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,80,79,60,0,0,0,0,0,64,0,-1--1--1,,1|(391,69)|
+1,81,66,2,1,0,0,0,0,192,0,-1--1--1,,1|(2213,508)|
+10,82,"E-truck Sales",633,692,60,21,8,130,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,83,82,68,1,0,0,0,0,192,0,-1--1--1,,1|(712,604)|
+1,84,82,76,1,0,0,0,0,192,0,-1--1--1,,1|(549,656)|
+10,85,Total Truck Sales,452,704,43,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,86,85,76,1,0,0,0,0,192,0,-1--1--1,,1|(460,656)|
+10,87,"E-truck Fleet Size",2156,963,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,88,87,41,0,0,0,0,0,64,0,-1--1--1,,1|(2225,964)|
+12,89,0,4284,168,268,164,3,188,0,32,2,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+Charging Stations under construction,Graph
+10,90,"Availability of charging station-percentage",3825,996,79,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,91,"Awareness of the technology-percentage",3833,1107,79,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,92,"Effect of technology maturity-percentage",3852,1236,72,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,93,availability of charging station,3608,983,60,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,94,awareness of the technology,3609,1112,64,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,95,effect of technology maturity,3629,1224,72,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,96,93,90,0,0,0,0,0,64,0,-1--1--1,,1|(3700,987)|
+1,97,94,91,0,0,0,0,0,64,0,-1--1--1,,1|(3708,1109)|
+1,98,95,92,0,0,0,0,0,64,0,-1--1--1,,1|(3733,1227)|
+10,99,utilization rate of a station,3656,1376,63,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,100,"utilization rate of a station-percentage",3845,1376,65,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,101,99,100,0,0,0,0,0,64,0,-1--1--1,,1|(3744,1376)|
+10,102,Gov Tech Maturity Fund Stock,705,-105,61,33,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,103,48,453,-108,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,104,106,102,4,0,0,22,0,0,0,-1--1--1,,1|(604,-108)|
+1,105,106,103,100,0,0,22,0,0,0,-1--1--1,,1|(505,-108)|
+11,106,48,556,-108,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,107,"Annual Gov. Tech Maturity Fund",556,-81,60,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,108,60,107,1,0,0,0,0,64,0,-1--1--1,,1|(460,-68)|
+10,109,"R&D PERCENTAGE OF ANNUAL EARNING OF DIESEL TRUCKS",197,556,75,28,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,110,109,70,1,0,0,0,0,64,0,-1--1--1,,1|(320,520)|
+10,111,Lookup for unsteady scenario for all levers except EL,220,-73,88,35,8,130,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,112,STOP INVESTING SWITCH,236,435,57,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,113,"e-truck share in total fleet",56,476,60,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,114,113,112,0,0,0,0,0,64,0,-1--1--1,,1|(141,455)|
+10,115,Time,53,408,28,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,116,115,112,0,0,0,0,0,64,0,-1--1--1,,1|(124,416)|
+1,117,112,70,0,0,0,0,0,64,0,-1--1--1,,1|(355,473)|
+10,118,"R&D Fund of E-trucks",824,188,88,37,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,119,48,568,188,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,120,122,118,4,0,0,22,0,0,0,-1--1--1,,1|(692,187)|
+1,121,122,119,100,0,0,22,0,0,0,-1--1--1,,1|(603,187)|
+11,122,48,637,187,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,123,"R&D Investment",637,208,55,11,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,124,48,1037,191,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,125,127,124,4,0,0,22,0,0,0,-1--1--1,,1|(1005,187)|
+1,126,127,118,100,0,0,22,0,0,0,-1--1--1,,1|(940,187)|
+11,127,48,976,187,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,128,"R&D Spending",976,208,49,11,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,129,60,123,1,0,0,0,0,64,0,-1--1--1,,1|(620,135)|
+1,130,73,123,1,0,0,0,0,64,0,-1--1--1,,1|(608,312)|
+1,131,63,60,1,0,0,0,0,64,0,-1--1--1,,1|(777,4)|
+10,132,"TIME TO SPEND R&D FUNDS",929,331,55,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,133,118,128,1,0,0,0,0,64,0,-1--1--1,,1|(933,128)|
+1,134,132,128,1,0,0,0,0,64,0,-1--1--1,,1|(917,264)|
+1,135,128,59,1,0,0,0,0,64,0,-1--1--1,,1|(1104,111)|
+10,136,TECHNOLOGY IMPROVEMENT PER SEK SPENT,1256,348,83,28,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,137,136,59,1,0,0,0,0,64,0,-1--1--1,,1|(1288,288)|
+10,138,ratio of technology maturity to goal,557,832,69,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,139,138,61,1,0,0,0,0,64,0,-1--1--1,,1|(864,756)|
+1,140,138,109,1,0,0,0,0,64,0,-1--1--1,,1|(232,707)|
+10,141,"Purchase Cost of E-trucks",792,656,57,27,8,130,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,142,141,68,0,0,0,0,0,64,0,-1--1--1,,1|(765,584)|
+10,143,"Reference mode of SWEDEN total truck fleet size (2017-2023)",3137,1164,85,28,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,144,33,143,0,0,0,0,0,64,0,-1--1--1,,1|(3013,1113)|
+12,145,0,1640,1307,339,197,3,188,0,32,1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+behavior_reproduction_test_of_e-truck_(2017-2023)
+12,146,0,2393,1295,347,201,3,156,0,32,1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+behavior_reproduction_test_of_total_truck_(2017-2023)
+10,147,"share of e-truck in total fleet in percentage",3805,840,76,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,148,"e-truck share in total fleet",3584,844,55,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,149,148,147,0,0,0,0,0,64,0,-1--1--1,,1|(3677,840)|
+10,150,Time,700,764,28,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,153,Time,3112,896,28,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,154,Time,2364,-81,28,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Charging station availability sector
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,100,0
+10,1,Installed Charging Stations,816,157,71,43,3,131,0,34,0,0,0,0,-1--1--1,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,2,48,1052,165,12,8,0,3,0,34,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,3,5,2,4,0,0,22,0,0,0,-1--1--1,,1|(1003,165)|
+1,4,5,1,100,0,0,22,0,0,0,-1--1--1,,1|(917,165)|
+11,5,48,956,165,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,6,Decaying Charging Station,956,200,57,19,40,3,0,34,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,7,Charging Stations under construction,520,160,72,39,3,131,0,34,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,8,10,1,4,0,0,22,0,0,0,-1--1--1,,1|(704,164)|
+1,9,10,7,100,0,0,22,0,0,0,-1--1--1,,1|(619,164)|
+11,10,4710,655,164,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,11,Finishing Charging Station,655,181,57,19,40,3,0,34,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,12,TIME TO BUILD A CHARGING STATION,647,48,72,19,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,13,12,11,1,0,0,0,0,64,0,-1--1--1,,1|(680,113)|
+1,14,7,11,1,0,0,0,0,64,0,-1--1--1,,1|(551,108)|
+12,15,48,260,153,12,8,0,3,0,34,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,16,18,7,4,0,0,22,0,0,0,-1--1--1,,1|(408,153)|
+1,17,18,15,100,0,0,22,0,0,0,-1--1--1,,1|(311,153)|
+11,18,48,360,153,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,19,Building Charging Station,360,188,61,19,40,3,0,34,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,20,INITIAL CHARGING STATIONS,803,28,64,19,8,3,0,32,-1,0,0,0,-1--1--1,192-255-192,Calibri|12||0-0-0,0,0,0,0,0,0
+1,21,20,1,0,0,0,0,0,192,1,-1--1--1,,1|(808,72)|
+10,22,charging station capacity to demand ratio,943,444,67,28,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,23,1,22,1,0,0,0,0,192,0,-1--1--1,,1|(807,332)|
+10,24,Actual Private Investment in Charging Stations,124,61,79,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,25,24,19,1,0,0,0,0,192,0,-1--1--1,,1|(259,105)|
+10,26,Actual Government Investment in Charging Stations,235,5,77,28,8,130,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,27,26,19,1,0,0,0,0,64,0,-1--1--1,,1|(308,92)|
+10,28,availability of charging station,1195,453,56,19,8,3,0,34,-1,0,0,0,-1--1--1,192-255-192,Calibri|12||0-0-0,0,0,0,0,0,0
+1,29,22,28,1,0,0,0,0,192,0,-1--1--1,,1|(1080,473)|
+10,30,INITIAL CHARGING STATIONS UNDER CONSTRUCTION,496,29,64,28,8,3,0,32,-1,0,0,0,-1--1--1,192-255-192,Calibri|12||0-0-0,0,0,0,0,0,0
+1,31,30,7,0,0,0,0,0,192,1,-1--1--1,,1|(505,81)|
+10,32,"ratio e-truck to charging station",1132,-32,56,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,33,1,32,1,0,0,0,0,64,0,-1--1--1,,1|(972,-12)|
+1,34,11,6,1,0,0,0,0,64,0,-1--1--1,,1|(847,232)|
+10,35,LIFETIME OF A STATION,1019,84,56,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,36,35,6,1,0,0,0,0,64,0,-1--1--1,,1|(968,136)|
+10,37,demand of charging station,696,400,61,19,8,2,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,38,37,22,1,0,0,0,0,64,0,-1--1--1,,1|(807,452)|
+1,39,20,6,1,0,0,0,0,64,1,-1--1--1,,1|(908,85)|
+10,40,CONSTRUCTION COST PER STATION,107,177,72,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,41,40,19,1,0,0,0,0,64,0,-1--1--1,,1|(232,180)|
+10,42,"E-truck Fleet Size",980,-111,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,43,42,32,0,0,0,0,0,192,0,-1--1--1,,1|(1049,-76)|
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Investment on charging stations sector
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,75,0
+10,1,Goal of charging stations for full adoption of electric trucks,836,1168,91,28,8,131,0,32,-1,0,0,0,-1--1--1,255-192-0,Calibri|12||192-255-255,0,0,0,0,0,0
+10,2,Potential Private Investment in Charging Stations,1384,424,76,43,3,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,3,48,1724,412,20,12,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,4,6,2,100,0,0,22,0,192,0,-1--1--1,,1|(1524,412)|
+1,5,6,3,4,0,0,22,0,192,0,-1--1--1,,1|(1652,412)|
+11,6,48,1592,412,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,7,Actual Private Investment in Charging Stations,1592,448,79,28,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,8,2,7,1,0,0,0,0,192,0,-1--1--1,,1|(1524,379)|
+10,9,TIME TO INVESTMENT FOR PRIVATE SECTOR,1720,304,77,19,8,3,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,10,9,7,1,0,0,0,0,192,0,-1--1--1,,1|(1653,344)|
+10,11,gap of number of charging stations based on regulation,985,1008,92,28,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,12,1,11,1,0,0,0,0,192,0,-1--1--1,,1|(845,1023)|
+10,13,market gap for charging stations,881,547,59,19,8,131,0,32,-1,0,0,0,-1--1--1,255-128-192,Calibri|12||0-0-0,0,0,0,0,0,0
+10,14,Potential Government Investment in Charging Stations,1417,735,92,52,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,15,48,1033,724,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,16,18,14,4,0,0,22,0,0,0,-1--1--1,,1|(1263,724)|
+1,17,18,15,100,0,0,22,0,0,0,-1--1--1,,1|(1116,724)|
+11,18,48,1193,724,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,19,Addition of Government Investment in Charging Stations,1193,760,81,28,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,20,48,1732,727,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,21,23,20,4,0,0,22,0,0,0,-1--1--1,,1|(1671,727)|
+1,22,23,14,100,0,0,22,0,0,0,-1--1--1,,1|(1557,727)|
+11,23,48,1613,727,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,24,Actual Government Investment in Charging Stations,1613,763,79,28,40,131,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,25,11,19,1,0,0,0,0,64,0,-1--1--1,,1|(1129,811)|
+1,26,7,24,0,0,0,0,0,64,0,-1--1--1,,1|(1601,597)|
+10,27,"TIME TO CLOSE GAP FOR GOV.",1349,964,67,25,8,131,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,28,48,1013,411,20,12,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,29,31,28,100,0,0,22,0,192,0,-1--1--1,,1|(1096,416)|
+1,30,31,2,4,0,0,22,0,192,0,-1--1--1,,1|(1240,416)|
+11,31,48,1164,416,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,32,Addition of Private Investment in Charging Stations,1164,452,79,28,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,33,CONSTRUCTION COST PER STATION,2200,591,72,19,8,2,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,34,27,19,1,0,0,0,0,192,0,-1--1--1,,1|(1236,888)|
+1,35,13,32,1,0,0,0,0,192,0,-1--1--1,,1|(996,515)|
+10,36,Sensitivity of private investors to profitability index,1068,319,84,28,8,131,0,36,-1,0,0,0,-1--1--1,192-255-255,Calibri|12||0-0-0,0,0,0,0,0,0
+1,37,36,32,1,0,0,0,0,192,0,-1--1--1,,1|(1193,351)|
+10,38,"ratio of gov. to private investment",1756,548,64,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,39,38,24,0,0,0,0,0,192,0,-1--1--1,,1|(1691,644)|
+10,40,"GOV. SUBSIDY PERCENTAGE ON CONSTRUCTION COST OF CHARGING STATIONS",2192,463,101,28,8,130,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,41,charging station profitability index,705,288,101,28,8,130,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,42,TIME TO CLOSE GAP FOR PRIVATE SECTOR,1164,551,75,19,8,3,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,43,42,32,0,0,0,0,0,192,0,-1--1--1,,1|(1164,512)|
+10,44,"gov. portion of investment per station",1940,500,77,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,45,private portion of investment per station,1953,604,77,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,46,44,38,0,0,0,0,0,192,0,-1--1--1,,1|(1852,521)|
+1,47,45,38,0,0,0,0,0,192,0,-1--1--1,,1|(1860,575)|
+1,48,40,44,0,0,0,0,0,192,0,-1--1--1,,1|(2060,481)|
+1,49,33,44,0,0,0,0,0,192,0,-1--1--1,,1|(2076,548)|
+1,50,33,45,0,0,0,0,0,192,0,-1--1--1,,1|(2085,595)|
+1,51,40,45,0,0,0,0,0,192,0,-1--1--1,,1|(2072,533)|
+10,52,"gov. portion of investment per station",1148,956,81,19,8,2,0,33,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,53,private portion of investment per station,901,451,81,19,8,2,0,37,-1,0,0,0,128-128-128,255-255-255,Calibri|12||128-128-128,0,0,0,0,0,0
+1,54,53,32,1,0,0,0,0,192,0,-1--1--1,,1|(1045,467)|
+1,55,52,19,0,0,0,0,0,192,0,-1--1--1,,1|(1167,867)|
+12,56,48,1405,591,19,11,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,57,59,2,100,0,0,22,0,192,0,-1--1--1,,1|(1401,492)|
+1,58,59,56,4,0,0,22,0,192,0,-1--1--1,,1|(1401,555)|
+11,59,48,1401,523,8,8,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,60,"Deciding not to invest (reluctance to invest)",1480,523,75,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,61,2,60,1,0,0,0,0,192,0,-1--1--1,,1|(1492,472)|
+10,62,RELUCTANCE TO INVEST RATE,1489,591,60,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,63,62,60,1,0,0,0,0,192,0,-1--1--1,,1|(1504,555)|
+12,64,0,2680,460,288,244,3,188,0,32,2,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+Potential Private Investment in Charging Stations,Graph
+12,65,0,2680,972,288,232,3,188,0,32,2,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+Potential Government Investment in Charging Stations,Graph
+10,66,INITIAL POTENTIAL PRIVATE FUND,1397,292,65,19,8,3,0,32,0,0,0,0,-1--1--1,192-255-192,Calibri|12||0-0-0,0,0,0,0,0,0
+1,67,66,2,0,0,0,0,0,64,1,-1--1--1,,1|(1392,337)|
+10,68,INITIAL POTENTIAL PUBLIC FUND,1433,880,65,19,8,3,0,32,0,0,0,0,-1--1--1,192-255-192,Calibri|12||0-0-0,0,0,0,0,0,0
+1,69,68,14,0,0,0,0,0,64,1,-1--1--1,,1|(1427,829)|
+12,70,0,1652,1280,224,196,3,188,0,32,1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+Private_vs_Gov._potential_funds
+10,71,future demand of charging station,625,411,59,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,72,"charging consumption per e-truck per year",377,544,80,19,8,130,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,73,72,71,1,0,0,0,0,192,0,-1--1--1,,1|(448,467)|
+1,74,71,13,1,0,0,0,0,192,0,-1--1--1,,1|(748,475)|
+10,75,"ON-OFF SWITCH for considering future charging demand",588,511,68,28,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,76,75,13,1,0,0,0,0,192,0,-1--1--1,,1|(725,503)|
+10,77,demand of charging station,492,679,56,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,78,72,77,1,0,0,0,0,64,0,-1--1--1,,1|(417,620)|
+1,79,77,13,1,0,0,0,0,64,0,-1--1--1,,1|(692,627)|
+10,80,Gov Charging subsidy stock,1936,875,120,36,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,81,48,1608,871,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,82,84,80,4,0,0,22,0,0,0,-1--1--1,,1|(1768,879)|
+1,83,84,81,100,0,0,22,0,0,0,-1--1--1,,1|(1661,879)|
+11,84,48,1712,879,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,85,"Annual gov. subsidy on charging",1712,904,68,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,86,24,85,1,0,0,0,0,64,0,-1--1--1,,1|(1701,836)|
+1,87,14,24,1,0,0,0,0,64,0,-1--1--1,,1|(1560,671)|
+12,88,0,3165,-276,80,28,8,135,0,52,-1,0,0,0,-1--1--1,255-192-128,Calibri|12|B|0-0-0,0,0,0,0,0,0
+Sweden Target for charginh station 2030: 4700
+10,89,EMISSION LEVEL IN 2010,253,928,57,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,90,"Total annual emission from trucks (tank to wheel)",561,1140,80,28,8,130,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,91,EMISSION REDUCTION GOAL IN 2030,284,815,73,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,92,EMISSION REDUCTION GOAL IN 2045,325,1032,73,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,93,14,19,1,0,0,0,0,64,0,-1--1--1,,1|(1297,820)|
+10,94,Time,953,863,28,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,95,goal of emission level in 2030,561,867,57,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,96,goal of emission level in 2045,553,967,57,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,97,91,95,1,0,0,0,0,64,0,-1--1--1,,1|(401,876)|
+1,98,89,95,1,0,0,0,0,64,0,-1--1--1,,1|(384,919)|
+1,99,89,96,1,0,0,0,0,64,0,-1--1--1,,1|(389,967)|
+1,100,92,96,0,0,0,0,0,64,0,-1--1--1,,1|(441,997)|
+10,101,emission reduction factor compared to 2010 level,264,1164,84,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,102,89,101,1,0,0,0,0,64,0,-1--1--1,,1|(197,1039)|
+1,103,90,101,0,0,0,0,0,64,0,-1--1--1,,1|(424,1148)|
+1,104,95,19,1,0,0,0,0,64,0,-1--1--1,,1|(849,768)|
+1,105,96,19,1,0,0,0,0,64,0,-1--1--1,,1|(833,820)|
+1,106,90,19,1,0,0,0,0,64,0,-1--1--1,,1|(812,867)|
+1,107,94,19,0,0,0,0,0,64,0,-1--1--1,,1|(1047,821)|
+10,108,time unit,632,224,39,11,8,2,1,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,109,PLANNING HORIZON,332,239,36,19,8,3,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,110,109,71,1,0,0,0,0,192,0,-1--1--1,,1|(537,336)|
+10,111,TIMEFRAME OF AVERAGE,269,312,56,19,8,3,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,112,111,71,1,0,0,0,0,192,0,-1--1--1,,1|(401,316)|
+10,113,Installed Charging Stations,768,684,67,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,114,113,13,0,0,0,0,0,192,0,-1--1--1,,1|(819,619)|
+10,115,"E-truck Fleet Size",272,716,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,116,115,77,0,0,0,0,0,192,0,-1--1--1,,1|(371,700)|
+10,117,"E-truck Sales",193,436,52,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,118,117,71,1,0,0,0,0,192,0,-1--1--1,,1|(388,408)|
+10,119,Installed Charging Stations,1092,1164,67,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,120,119,11,1,0,0,0,0,192,0,-1--1--1,,1|(1117,1076)|
+12,121,0,2124,1280,232,197,3,188,0,32,1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+Private_vs_Gov_investment_in_charging_infrastructure
+10,122,maximum available capacity of a station per year,120,547,83,28,8,130,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,123,122,71,1,0,0,0,0,64,0,-1--1--1,,1|(320,448)|
+1,124,122,77,1,0,0,0,0,64,0,-1--1--1,,1|(220,628)|
+10,125,"Lookup for unsteady scenario for switch on-off",593,596,73,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,126,41,36,1,0,0,0,0,64,0,-1--1--1,,1|(932,268)|
+10,127,SWEDEN ROAD LENGHT,724,1312,53,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,128,IDEAL DENSITY OF CHARGING STATIONS BASED ON EU REGULATIONS,965,1299,100,28,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,129,127,1,1,0,0,0,0,64,0,-1--1--1,,1|(737,1243)|
+1,130,128,1,1,0,0,0,0,64,0,-1--1--1,,1|(836,1255)|
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Charging station cost and profitability sector
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,75,0
+10,1,cost of electricity per station per year,1328,-581,72,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,2,Average energy demand from each station per year,1153,-440,92,19,8,131,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,3,PRICE OF ELECTRICITY,1193,-668,44,19,8,3,0,32,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,4,3,1,1,0,0,0,0,64,0,-1--1--1,,1|(1284,-636)|
+10,5,CHARGE RETAIL PRICE,1336,139,55,19,8,3,0,32,-1,0,0,0,-1--1--1,0-0-0,Calibri|12||128-0-128,0,0,0,0,0,0
+10,6,CONSTRUCTION COST PER STATION,1349,823,68,19,8,3,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,7,"GOV. SUBSIDY PERCENTAGE ON CONSTRUCTION COST OF CHARGING STATIONS",2264,-500,101,28,8,3,0,32,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,8,operation cost per station per year,1545,-525,64,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,9,revenue per station per year,1677,-192,56,19,8,3,0,32,-1,0,0,0,-1--1--1,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,10,1,8,1,0,0,0,0,192,0,-1--1--1,,1|(1428,-592)|
+10,11,sale revenue,1448,-85,44,11,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,12,Ancillary revenue,1648,-53,60,11,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,13,5,11,1,0,0,0,0,192,0,-1--1--1,,1|(1504,43)|
+1,14,11,9,1,0,0,0,0,192,0,-1--1--1,,1|(1573,-89)|
+1,15,12,9,1,0,0,0,0,192,0,-1--1--1,,1|(1677,-120)|
+10,16,charging station profitability index,2105,-237,81,28,8,131,0,32,-1,0,0,0,-1--1--1,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,17,8,16,1,0,0,0,0,192,0,-1--1--1,,1|(1760,-272)|
+1,18,9,16,1,0,0,0,0,192,0,-1--1--1,,1|(1896,-192)|
+10,19,DISCOUNT RATE,1785,-324,56,11,8,131,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,20,LIFETIME OF A STATION,1957,-404,52,19,8,3,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,21,discount factor for stations,1841,-472,63,19,8,131,0,32,-1,0,0,0,-1--1--1,192-192-192,Calibri|12||0-0-0,0,0,0,0,0,0
+1,22,20,21,1,0,0,0,0,192,0,-1--1--1,,1|(1932,-437)|
+1,23,21,16,1,0,0,0,0,192,0,-1--1--1,,1|(1885,-341)|
+10,24,MAX NOMINAL CAPACITY OF A STATION PER YEAR,1089,0,84,28,8,131,0,36,-1,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,25,time unit,1669,-477,31,11,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,26,"AVERAGE CONSUMPTION PER KM FOR E-TRUCK",477,-552,84,28,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,27,AVERAGE MILEAGE PER VEHICLE PER YEAR,484,-633,80,19,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,28,0,2673,-393,225,196,3,188,0,32,2,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+charging station profitability index,Graph
+10,29,"r (common ratio in geometric series)",1708,-404,63,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,30,19,29,0,0,0,0,0,64,0,-1--1--1,,1|(1755,-356)|
+1,31,29,21,1,0,0,0,0,64,0,-1--1--1,,1|(1736,-444)|
+10,32,construction cost per station paid by infra providers,2156,-392,72,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,33,7,32,1,0,0,0,0,64,0,-1--1--1,,1|(2189,-464)|
+1,34,32,16,0,0,0,0,0,64,0,-1--1--1,,1|(2132,-323)|
+1,35,25,21,1,0,0,0,0,64,0,-1--1--1,,1|(1729,-465)|
+10,36,utilization rate of a station,1129,-324,59,19,8,3,0,32,0,0,0,0,-1--1--1,0-0-0,Calibri|12||64-160-98,0,0,0,0,0,0
+1,37,2,36,1,0,0,0,0,64,0,-1--1--1,,1|(1120,-393)|
+10,38,utilized capacity of a station per year,1380,-312,71,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,39,36,38,1,0,0,0,0,64,0,-1--1--1,,1|(1261,-380)|
+1,40,38,1,1,0,0,0,0,64,0,-1--1--1,,1|(1429,-488)|
+1,41,38,11,1,0,0,0,0,64,0,-1--1--1,,1|(1468,-161)|
+10,42,"charging consumption per e-truck per year",716,-584,75,19,8,131,0,32,0,0,0,0,-1--1--1,128-192-255,Calibri|12||0-0-0,0,0,0,0,0,0
+1,43,42,2,1,0,0,0,0,64,0,-1--1--1,,1|(881,-493)|
+10,44,"total operational cost per station, accumulated over lifetime years",1749,-604,89,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,45,8,44,0,0,0,0,0,64,0,-1--1--1,,1|(1628,-559)|
+1,46,21,44,0,0,0,0,0,64,0,-1--1--1,,1|(1804,-528)|
+1,47,27,42,0,0,0,0,0,64,0,-1--1--1,,1|(595,-611)|
+1,48,26,42,0,0,0,0,0,64,0,-1--1--1,,1|(596,-568)|
+10,49,Time,1193,-628,28,11,8,2,1,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,50,income of electricity stock,1244,-812,76,29,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,51,48,1000,-808,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,52,54,50,4,0,0,22,0,0,0,-1--1--1,,1|(1124,-808)|
+1,53,54,51,100,0,0,22,0,0,0,-1--1--1,,1|(1035,-808)|
+11,54,48,1069,-808,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,55,"Annual income of electricity (inflow)",1069,-773,64,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,56,42,55,1,0,0,0,0,64,0,-1--1--1,,1|(800,-724)|
+1,57,3,55,0,0,0,0,0,64,0,-1--1--1,,1|(1136,-716)|
+10,58,Time,1305,-512,28,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,59,58,78,0,0,0,0,0,64,0,-1--1--1,,1|(1248,-536)|
+10,60,Total power supply by all charging station per year,660,-92,85,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,61,38,60,1,0,0,0,0,64,0,-1--1--1,,1|(1292,-40)|
+10,62,"Power supply per e-truck per year",660,-285,59,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,63,60,62,1,0,0,0,0,64,0,-1--1--1,,1|(621,-212)|
+10,64,MARGIN OF CHARGING PROVIDERS FOR ELECTRICITY PRICE,1453,288,80,28,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,65,utilized capacity of a station per year,1236,319,75,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,66,"Construction cost paid by infra providers per station per year (discounted)",1029,140,104,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,67,discount factor for stations,908,291,56,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,68,67,66,1,0,0,0,0,64,0,-1--1--1,,1|(944,211)|
+10,69,construction cost per station paid by infra providers,737,231,76,28,8,130,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,70,69,66,1,0,0,0,0,64,0,-1--1--1,,1|(817,172)|
+10,71,operation cost per station per year,1112,216,67,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,72,71,5,0,0,0,0,0,64,0,-1--1--1,,1|(1217,180)|
+1,73,66,5,0,0,0,0,0,64,0,-1--1--1,,1|(1200,140)|
+1,74,65,5,0,0,0,0,0,64,0,-1--1--1,,1|(1284,235)|
+1,75,64,5,1,0,0,0,0,64,0,-1--1--1,,1|(1365,203)|
+10,76,PRICE OF ELECTRICITY,1524,172,48,19,8,130,0,35,-1,0,0,0,160-160-160,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,77,76,5,0,0,0,0,0,64,0,-1--1--1,,1|(1440,156)|
+10,78,time for price of electricity,1153,-572,55,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,79,78,3,0,0,0,0,0,192,0,-1--1--1,,1|(1169,-616)|
+10,80,time for utilization,1009,-193,39,19,8,2,1,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,81,"E-truck Fleet Size",848,-412,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,82,81,55,1,0,0,0,0,192,0,-1--1--1,,1|(916,-600)|
+1,83,81,2,1,0,0,0,0,192,0,-1--1--1,,1|(952,-432)|
+1,84,81,62,1,0,0,0,0,192,0,-1--1--1,,1|(740,-368)|
+10,85,Installed Charging Stations,860,-296,67,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,86,85,2,1,0,0,0,0,192,0,-1--1--1,,1|(972,-396)|
+1,87,85,60,1,0,0,0,0,192,0,-1--1--1,,1|(712,-193)|
+10,88,sensitivity coefficient for PRICE OF ELECTRICITY,996,-593,92,23,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,89,88,3,0,0,0,0,0,64,0,-1--1--1,,1|(1096,-632)|
+10,90,maximum available capacity of a station per year,1052,-92,83,28,8,131,0,32,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,91,Gov Charging subsidy stock 2,2312,-860,85,31,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,92,48,2032,-856,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,93,95,91,4,0,0,22,0,0,0,-1--1--1,,1|(2185,-845)|
+1,94,95,92,100,0,0,22,0,0,0,-1--1--1,,1|(2136,-856)|
+11,95,48,2136,-845,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,96,"annual gov. subsidy on charging 2",2136,-824,68,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,97,Building Charging Station,1949,-772,65,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,98,97,96,0,0,0,0,0,64,0,-1--1--1,,1|(2036,-799)|
+1,99,7,96,1,0,0,0,0,64,0,-1--1--1,,1|(2256,-657)|
+10,100,Gov Charging subsidy stock,2313,-956,52,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,101,"Annual gov. subsidy on charging",2117,-944,72,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,102,"e-truck share in total fleet",2356,-701,79,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,103,102,7,1,0,0,0,0,64,0,-1--1--1,,1|(2361,-589)|
+10,104,total consumption of electric fleet,496,-333,71,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,105,42,104,1,0,0,0,0,64,0,-1--1--1,,1|(616,-448)|
+1,106,81,104,1,0,0,0,0,64,0,-1--1--1,,1|(636,-388)|
+10,107,total capacity of all installed station,464,-72,68,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,108,90,107,1,0,0,0,0,64,0,-1--1--1,,1|(808,-5)|
+1,109,85,107,1,0,0,0,0,64,0,-1--1--1,,1|(641,-220)|
+10,110,utilization in total,444,-240,59,11,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,111,104,110,0,0,0,0,0,64,0,-1--1--1,,1|(471,-288)|
+1,112,107,110,0,0,0,0,0,64,0,-1--1--1,,1|(456,-156)|
+10,113,sensitivity coefficient for CHARGING SUBSIDY,2552,-700,97,25,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,114,113,7,1,0,0,0,0,64,0,-1--1--1,,1|(2420,-545)|
+10,115,"Availability of charging station-percentage",281,-180,69,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,116,"utilization in total-percentage",281,-273,57,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,117,110,116,0,0,0,0,0,64,0,-1--1--1,,1|(369,-257)|
+10,118,Gov fund on EL price stock,973,-936,75,36,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,119,48,672,-944,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,120,122,118,4,0,0,22,0,0,0,-1--1--1,,1|(829,-937)|
+1,121,122,119,100,0,0,22,0,0,0,-1--1--1,,1|(713,-937)|
+11,122,48,753,-937,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,123,annual gov fund on EL price,753,-916,55,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,124,42,123,1,0,0,0,0,64,0,-1--1--1,,1|(724,-732)|
+1,125,81,123,0,0,0,0,0,64,0,-1--1--1,,1|(801,-660)|
+1,126,88,123,1,0,0,0,0,64,0,-1--1--1,,1|(877,-752)|
+1,127,78,123,1,0,0,0,0,64,0,-1--1--1,,1|(949,-720)|
+10,128,"utilization rate of a station-percentage",389,28,69,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,129,"max possible utilization rate of a station-percentage",397,120,81,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,130,charging station capacity to demand ratio,176,247,67,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,131,"Charging station Capacity to demand ratio-percentage",409,255,88,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,132,130,131,0,0,0,0,0,64,0,-1--1--1,,1|(275,249)|
+10,133,"100 line",416,324,28,11,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,134,Lookup for unsteady scenario for all levers except EL,2583,-817,76,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,135,Lookup for unsteady scenario for EL,1016,-509,73,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,136,"max possible utilization rate of a station (lookup number of e-trucks)",917,-189,95,28,8,3,0,4,0,0,0,0,-1--1--1,192-255-255,|14||128-64-0,0,0,0,0,0,0
+1,137,136,90,0,0,0,0,2,64,0,-1--1--1,|12||0-0-0,1|(980,-147)|
+1,138,136,36,1,0,0,0,2,64,0,-1--1--1,|12||0-0-0,1|(1020,-209)|
+10,139,"max possible utilization rate of a station (lookup number of e-trucks)",157,128,100,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,140,139,129,1,0,0,0,0,64,0,-1--1--1,,1|(293,92)|
+10,141,"e-truck share in total fleet",849,-104,79,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,142,141,136,0,0,0,0,0,64,0,-1--1--1,,1|(876,-136)|
+10,143,Average Power of Charging Station,953,567,100,40,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,144,48,613,559,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,145,147,143,4,0,0,22,0,0,0,-1--1--1,,1|(791,559)|
+1,146,147,144,100,0,0,22,0,0,0,-1--1--1,,1|(668,559)|
+11,147,48,721,559,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,148,Increase in Average Power of Charging Station,721,595,68,28,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,149,average power of charging station gap,800,700,72,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,150,MAXIMUM AVERAGE POWER OF CHARGING STATION,933,804,80,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,151,INITIAL AVERAGE POWER OF CHARGING STATION,1069,448,80,28,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,152,151,143,0,0,0,0,0,64,1,-1--1--1,,1|(1021,495)|
+1,153,143,149,0,0,0,0,0,64,0,-1--1--1,,1|(869,640)|
+1,154,150,149,1,0,0,0,0,64,0,-1--1--1,,1|(848,775)|
+1,155,149,148,1,0,0,0,0,64,0,-1--1--1,,1|(736,675)|
+10,156,ADJ TIME OF POWER OF CHARGING STATION,433,632,81,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,157,156,148,1,0,0,0,0,64,0,-1--1--1,,1|(565,636)|
+10,158,TEHNOLOGY MATURITY OF POWER OF CHARGING STATION,557,736,96,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,159,Time,593,911,28,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,160,158,148,1,0,0,0,0,64,0,-1--1--1,,1|(656,671)|
+10,161,TOTAL HOURS IN A YEAR,1169,656,56,32,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,162,"maximum nominal capacity of a charging station per year (NEW)",1329,568,93,28,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,163,143,162,1,0,0,0,0,64,0,-1--1--1,,1|(1137,528)|
+1,164,161,162,1,0,0,0,0,64,0,-1--1--1,,1|(1272,627)|
+10,165,"maximum nominal capacity of a charging station per year (NEW)",1225,-181,96,37,8,130,0,7,-1,0,0,0,128-128-128,192-255-255,|12||128-128-128,0,0,0,0,0,0
+1,166,165,38,0,0,0,0,0,64,0,-1--1--1,,1|(1307,-252)|
+1,167,165,36,0,0,0,0,0,64,0,-1--1--1,,1|(1176,-257)|
+1,168,165,90,0,0,0,0,0,64,0,-1--1--1,,1|(1135,-137)|
+10,169,CONSTRUCTION COST PER kW,1109,907,65,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,170,time for tech maturity of power of charging station,560,851,80,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,171,159,170,0,0,0,0,0,64,0,-1--1--1,,1|(581,891)|
+1,172,170,158,0,0,0,0,0,64,0,-1--1--1,,1|(560,803)|
+10,173,"operational & maintenance cost of a station (based on utilisation)",1832,811,85,28,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,174,OPERATION AND MAINTENANCE COST PER kWh UTILIZED CAPACITY,1564,812,101,28,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,175,utilized capacity of a station per year,1564,724,69,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,176,175,173,0,0,0,0,0,64,0,-1--1--1,,1|(1677,759)|
+1,177,174,173,0,0,0,0,0,64,0,-1--1--1,,1|(1699,812)|
+10,179,Time,221,-560,28,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,187,Sensitivity of private investors to profitability index,644,1064,71,28,8,2,0,7,-1,0,0,0,128-128-128,255-192-128,|12||128-128-128,0,0,0,0,0,0
+10,188,"max possible utilization rate of a station (lookup number of e-trucks)",424,1064,96,28,8,2,0,7,-1,0,0,0,128-128-128,255-192-128,|12||128-128-128,0,0,0,0,0,0
+10,190,"operational & maintenance cost of a station (based on percentage of capex)",1644,-709,100,28,8,131,0,4,0,0,0,0,-1--1--1,192-255-255,|12||0-0-0,0,0,0,0,0,0
+1,191,190,8,1,0,0,0,0,64,0,-1--1--1,,1|(1580,-617)|
+1,192,143,6,0,0,0,0,0,64,0,-1--1--1,,1|(1160,701)|
+1,193,169,6,0,0,0,0,0,64,0,-1--1--1,,1|(1221,867)|
+10,194,CONSTRUCTION COST PER STATION,2105,-612,81,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,195,194,96,0,0,0,0,0,64,0,-1--1--1,,1|(2120,-712)|
+1,196,194,32,0,0,0,0,0,64,0,-1--1--1,,1|(2127,-516)|
+1,197,194,190,0,0,0,0,0,64,0,-1--1--1,,1|(1892,-659)|
+10,198,CHARGING CAPEX TO OPEX CONVERSION FACTOR,1743,-824,85,28,8,131,0,0,0,0,0,0,0,0,0,0,0,0
+1,199,198,190,0,0,0,0,0,64,0,-1--1--1,,1|(1700,-772)|
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Vehicle cost sector
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,100,0
+10,1,electric truck total cost,1300,480,45,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,2,"annual operation cost (opex) of each e-truck",1035,296,75,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,3,purchase cost paid by freight companies,1368,297,76,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,4,"GOV. SUBSIDY PERCENTAGE ON DIFFERENCE BETWEEN E-TRUCK & DIESEL TRUCK PURCHASE COSTS",1444,161,120,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,5,PURCHASE COST OF DIESEL TRUCK,1555,508,69,19,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,6,4,3,1,0,0,0,0,64,0,-1--1--1,,1|(1456,245)|
+1,7,5,3,1,0,0,0,0,64,0,-1--1--1,,1|(1540,377)|
+10,8,CHARGE RETAIL PRICE,540,261,59,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,9,diesel truck total cost,1316,592,60,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,10,AVERAGE CONSUMPTION PER KM FOR DIESEL TRUCK,339,736,93,19,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,11,"annual fuel consumption (Litr) per diesel truck",748,896,75,28,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,12,DIESEL RETAIL PRICE,436,857,49,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,13,DIESEL TRUCK LIFETIME,555,525,49,19,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,14,"e-truck discounted total Opex",1052,429,64,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,15,"discount factor for e-truck",860,396,63,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,16,"r (common ratio in geometric series)",576,444,67,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,17,16,15,0,0,0,0,0,64,0,-1--1--1,,1|(711,420)|
+1,18,15,14,0,0,0,0,0,64,0,-1--1--1,,1|(948,412)|
+1,19,2,14,1,0,0,0,0,64,0,-1--1--1,,1|(1075,349)|
+1,20,3,1,1,0,0,0,0,64,0,-1--1--1,,1|(1287,373)|
+1,21,14,1,1,0,0,0,0,64,0,-1--1--1,,1|(1164,436)|
+10,22,discount factor for diesel truck,880,489,63,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,23,16,22,0,0,0,0,0,64,0,-1--1--1,,1|(721,464)|
+1,24,13,22,0,0,0,0,0,64,0,-1--1--1,,1|(704,508)|
+10,25,diesel truck discounted total opex,1051,577,76,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,26,22,25,0,0,0,0,0,64,0,-1--1--1,,1|(957,529)|
+1,27,25,9,0,0,0,0,0,64,0,-1--1--1,,1|(1183,584)|
+10,28,Time,200,956,28,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,29,28,56,0,0,0,0,0,64,0,-1--1--1,,1|(228,932)|
+12,30,0,2872,685,264,175,3,188,0,32,1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+Electric_vs_diesel_opex_cost
+12,31,0,2323,685,268,176,3,188,0,32,1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+Electric_vs_diesel_purchase_price
+10,32,"Gov. vehicle subsidy stock",1828,20,61,24,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,33,48,1604,17,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,34,36,32,4,0,0,22,0,0,0,-1--1--1,,1|(1721,17)|
+1,35,36,33,100,0,0,22,0,0,0,-1--1--1,,1|(1637,17)|
+11,36,48,1672,17,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,37,"Annual gov. subsidy on vehicle purchase cost",1672,52,79,19,40,131,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,38,4,37,0,0,0,0,0,64,0,-1--1--1,,1|(1560,105)|
+10,39,Diesel Truck Fleet Size,996,1116,43,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,40,"Income of Diesel (Stock)",980,965,95,29,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,41,48,747,973,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,42,44,40,4,0,0,22,0,0,0,-1--1--1,,1|(847,973)|
+1,43,44,41,100,0,0,22,0,0,0,-1--1--1,,1|(776,973)|
+11,44,48,803,973,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,45,"Annual Income of Diesel (inflow)",803,1008,60,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,46,11,45,1,0,0,0,0,64,0,-1--1--1,,1|(808,933)|
+1,47,12,45,0,0,0,0,0,64,0,-1--1--1,,1|(611,929)|
+1,48,39,45,0,0,0,0,0,64,0,-1--1--1,,1|(904,1065)|
+10,49,Kwh to Litre converter,436,1077,45,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,50,"DIESEL RETAIL PRICE (SEK/kWh)",519,1024,60,19,8,3,0,32,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,51,12,50,0,0,0,0,0,64,0,-1--1--1,,1|(472,936)|
+1,52,49,50,0,0,0,0,0,64,0,-1--1--1,,1|(472,1056)|
+10,53,time unit,772,437,39,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,54,53,15,0,0,0,0,0,64,0,-1--1--1,,1|(800,423)|
+1,55,53,22,0,0,0,0,0,64,0,-1--1--1,,1|(808,455)|
+10,56,time for diesel price,279,889,52,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,57,56,12,0,0,0,0,0,192,0,-1--1--1,,1|(351,876)|
+10,58,AVERAGE MILEAGE PER VEHICLE PER YEAR,575,704,84,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,59,"E-TRUCK LIFETIME",592,357,36,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,60,59,15,0,0,0,0,0,192,0,-1--1--1,,1|(703,373)|
+10,61,"E-truck Fleet Size",796,1081,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,62,Total Truck Fleet Size,804,1153,43,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,63,61,39,0,0,0,0,0,192,0,-1--1--1,,1|(889,1097)|
+1,64,62,39,0,0,0,0,0,192,0,-1--1--1,,1|(891,1135)|
+10,65,ratio of technology maturity to goal,1872,437,69,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,66,"E-truck Sales",1435,24,52,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,67,66,37,0,0,0,0,0,192,0,-1--1--1,,1|(1532,35)|
+10,68,sensitivity coefficient for DIESEL,347,985,83,24,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,69,68,12,1,0,0,0,0,64,0,-1--1--1,,1|(411,893)|
+10,70,"e-truck share in total fleet",1236,12,79,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,71,70,4,0,0,0,0,0,64,0,-1--1--1,,1|(1325,77)|
+10,72,sensitivity coefficient for VEHICLE SUBSIDY,1156,112,80,20,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,73,72,4,0,0,0,0,0,64,0,-1--1--1,,1|(1271,131)|
+10,74,Gov Fund on Diesel Price,896,1305,92,36,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,75,48,591,1309,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,76,78,74,4,0,0,22,0,0,0,-1--1--1,,1|(740,1309)|
+1,77,78,75,100,0,0,22,0,0,0,-1--1--1,,1|(632,1309)|
+11,78,48,671,1309,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,79,Annual Gov Fund on Diesel Price,671,1344,68,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,80,11,79,1,0,0,0,0,64,0,-1--1--1,,1|(627,1105)|
+1,81,39,79,0,0,0,0,0,64,0,-1--1--1,,1|(840,1225)|
+1,82,56,79,1,0,0,0,0,64,0,-1--1--1,,1|(259,1076)|
+1,83,68,79,1,0,0,0,0,64,0,-1--1--1,,1|(356,1132)|
+10,84,Lookup for unsteady scenario for all levers except EL,1040,9,76,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,85,Lookup for unsteady scenario for all levers except EL,160,1072,76,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,86,cost of electricity per km,812,220,59,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,87,"AVERAGE CONSUMPTION PER KM FOR E-TRUCK",523,181,84,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,88,87,86,0,0,0,0,0,64,0,-1--1--1,,1|(672,200)|
+1,89,8,86,0,0,0,0,0,64,0,-1--1--1,,1|(667,241)|
+10,90,"MAINTENANCE COST PER KM FOR E-TRUCK",792,292,75,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,91,86,2,0,0,0,0,0,64,0,-1--1--1,,1|(915,255)|
+1,92,90,2,0,0,0,0,0,64,0,-1--1--1,,1|(905,293)|
+10,93,AVERAGE MILEAGE PER VEHICLE PER YEAR,655,116,84,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,94,93,2,1,0,0,0,0,64,0,-1--1--1,,1|(851,181)|
+10,95,cost of diesel fuel per km,576,765,61,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,96,10,95,0,0,0,0,0,64,0,-1--1--1,,1|(465,751)|
+1,97,12,95,0,0,0,0,0,64,0,-1--1--1,,1|(497,816)|
+10,98,MAINTENANCE COST PER KM FOR DIESEL TRUCK,584,609,72,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,99,"annual operation cost (Opex) of each diesel truck",843,700,76,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,100,58,99,0,0,0,0,0,64,0,-1--1--1,,1|(708,704)|
+1,101,95,99,0,0,0,0,0,64,0,-1--1--1,,1|(696,736)|
+1,102,98,99,0,0,0,0,0,64,0,-1--1--1,,1|(703,651)|
+1,103,99,25,0,0,0,0,0,64,0,-1--1--1,,1|(947,637)|
+1,104,58,11,0,0,0,0,0,64,0,-1--1--1,,1|(651,792)|
+1,105,10,11,1,0,0,0,0,64,0,-1--1--1,,1|(504,833)|
+1,106,5,9,1,0,0,0,0,64,0,-1--1--1,,1|(1492,620)|
+10,107,"Purchase Cost of E-trucks",1651,292,60,28,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,108,48,1924,281,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,109,111,108,4,0,0,22,0,0,0,-1--1--1,,1|(1871,285)|
+1,110,111,107,100,0,0,22,0,0,0,-1--1--1,,1|(1764,285)|
+11,111,48,1824,285,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,112,"Decrease in purchase cost of e-truck",1824,320,76,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,113,purchase cost gap,1664,380,48,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,114,5,113,0,0,0,0,0,64,0,-1--1--1,,1|(1603,449)|
+1,115,107,113,1,0,0,0,0,64,0,-1--1--1,,1|(1659,325)|
+10,116,LEARNING EFFECT DELAY,1735,481,49,19,8,3,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,117,65,112,0,0,0,0,0,64,0,-1--1--1,,1|(1848,384)|
+1,118,116,112,0,0,0,0,0,64,0,-1--1--1,,1|(1776,408)|
+1,119,113,112,1,0,0,0,0,64,0,-1--1--1,,1|(1720,325)|
+1,120,107,37,0,0,0,0,0,64,0,-1--1--1,,1|(1659,176)|
+1,121,5,37,1,0,0,0,0,64,0,-1--1--1,,1|(1616,200)|
+1,122,107,3,0,0,0,0,0,64,0,-1--1--1,,1|(1523,293)|
+12,123,0,2612,1044,265,169,3,188,0,32,1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+total_cost_of_e-truck_vs._d-truck
+10,124,"INITIAL PURCHASE COST OF E-TRUCKS",1779,188,80,19,8,3,0,4,0,0,0,0,-1--1--1,128-192-0,|12||0-0-0,0,0,0,0,0,0
+1,125,124,107,0,0,0,0,0,64,1,-1--1--1,,1|(1725,231)|
+10,127,Time,204,632,28,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,136,MARGIN OF CHARGING PROVIDERS FOR ELECTRICITY PRICE,328,1509,96,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,137,Sensitivity of private investors to profitability index,112,1517,71,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,138,0,2076,525,9,19,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|24||64-160-98,0,0,0,0,0,0
+a
+12,139,0,3215,1220,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,140,0,2615,529,12,19,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|24||64-160-98,0,0,0,0,0,0
+b
+12,141,0,2355,889,9,19,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|24||64-160-98,0,0,0,0,0,0
+c
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Emission sector
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,75,0
+10,1,"Carbon intensity of electricity (fuel)",1884,296,65,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,2,"charging consumption per e-truck per year",1675,312,80,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,3,"Annual operational emission from e-trucks",1595,108,80,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,4,1,3,1,0,0,0,0,64,0,-1--1--1,,1|(1772,149)|
+1,5,2,3,1,0,0,0,0,64,0,-1--1--1,,1|(1692,157)|
+10,6,Annual operational emission from diesel trucks,972,128,71,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,7,"annual fuel consumption (Litr) per diesel truck",991,669,75,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,8,Diesel Truck Fleet Size,1224,357,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,9,Kwh to Litre converter,931,552,41,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,10,"Total annual emission from trucks (tank to wheel)",1336,-3,75,28,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,11,6,10,1,0,0,0,0,64,0,-1--1--1,,1|(1132,28)|
+1,12,3,10,1,0,0,0,0,64,0,-1--1--1,,1|(1495,33)|
+10,13,total annual amount of energy,1379,504,60,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,14,8,13,1,0,0,0,0,64,0,-1--1--1,,1|(1255,448)|
+1,15,2,13,1,0,0,0,0,64,0,-1--1--1,,1|(1540,416)|
+10,16,"Emission per kwh, annually",1336,-115,64,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,17,total annual amount of energy,1107,-88,65,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,18,17,16,0,0,0,0,0,64,0,-1--1--1,,1|(1215,-100)|
+1,19,10,16,0,0,0,0,0,64,0,-1--1--1,,1|(1336,-56)|
+10,20,Diesel Truck Fleet Size,328,797,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,21,Share of diesel truck in total fleet size,535,845,72,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,22,20,21,0,0,0,0,0,64,0,-1--1--1,,1|(412,815)|
+10,23,CARBON SOCIETY COST,1632,-103,52,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,24,Annual carbon cost,1851,25,49,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,25,23,24,1,0,0,0,0,64,0,-1--1--1,,1|(1747,-65)|
+1,26,10,24,1,0,0,0,0,64,0,-1--1--1,,1|(1588,-28)|
+10,27,Time,1460,-244,28,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,28,27,69,0,0,0,0,0,64,0,-1--1--1,,1|(1476,-215)|
+10,29,"annual fuel consumption (kWh) per diesel truck",1120,537,84,19,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,30,9,29,0,0,0,0,0,64,0,-1--1--1,,1|(997,548)|
+1,31,7,29,1,0,0,0,0,64,0,-1--1--1,,1|(1044,632)|
+1,32,29,13,1,0,0,0,0,64,0,-1--1--1,,1|(1211,545)|
+10,33,"Total Gov. Funds",2607,453,103,35,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,34,48,2324,464,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,35,37,33,4,0,0,22,0,0,0,-1--1--1,,1|(2460,460)|
+1,36,37,34,100,0,0,22,0,0,0,-1--1--1,,1|(2367,460)|
+11,37,48,2408,460,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,38,"Annual Total Gov. Funds",2408,485,61,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,39,"Annual gov. subsidy on vehicle purchase cost",2547,652,83,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,40,"Annual gov. subsidy on charging",2347,645,72,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,41,40,38,1,0,0,0,0,64,0,-1--1--1,,1|(2360,572)|
+1,42,39,38,1,0,0,0,0,64,0,-1--1--1,,1|(2451,565)|
+10,43,"Cumulative Emission without any e-trucks",2531,-123,163,53,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,44,48,2176,-119,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,45,47,43,4,0,0,22,0,0,0,-1--1--1,,1|(2311,-117)|
+1,46,47,44,100,0,0,22,0,0,0,-1--1--1,,1|(2212,-117)|
+11,47,48,2247,-117,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,48,"Annual Emission (without any e-trucks)",2247,-88,75,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,49,"Cumulative Emission with having e-trucks",2532,73,169,56,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,50,48,2183,69,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,51,53,49,4,0,0,22,0,0,0,-1--1--1,,1|(2323,71)|
+1,52,53,50,100,0,0,22,0,0,0,-1--1--1,,1|(2232,71)|
+11,53,48,2275,71,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,54,"Annual Emission (with having e-trucks)",2275,100,76,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,55,total annual amount of energy,2283,-212,65,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,56,"Total annual emission from trucks (tank to wheel)",2320,217,80,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,57,55,48,0,0,0,0,0,64,0,-1--1--1,,1|(2267,-156)|
+1,58,56,54,0,0,0,0,0,64,0,-1--1--1,,1|(2300,160)|
+10,59,CARBON SOCIETY COST,2975,173,56,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,60,Monetarized saving emissions per investment unit in electrification,3028,340,87,28,8,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,61,33,60,0,0,0,0,0,64,0,-1--1--1,,1|(2820,396)|
+10,62,Saving emission converted to money due to electrification,3184,125,91,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,63,62,60,0,0,0,0,0,64,0,-1--1--1,,1|(3112,228)|
+1,64,59,62,0,0,0,0,0,64,0,-1--1--1,,1|(3055,156)|
+10,65,Saving emission by transit to electrification,2960,-51,81,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,66,43,65,0,0,0,0,0,64,0,-1--1--1,,1|(2779,-81)|
+1,67,49,65,0,0,0,0,0,64,0,-1--1--1,,1|(2792,-1)|
+1,68,65,62,0,0,0,0,0,64,0,-1--1--1,,1|(3060,28)|
+10,69,time for carbon cost,1504,-167,53,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,70,69,23,0,0,0,0,0,192,0,-1--1--1,,1|(1561,-136)|
+10,71,"E-truck Fleet Size",1524,272,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,72,71,3,1,0,0,0,0,192,0,-1--1--1,,1|(1591,196)|
+1,73,71,13,1,0,0,0,0,192,0,-1--1--1,,1|(1487,376)|
+10,74,"annual gov. funding for improving e-truck technology",2159,637,83,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,75,74,38,1,0,0,0,0,192,0,-1--1--1,,1|(2275,548)|
+10,76,Total Truck Fleet Size,336,884,43,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,77,76,21,0,0,0,0,0,64,0,-1--1--1,,1|(416,868)|
+10,78,Biofuel share,619,340,45,11,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,79,CARBON INTENSITY OF DIESEL,547,236,68,19,8,3,0,32,0,0,0,0,-1--1--1,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,80,CARBON INTENSITY OF BIOFUEL,376,248,68,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,81,Governmnet Fund Balance by Five Levers,2700,929,104,45,3,131,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+12,82,48,2423,932,12,8,0,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,83,85,81,4,0,0,22,0,0,0,-1--1--1,,1|(2553,928)|
+1,84,85,82,100,0,0,22,0,0,0,-1--1--1,,1|(2464,928)|
+11,85,48,2503,928,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,86,Annual Gov Funding by Five Levers,2503,953,68,19,40,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,87,74,86,0,0,0,0,0,64,0,-1--1--1,,1|(2332,796)|
+1,88,40,86,0,0,0,0,0,64,0,-1--1--1,,1|(2421,792)|
+1,89,39,86,0,0,0,0,0,64,0,-1--1--1,,1|(2528,795)|
+10,90,annual gov fund on EL price,2287,1052,59,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,91,Annual Gov Fund on Diesel Price,2463,1092,72,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,92,90,86,0,0,0,0,0,64,0,-1--1--1,,1|(2388,1005)|
+1,93,91,86,0,0,0,0,0,64,0,-1--1--1,,1|(2480,1029)|
+10,94,Gov Tech Maturity Fund Stock,3115,660,67,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,95,Gov Charging subsidy stock,3135,753,52,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,96,"Gov. vehicle subsidy stock",3127,836,52,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,97,"E-truck Fleet Size",2908,537,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,98,Gov total fund per vehicle,2816,657,64,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,99,33,98,0,0,0,0,0,64,0,-1--1--1,,1|(2713,560)|
+1,100,97,98,0,0,0,0,0,64,0,-1--1--1,,1|(2868,591)|
+10,101,Time,128,669,28,11,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,102,emission reduction based on previous regulation,332,473,65,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,103,80,78,1,0,0,0,0,64,0,-1--1--1,,1|(475,341)|
+1,104,79,78,1,0,0,0,0,64,0,-1--1--1,,1|(564,301)|
+1,105,102,78,1,0,0,0,0,64,0,-1--1--1,,1|(512,449)|
+10,106,"annual fuel consumption (kWh) for diesel fleet",959,372,80,28,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+10,107,Carbon intensity of diesel fuel by considering biofuel,796,240,91,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,108,79,107,0,0,0,0,0,64,0,-1--1--1,,1|(653,237)|
+1,109,78,107,0,0,0,0,0,64,0,-1--1--1,,1|(693,297)|
+1,110,80,107,1,0,0,0,0,64,0,-1--1--1,,1|(535,105)|
+1,111,107,6,0,0,0,0,0,64,0,-1--1--1,,1|(872,192)|
+10,112,Carbon intensity of diesel fuel by considering biofuel,2108,-192,87,28,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+1,113,112,48,0,0,0,0,0,64,0,-1--1--1,,1|(2177,-139)|
+10,114,emission reduction based on new regulation,467,599,112,57,8,131,0,36,0,0,0,0,-1--1--1,128-192-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,115,114,78,1,0,0,0,0,64,0,-1--1--1,,1|(600,439)|
+10,116,SWICH FOR NEW REGULATION EFFECT,664,557,72,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,117,116,78,0,0,0,0,0,64,0,-1--1--1,,1|(644,451)|
+1,118,8,106,0,0,0,0,0,64,0,-1--1--1,,1|(1116,364)|
+1,119,29,106,0,0,0,0,0,64,0,-1--1--1,,1|(1048,463)|
+1,120,9,107,1,0,0,0,0,64,0,-1--1--1,,1|(803,327)|
+1,121,106,6,0,0,0,0,0,64,0,-1--1--1,,1|(964,256)|
+10,122,time for emission reduction,260,609,60,19,8,3,0,32,-1,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,123,101,122,0,0,0,0,0,64,0,-1--1--1,,1|(180,645)|
+1,124,122,114,0,0,0,0,0,64,0,-1--1--1,,1|(332,608)|
+1,125,122,102,0,0,0,0,0,64,0,-1--1--1,,1|(292,551)|
+10,126,Gov fund on EL price stock,3124,933,56,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,127,Gov Fund on Diesel Price,3132,1037,47,19,8,2,0,35,-1,0,0,0,128-128-128,0-0-0,Calibri|12||128-128-128,0,0,0,0,0,0
+10,128,factor for correction emission,1087,253,67,19,8,3,0,32,0,0,0,0,0-0-0,0-0-0,Calibri|12||0-0-0,0,0,0,0,0,0
+1,129,128,6,0,0,0,0,0,64,0,-1--1--1,,1|(1040,200)|
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*sensitivity analysis
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,75,0
+10,1,"GOV. SUBSIDY PERCENTAGE ON CONSTRUCTION COST OF CHARGING STATIONS",179,356,116,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,2,"GOV. SUBSIDY PERCENTAGE ON DIFFERENCE BETWEEN E-TRUCK & DIESEL TRUCK PURCHASE COSTS",159,475,120,40,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,3,PRICE OF ELECTRICITY,1360,76,57,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,4,CHARGE RETAIL PRICE,1343,164,60,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,5,DIESEL RETAIL PRICE,1355,271,64,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,6,TIME TO INVESTMENT FOR PRIVATE SECTOR,1363,435,72,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,7,"ON-OFF SWITCH for considering future charging demand",207,956,99,41,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,8,"Utility Function of E-truck",912,439,61,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,9,charging station profitability index,903,528,59,19,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,10,Gov Charging subsidy stock,891,1183,68,28,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,11,"Gov. vehicle subsidy stock",920,1316,76,39,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,12,income of electricity stock,936,1415,71,33,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,13,0,2348,527,439,340,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+e-truck_fleet_size
+12,14,0,3232,531,439,340,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Installed_Charging_Stations
+12,15,0,3211,1223,436,340,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Share_of_electric_truck_in_total_fleet_size
+12,16,0,2348,1223,440,340,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+share_of_electric_truck_in_new_sales
+12,17,0,2335,2743,437,343,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Utility_Function_of_e-truck
+12,18,0,3223,2748,437,343,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Utility_Comparison
+12,19,0,2331,1980,440,339,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Fleet_Comparison
+12,20,0,2327,3495,436,340,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Do_we_reach_our_emission_goals?
+12,21,0,2360,4251,433,340,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Comparison_of_various_government_investments
+12,22,0,3271,3512,436,331,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Private_vs_Gov_investment_in_charging_infrastructure
+12,23,0,1932,215,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,24,0,1924,2431,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,25,0,2812,2363,16,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,26,0,2832,236,16,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+10,27,sensitivity coefficient for PRICE OF ELECTRICITY,512,763,99,41,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,28,sensitivity coefficient for DIESEL,459,891,69,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,29,"E-truck Fleet Size",887,307,47,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,30,Installed Charging Stations,891,367,64,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,31,FACTOR OF GOV INVESTMENT ON THE TECH MATURITY,472,607,84,28,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,32,"e-truck share in total fleet",767,631,55,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,33,"e-truck share in new sales",907,687,55,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,34,"E-truck Sales",879,247,52,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,35,0,6459,1396,435,339,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Charging_station_IRR_after_gov._subsidy
+10,36,"E-truck Fleet Size",1780,1752,47,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,37,Diesel Truck Fleet Size,1796,1847,48,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,38,Total Truck Fleet Size,1793,1956,43,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,39,"Utility Function of E-truck",1723,2516,61,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,40,"Availability of charging station-percentage",1748,2632,77,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,41,"Awareness of the technology-percentage",1748,2724,77,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,42,"Effect of technology maturity-percentage",1756,2851,68,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,43,Actual Government Investment in Charging Stations,1756,3332,72,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,44,Actual Private Investment in Charging Stations,1740,3211,72,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,45,"annual gov. funding for improving e-truck technology",1708,4080,79,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,46,"Annual gov. subsidy on charging",1691,4175,69,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,47,"Annual Total Gov. Funds",1699,3967,59,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,48,"Annual gov. subsidy on vehicle purchase cost",1711,4335,79,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,49,"E-truck Fleet Size",1795,628,47,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,50,Installed Charging Stations,1783,732,64,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,51,"e-truck share in total fleet",1787,928,55,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,52,"e-truck share in new sales",1799,999,55,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,53,charging station profitability index,1759,2112,59,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,54,"Total annual emission from trucks (tank to wheel)",1764,3560,72,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,55,goal of emission level in 2030,1760,3652,60,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,56,goal of emission level in 2045,1735,3719,60,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,57,Lookup for unsteady scenario for all levers except EL,303,1131,67,28,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,58,Time,107,1228,28,11,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+1,59,58,57,0,0,0,0,0,64,0,-1--1--1,,1|(181,1191)|
+10,60,sensitivity coefficient for CHARGING SUBSIDY,460,351,85,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,61,sensitivity coefficient for VEHICLE SUBSIDY,468,444,80,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,62,0,3216,5108,420,343,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Comparison_of_maximum_and_actual_utilization_rate_of_a_station
+10,63,utilization rate of a station,1808,4856,59,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,64,maximum available capacity of a station per year,1775,5139,76,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,65,Average energy demand from each station per year,1775,5232,87,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,66,0,2343,5108,419,343,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Comparison_of_demand_and_supply_of_a_station
+10,67,utilized capacity of a station per year,1816,5279,71,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,68,0,1951,4792,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,69,0,2824,4783,16,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,70,0,3304,5860,460,336,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Comparsion_of_utilization_rate_and_availability_of_charging_stations
+12,71,0,2336,5860,505,337,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Comparison_of_installed_to_demand_and_energy_demand_to_capacity_of_charging_stations
+12,72,0,2872,5543,16,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,73,0,1831,5535,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,74,0,1928,915,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,75,0,2791,928,16,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,76,0,6083,2884,408,352,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Utilized_capacity_of_a_station_per_year
+12,77,0,5571,1396,435,339,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Installed_Charging_Stations
+12,78,0,6031,2100,583,355,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Installed_charging_station_vs._Profitability
+12,79,0,5159,1075,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,80,0,6080,1092,16,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,81,0,5323,1783,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+c
+10,82,Gov total fund per vehicle,299,1463,63,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,83,Lookup for unsteady scenario for EL,327,1275,67,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,84,58,83,0,0,0,0,0,64,0,-1--1--1,,1|(192,1245)|
+10,85,"Lookup for unsteady scenario for switch on-off",295,1372,81,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,86,58,85,0,0,0,0,0,64,0,-1--1--1,,1|(189,1291)|
+10,87,AVERAGE MILEAGE PER VEHICLE PER YEAR,1524,3547,81,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,88,0,4196,1240,500,343,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Share_of_electric_truck_in_new_sales_and_total_fleet_size
+10,89,"e-truck share in total fleet",4844,1060,55,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,90,"e-truck share in new sales",4848,1159,55,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,91,"max possible utilization rate of a station (lookup number of e-trucks)",1800,4952,84,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,92,"utilization in total-percentage",1695,5611,57,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,93,"Charging station Capacity to demand ratio-percentage",1712,5707,93,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,94,"utilization rate of a station-percentage",2628,6468,64,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,95,"Availability of charging station-percentage",2615,6531,77,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,96,0,3291,6539,459,335,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Comparsion_of_utilization_rate_and_availability_of_charging_stations_0
+10,97,"max possible utilization rate of a station (lookup number of e-trucks)",1644,5903,84,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,98,"max possible utilization rate of a station-percentage",2640,6659,77,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*Scenarios
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|96,96,75,0
+12,1,0,628,-8151,404,351,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Graph_Share_of_electric_truck_in_new_sales
+12,2,0,1439,-8148,403,351,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Graph_Share_of_electric_truck_in_total_fleet_size
+12,3,0,624,-7423,404,351,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Graph_effect_of_average_mileage_on_the_market_share_of_e-truck
+12,4,0,1435,-7423,405,351,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Graph_effect_of_average_mileage_in_total_cost_comparison
+12,5,0,243,-7752,13,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,6,0,1055,-7740,16,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,7,0,640,-6603,404,356,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_graph_effect_of_EL_price_on_the_Station_profitability
+12,8,0,2435,-5868,408,355,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_graph_Effect_of_EL_price_on_the_market_gap_of_charging_stations
+12,9,0,1064,-5900,407,341,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Graphs_effect_of_EL_price_on_the_market_share_of_electric_trucks
+12,10,0,2431,-6575,404,340,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_graph_Effect_of_EL_price_on_the_installed_charging_stations
+12,11,0,679,-6211,13,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+c
+12,12,0,2056,-6883,16,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+d
+12,13,0,1456,-6603,407,357,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_graph_Effect_of_EL_price_on_the_total_cost_of_electric_trucks
+12,14,0,1072,-6919,16,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,15,0,639,-5164,412,335,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Switch_on-off_of_future_demand_of_charging_stations:_e-truck_fleet_size
+12,16,0,1467,-5164,409,335,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Switch_on-off_of_future_demand_of_charging_stations:_installed_charging_stations
+12,17,0,1052,-4127,828,507,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+The_effect_of_cutting_off_different_subsidies
+12,18,0,2267,-8148,404,352,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_graph_Do_we_reach_our_emission_goals?
+12,19,0,1703,-3160,525,405,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_graphs_2_Effect_of_no_government_and_private_investment_on_the_availability_of_charging_stations_0
+10,20,"Availability of charging station-percentage",2364,-3507,77,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,21,AVERAGE MILEAGE PER VEHICLE PER YEAR,52,-7504,81,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,22,"ON-OFF SWITCH for considering future charging demand",80,-5336,84,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,23,sensitivity coefficient for CHARGING SUBSIDY,2368,-3380,85,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,24,TIME TO BUILD A CHARGING STATION,2388,-3299,85,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,25,charging station profitability index,-83,-6733,91,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,26,PRICE OF ELECTRICITY,-76,-6644,57,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,27,CHARGE RETAIL PRICE,95,-6447,60,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,28,sensitivity coefficient for PRICE OF ELECTRICITY,96,-6551,80,28,8,130,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,29,"e-truck share in total fleet",123,-6328,73,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,30,Installed Charging Stations,68,-6252,64,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,31,"Total annual emission from trucks (tank to wheel)",2807,-8276,72,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,32,goal of emission level in 2030,2839,-8128,56,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,33,goal of emission level in 2045,2851,-8004,56,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,34,emission level goal for 2030,3164,-8247,59,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,35,emission level goal for 2045,3175,-8140,59,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,36,emission reduction factor compared to 2010 level,3187,-8032,84,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,37,0,3836,-8184,403,344,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_graph_Do_we_reach_our_emission_goals?_2
+10,38,emission level of 2010,3160,-8391,52,19,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,39,sensitivity coefficient for CHARGING SUBSIDY,88,-4340,85,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,40,sensitivity coefficient for VEHICLE SUBSIDY,88,-4248,80,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+10,41,FACTOR OF GOV INVESTMENT ON THE TECH MATURITY,80,-4160,84,28,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,42,0,683,-3159,484,404,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_graphs_2_Effect_of_no_government_and_private_investment_on_the_availability_of_charging_stations_0_1
+10,43,"e-truck share in total fleet",104,-3911,73,19,8,2,0,3,-1,0,0,0,128-128-128,0-0-0,|12||128-128-128,0,0,0,0,0,0
+12,44,0,259,-6920,13,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,45,0,228,-3536,13,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,46,0,1083,-5467,16,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,47,0,1204,-3528,16,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+12,48,0,687,-2243,485,405,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_e-truck_fleet_size__Differentiation_regarding_different_charging_strategies
+12,49,0,1663,-2240,485,405,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_e-truck_share__Differentiation_regarding_different_charging_strategies
+12,50,0,1663,-1384,488,403,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_charging_station_profitability_index__Differentiation_regarding_different_charging_strategies_0
+12,51,0,683,-1387,485,403,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_charge_retail_price__Differentiation_regarding_different_charging_strategies_0_0
+12,52,0,684,-559,488,405,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_"Utility_Function_of_E-truck"__Differentiation_regarding_different_charging_strategies_0_0_0
+12,53,0,1664,-552,487,405,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Availability_of_charging_station-percentage__Differentiation_regarding_different_charging_strategies_0_0_0_0
+12,54,0,680,509,492,408,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_e-truck_fleet_size__different_vehicle_size_0
+12,55,0,1667,512,479,405,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_e-truck_share__vehicle_sizes
+12,56,0,683,1345,491,400,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_"Utility_Function_of_E-truck"__vehicle_sizes
+12,57,0,1668,1348,480,403,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Availability_of_charging_station-percentage__vehicle_sizes
+12,58,0,687,2181,491,404,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Technology_maturity___vehicle_sizes_0
+12,59,0,1675,2184,476,396,3,188,0,0,1,0,0,0,0,0,0,0,0,0
+Scenario_Installed_charging_stations___vehicle_sizes_0
+12,60,0,248,-5468,13,29,8,7,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,61,0,221,-2623,13,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+a
+12,62,0,1201,-2615,16,29,8,135,0,10,-1,0,0,0,-1--1--1,0-0-0,|36||64-160-98,0,0,0,0,0,0
+b
+///---\\\
+:GRAPH Comaprison_of_e-truck_fleet_size_and_sales
+:TITLE Comaprison of e-truck fleet size and sales
+:WIDTH 10
+:SCALE
+:VAR "E-truck Fleet Size"
+:LINE-WIDTH 2
+:VAR "E-truck Sales"
+:LINE-WIDTH 2
+
+:GRAPH Comparison_installed_&_under_construction_charging_station
+:TITLE Comparison installed & under construction charging station
+:SCALE
+:VAR Charging Stations under construction
+:LINE-WIDTH 2
+:VAR Installed Charging Stations
+:LINE-WIDTH 2
+
+:GRAPH behavior_reproduction_test_of_e-truck_(2017-2023)
+:TITLE Behavior reproduction test of e-truck (2017-2023)
+:WIP
+:X-LABEL Year
+:X-MIN 2017
+:X-MAX 2023
+:SCALE
+:VAR "E-truck Fleet Size"|Model
+:DATASET *
+:LINE-WIDTH 2
+:VAR "Reference mode of SWEDEN e-truck fleet size (2017-2023)"|Real data
+:DATASET *
+:LINE-WIDTH 2
+
+:GRAPH Behavior_reproduction_test_of_charging_stations_(2020-2022)
+:TITLE Behavior reproduction test of charging stations (2020-2022)
+:X-MIN 2020
+:X-MAX 2022
+:SCALE
+:VAR Installed Charging Stations|Model
+:LINE-WIDTH 2
+:VAR "Reference mode for SWEDEN installed charging station (2020-2022)"|Real data
+:LINE-WIDTH 2
+
+:GRAPH Utility_function_Vs_availability_of_charger_diagram
+:TITLE Utility function vs availability of charger diagram
+:SCALE
+:VAR Utility Function
+:LINE-WIDTH 2
+:SCALE
+:VAR Availability of charging station
+:LINE-WIDTH 2
+
+:GRAPH Private_vs_Gov._potential_funds
+:TITLE Private vs public. potential investment
+:SCALE
+:VAR Potential Private Investment in Charging Stations
+:LINE-WIDTH 2
+:VAR Potential Government Investment in Charging Stations
+:LINE-WIDTH 2
+
+:GRAPH Private_vs_Gov_investment_in_charging_infrastructure
+:TITLE Private vs. public investment in charging stations
+:X-LABEL Year
+:SCALE
+:VAR Actual Private Investment in Charging Stations|Private Investment in Charging Stations
+:Y-MIN 0
+:LINE-WIDTH 2
+:VAR Actual Government Investment in Charging Stations|Public Investment in Charging Stations
+:Y-MIN 0
+:LINE-WIDTH 2
+
+:GRAPH Electric_vs_diesel_purchase_price
+:TITLE Purchase cost of e-truck vs. d-truck
+:SCALE
+:VAR "Purchase Cost of E-trucks"|purchase cost of e-truck
+:LINE-WIDTH 2
+:VAR PURCHASE COST OF DIESEL TRUCK|purchase cost of d-truck
+:LINE-WIDTH 2
+
+:GRAPH Electric_vs_diesel_opex_cost
+:TITLE Operation cost of e-truck vs. d-truck
+:SCALE
+:VAR "E-truck Discounted total Opex"|operation cost of e-truck
+:Y-MAX 5.5e+06
+:LINE-WIDTH 2
+:VAR Diesel truck Discounted total Opex|operation cost of d-truck
+:Y-MAX 5.5e+06
+:LINE-WIDTH 2
+
+:GRAPH total_cost_of_e-truck_vs._d-truck
+:TITLE Total cost of e-truck vs. d-truck
+:SCALE
+:VAR Electric truck total cost|total cost of e-truck
+:LINE-WIDTH 2
+:VAR Diesel truck total cost|total cost of d-truck
+:LINE-WIDTH 2
+
+:GRAPH U2P_comparison
+:TITLE U2P comparison
+:SCALE
+:VAR "U2P of E-truck"
+:LINE-WIDTH 2
+:VAR Expected U2P based on industry
+:LINE-WIDTH 2
+
+:TABLE Table-Reference_mode_of_e-truck_fleet_size_(2015-2022)
+:TITLE Table- Reference mode of e-truck fleet size (2015-2022)
+:PRETTYNUM
+:PRINT-EVERY 1
+:X-MIN 2017
+:X-MAX 2023
+:FIRST-CELLWIDTH 30
+:CELLWIDTH 14
+:FONT Times New Roman|12||0-0-0
+:VAR "E-truck Fleet Size"
+:VAR "Reference mode of SWEDEN e-truck fleet size (2017-2023)"|Ref
+
+:TABLE Table-Reference_mode_of_chargers_(2020-2022)
+:TITLE Table-Reference mode of chargers (2020-2022)
+:PRETTYNUM
+:PRINT-EVERY 1
+:X-MIN 2020
+:X-MAX 2022
+:FIRST-CELLWIDTH 30
+:CELLWIDTH 14
+:FONT Times New Roman|12||0-0-0
+:VAR Installed Charging Stations
+:VAR "Reference mode for SWEDEN installed charging station (2020-2022)"|Ref
+
+:GRAPH Purchase_and_operation_cost_VS_revenue_of_charger
+:TITLE Purchase_and_operation_cost_VS_revenue_of_charger
+:SCALE
+:VAR CONSTRUCTION COST PER STATION
+:LINE-WIDTH 2
+:VAR Operation cost per station per year
+:LINE-WIDTH 2
+:VAR Revenue per station per year
+:LINE-WIDTH 2
+
+:TABLE target_2030
+:TITLE target_2030
+:PRETTYNUM
+:X-MIN 2030
+:X-MAX 2030
+:FIRST-CELLWIDTH 30
+:CELLWIDTH 14
+:FONT Times New Roman|12||0-0-0
+:VAR "E-truck fleet size in target"
+:VAR Installed charging station in target
+
+:GRAPH e-truck_fleet_size
+:TITLE E-truck Fleet Size
+:X-LABEL Year
+:NO-LEGEND 1
+:SCALE
+:VAR "E-truck Fleet Size"
+:LINE-WIDTH 2
+
+:GRAPH Installed_Charging_Stations
+:TITLE Installed Charging Stations
+:X-LABEL Year
+:WIDTH 2
+:NO-LEGEND 1
+:SCALE
+:VAR Installed Charging Stations|Installed Charging Stations
+:LINE-WIDTH 2
+
+:GRAPH Share_of_electric_truck_in_total_fleet_size
+:TITLE Share of electric truck in total fleet size
+:X-LABEL Year
+:NO-LEGEND 1
+:SCALE
+:VAR "e-truck share in total fleet"|e-truck share in total fleet
+:LINE-WIDTH 2
+
+:GRAPH share_of_electric_truck_in_new_sales
+:TITLE share of electric truck in new sales
+:X-LABEL Year
+:NO-LEGEND 1
+:SCALE
+:VAR "e-truck share in new sales"|e-truck share in new sales
+:LINE-WIDTH 2
+
+:GRAPH Utility_Function_of_e-truck
+:TITLE Utility Function of E-truck
+:X-LABEL Year
+:NO-LEGEND 1
+:SCALE
+:VAR "Utility Function of e-truck"|Utility Function of e-truck
+:LINE-WIDTH 2
+
+:GRAPH Charging_station_IRR_after_gov._subsidy
+:TITLE Charging station profitability index
+:X-LABEL Year
+:NO-LEGEND 1
+:SCALE
+:VAR charging station profitability index|Charging station profitability
+:LINE-WIDTH 2
+
+:GRAPH Emissions
+:TITLE Emissions
+:SCALE
+:VAR "Emission per kwh, annually"
+:LINE-WIDTH 2
+
+:GRAPH Utility_Comparison
+:TITLE Utility Comparison
+:X-LABEL Year
+:SCALE
+:VAR "Availability of charging station-percentage"|Availability of charging station
+:LINE-WIDTH 2
+:VAR "Awareness of the technology-percentage"|Technology awareness
+:LINE-WIDTH 2
+:VAR "Effect of technology maturity-percentage"|Technology maturity
+:LINE-WIDTH 2
+
+:GRAPH Fleet_Comparison
+:TITLE Fleet Comparison
+:X-LABEL Year
+:SCALE
+:VAR Total Truck Fleet Size|Total Truck Fleet Size
+:LINE-WIDTH 2
+:VAR Diesel Truck Fleet Size|Diesel Truck Fleet Size
+:LINE-WIDTH 2
+:VAR "E-truck Fleet Size"|E-truck Fleet Size
+:LINE-WIDTH 2
+
+:GRAPH Do_we_reach_our_emission_goals?
+:TITLE Do we reach our emission goals?
+:X-LABEL Year
+:SCALE
+:VAR "Total annual emission from trucks (tank to wheel)"|Total annual emission from trucks (tank to wheel)
+:Y-MIN 0
+:LINE-WIDTH 2
+:VAR Goal of emission level in 2030|Goal of emission level in 2030
+:Y-MIN 0
+:LINE-WIDTH 2
+:VAR Goal of emission level in 2045|Goal of emission level in 2045
+:Y-MIN 0
+:LINE-WIDTH 2
+
+:GRAPH Comparison_of_various_government_investments
+:TITLE Comparison of various public investments
+:X-LABEL Year
+:SCALE
+:VAR "Annual total gov. funds"|Total public investment
+:Y-MIN 0
+:Y-MAX 2e+09
+:LINE-WIDTH 3
+:VAR "Annual gov. subsidy on charging"|Public investment on charging stations
+:Y-MIN 0
+:Y-MAX 2e+09
+:LINE-WIDTH 2
+:VAR "Annual gov. subsidy on vehicle purchase cost"|Public investment on vehicle purchase cost
+:Y-MIN 0
+:Y-MAX 2e+09
+:LINE-WIDTH 2
+:VAR "Annual gov. funding for improving e-truck technology"|Public investment on technology maturity
+:Y-MIN 0
+:Y-MAX 2e+09
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Graph_Share_of_electric_truck_in_total_fleet_size
+:TITLE Share of electric truck in total fleet size
+:SCALE
+:VAR "e-truck share in total fleet"|Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|Low Electrification
+:DATASET Low Electrification
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|High Electrification
+:DATASET High Electrification
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|Unstable Policies
+:DATASET Unstable Policies
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Graph_Share_of_electric_truck_in_new_sales
+:TITLE Share of electric truck in new sales
+:SCALE
+:VAR "e-truck share in new sales"|Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "e-truck share in new sales"|Low Electrification
+:DATASET Low Electrification
+:LINE-WIDTH 2
+:VAR "e-truck share in new sales"|High Electrification
+:DATASET High Electrification
+:LINE-WIDTH 2
+:VAR "e-truck share in new sales"|Unstable Policies
+:DATASET Unstable Policies
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Graph_effect_of_average_mileage_on_the_market_share_of_e-truck
+:TITLE Effect of annual mileage on the market share of e-truck
+:X-LABEL Year
+:SCALE
+:VAR Share of electric truck in total fleet size|e-truck share in total fleet: High mileage
+:DATASET High mileage
+:LINE-WIDTH 2
+:VAR Share of electric truck in total fleet size|e-truck share in total fleet: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Share of electric truck in total fleet size|e-truck share in total fleet: Low mileage
+:DATASET Low mileage
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Graph_effect_of_average_mileage_in_total_cost_comparison
+:TITLE Effect of annual mileage in total cost comparison
+:SCALE
+:VAR Electric truck total cost|e-truck total cost: High mileage
+:DATASET High mileage
+:LINE-WIDTH 2
+:VAR Diesel truck total cost|d-truck total cost: High mileage
+:DATASET High mileage
+:LINE-WIDTH 2
+:VAR Electric truck total cost|e-truck total cost: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Diesel truck total cost|d-truck total cost: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Electric truck total cost|e-truck total cost: Low mileage
+:DATASET Low mileage
+:LINE-WIDTH 2
+:VAR Diesel truck total cost|d-truck total cost: Low mileage
+:DATASET Low mileage
+:LINE-WIDTH 2
+
+:GRAPH Scenario_graph_effect_of_EL_price_on_the_Station_profitability
+:TITLE Effect of EL price on the Station profitability
+:SCALE
+:VAR charging station profitability index|station profitability: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR charging station profitability index|station profitability: High EL price
+:DATASET High EL price
+:LINE-WIDTH 2
+:VAR charging station profitability index|station profitability: Low EL price
+:DATASET Low EL price
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Graphs_effect_of_EL_price_on_the_market_share_of_electric_trucks
+:TITLE Effect of EL price on e-truck market share
+:SCALE
+:VAR "e-truck share in total fleet"|e-truck market share: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|e-truck market share: High EL price
+:DATASET High EL price
+:LINE-WIDTH 3
+:VAR "e-truck share in total fleet"|e-truck market share: Low EL price
+:DATASET Low EL price
+:LINE-WIDTH 3
+
+:GRAPH Comparison_of_maximum_and_actual_utilization_rate_of_a_station
+:TITLE Comparison of maximum and actual utilization rate of a station
+:X-LABEL Year
+:SCALE
+:VAR "utilization rate of a station-percentage"|Actual utilization rate of a station (%)
+:Y-MAX 100
+:LINE-WIDTH 2
+:VAR "MAX UTILIZATION RATE OF A STATION-percentage"|Maximum utilization rate of a station (%)
+:Y-MAX 100
+:LINE-WIDTH 2
+
+:GRAPH Comparison_of_demand_and_supply_of_a_station
+:TITLE Comparison of demand and supply of a station
+:X-LABEL Year
+:SCALE
+:VAR Average energy demand from each station per year|Energy demand from a station
+:LINE-WIDTH 2
+:VAR Maximum available capacity of a station per year|Maximum available capacity of a station
+:LINE-WIDTH 2
+:VAR Utilized capacity of a station per year|Actual utilized capacity of a station
+:LINE-WIDTH 5
+
+:GRAPH Comparsion_of_utilization_rate_and_availability_of_charging_stations
+:TITLE Comparsion of utilization rate and availability of charging stations
+:X-LABEL Year
+:SCALE
+:VAR "utilization rate of a station-percentage"|utilization rate of a station (%)
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|Availability of charging station (%)
+:LINE-WIDTH 2
+
+:GRAPH Comparison_of_installed_to_demand_and_energy_demand_to_capacity_of_charging_stations
+:TITLE Comparison of installed to demand and energy demand to capacity of charging stations
+:X-LABEL Year
+:Y-DIV 5
+:SCALE
+:VAR "utilization in total-percentage"|Installed to demand ratio of charging station (related to availability) %
+:Y-MAX 1200
+:LINE-WIDTH 2
+:VAR "Charging station Capacity to demand ratio-percentage"|Energy demand to capacity ratio of charging stations (related to utilization) %
+:Y-MAX 1200
+:LINE-WIDTH 2
+:VAR "100 line"|scale of 100
+:Y-MAX 1200
+:LINE-WIDTH 1
+
+:GRAPH Scenario_graph_Effect_of_EL_price_on_the_market_gap_of_charging_stations
+:TITLE Effect of EL price on the market gap of charging stations
+:SCALE
+:VAR Market Gap for charging stations
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Market Gap for charging stations
+:DATASET EL price increase
+:LINE-WIDTH 2
+
+:GRAPH Scenario_graph_Effect_of_EL_price_on_the_installed_charging_stations
+:TITLE Effect of EL price on the installed charging stations
+:X-LABEL Year
+:SCALE
+:VAR Installed Charging Stations
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Installed Charging Stations
+:DATASET High EL price
+:LINE-WIDTH 3
+:VAR Installed Charging Stations
+:DATASET Low EL price
+:LINE-WIDTH 3
+
+:GRAPH Scenario_graph_Effect_of_EL_price_on_the_total_cost_of_electric_trucks
+:TITLE Effect of EL price on the total cost of e-trucks
+:X-LABEL Year
+:SCALE
+:VAR Electric truck total cost|e-truck total cost: Base
+:Y-MIN 3e+06
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Electric truck total cost|e-truck total cost: High EL price
+:Y-MIN 3e+06
+:DATASET High EL price
+:LINE-WIDTH 2
+:VAR Electric truck total cost|e-truck total cost: Low EL price
+:Y-MIN 3e+06
+:DATASET Low EL price
+:LINE-WIDTH 2
+
+:GRAPH Switch_on-off_of_future_demand_of_charging_stations:_e-truck_fleet_size
+:TITLE E-truck share with long-term vs. short-term planning
+:STAMP Long-term vs. short-term investment strategies|with short term planning
+:X-LABEL Year
+:SCALE
+:VAR "e-truck share in total fleet"|e-truck share in total fleet: Long-term planning
+:DATASET Switch on
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|e-truck share in total fleet: Short-term planning
+:DATASET Switch off
+:LINE-WIDTH 2
+
+:GRAPH Switch_on-off_of_future_demand_of_charging_stations:_installed_charging_stations
+:TITLE Availability with long-term vs. short-term planning
+:STAMP Installed charging stations with long-term vs. short-term planning|Long-term planning
+:X-LABEL Year
+:SCALE
+:VAR "Availability of charging station-percentage"|availability of Charging Stations: Long-term planning
+:DATASET Switch on
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|availability of Charging Stations: Short-term planning
+:DATASET Switch off
+:LINE-WIDTH 2
+
+:GRAPH Monetarized_saving_emissions_per_investment_unit_in_electrification
+:TITLE Return on Electrification Investments through Emission Reduction
+:X-LABEL Year
+:SCALE
+:VAR Monetarized saving emissions per investment unit in electrification|Monetarized saving emissions per investment unit in electrification
+:LINE-WIDTH 2
+
+:GRAPH Utilized_capacity_of_a_station_per_year
+:TITLE Utilized capacity of a station per year
+:SCALE
+:VAR Utilized capacity of a station per year
+:LINE-WIDTH 2
+
+:GRAPH Installed_charging_station_vs._Profitability
+:TITLE Installed charging station vs. Profitability
+:X-LABEL Year
+:SCALE
+:VAR Installed Charging Stations|Installed Charging Stations
+:Y-MAX 12000
+:LINE-WIDTH 2
+:SCALE
+:VAR charging station profitability index|Charging station profitability index
+:LINE-WIDTH 2
+
+:GRAPH The_effect_of_cutting_off_different_subsidies
+:TITLE The effect of discontinuing different subsidies
+:X-LABEL Year
+:SCALE
+:VAR Share of electric truck in total fleet size
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Share of electric truck in total fleet size
+:DATASET Zero charging subsidy
+:LINE-WIDTH 2
+:VAR Share of electric truck in total fleet size
+:DATASET Zero vehicle cost subsidy
+:LINE-WIDTH 2
+:VAR Share of electric truck in total fleet size
+:DATASET Zero maturity fund
+:LINE-WIDTH 2
+
+:GRAPH Scenario_graph_Do_we_reach_our_emission_goals?
+:TITLE Do we reach our emission goals?
+:X-LABEL Year
+:SCALE
+:VAR "Total annual emission from trucks (tank to wheel)"|Total annual emissions: Base
+:Y-MIN 0
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "Total annual emission from trucks (tank to wheel)"|Total annual emissions: Low Electrification
+:Y-MIN 0
+:DATASET Low Electrification
+:LINE-WIDTH 2
+:VAR "Total annual emission from trucks (tank to wheel)"|Total annual emissions: High Electrification
+:Y-MIN 0
+:DATASET High Electrification
+:LINE-WIDTH 2
+:VAR "Total annual emission from trucks (tank to wheel)"|Total annual emissions: Unstable Policies
+:Y-MIN 0
+:DATASET Unstable Policies
+:LINE-WIDTH 2
+:VAR Goal of emission level in 2030|Goal of emission level in 2030
+:Y-MIN 0
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Goal of emission level in 2045|Goal of emission level in 2045
+:Y-MIN 0
+:DATASET Base
+:LINE-WIDTH 2
+
+:GRAPH Scenario_graphs_Effect_of_no_government_and_private_investment_on_the_availability_of_charging_stations
+:TITLE Effect of lack of government and private investment on the availability of charging stations
+:X-LABEL Year
+:SCALE
+:VAR "Availability of charging station-percentage"|availability of charging station: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|availability of charging station: No government investment in charging
+:DATASET No government investment in charging
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|availability of charging station: No private and government investment in charging
+:DATASET No private and government investment in charging
+:LINE-WIDTH 2
+
+:GRAPH Scenario_graphs_2_Effect_of_no_government_and_private_investment_on_the_availability_of_charging_stations_0
+:TITLE Availability: no public money vs. prolonged construction
+:X-LABEL Year
+:SCALE
+:VAR "Availability of charging station-percentage"|availability of charging station: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|availability of charging station: No public investment in charging
+:DATASET No government investment in charging
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|availability of charging station: Prolonged construction of a station
+:DATASET Longer time to build a station
+:LINE-WIDTH 2
+
+:GRAPH behavior_reproduction_test_of_total_truck_(2017-2023)
+:TITLE Behavior reproduction test of total truck (2017-2023)
+:WIP
+:X-LABEL Year
+:X-MIN 2017
+:X-MAX 2023
+:SCALE
+:VAR Total Truck Fleet Size|Model
+:DATASET *
+:LINE-WIDTH 2
+:VAR "Reference mode of SWEDEN total truck fleet size (2017-2023)"|Real data
+:DATASET *
+:LINE-WIDTH 2
+
+:GRAPH Share_of_electric_truck_in_new_sales_and_total_fleet_size
+:TITLE Share of electric truck in new sales and total fleet size
+:X-LABEL Year
+:SCALE
+:VAR "e-truck share in total fleet"|e-truck share in total fleet
+:Y-MIN 0
+:Y-MAX 1
+:LINE-WIDTH 2
+:VAR "e-truck share in new sales"|e-truck share in new sales
+:Y-MIN 0
+:Y-MAX 1
+:LINE-WIDTH 2
+
+:GRAPH Comparsion_of_utilization_rate_and_availability_of_charging_stations_0
+:TITLE Comparsion of utilization rate and availability of charging stations
+:X-LABEL Year
+:SCALE
+:VAR "Availability of charging station-percentage"|availability of charging stations
+:LINE-WIDTH 2
+:VAR "utilization rate of a station-percentage"|utilization rate of a station
+:LINE-WIDTH 2
+:VAR "max possible utilization rate of a station-percentage"|maximum utilization rate of a station
+:LINE-WIDTH 3
+
+:GRAPH Do_we_reach_our_emission_goals?_2
+:TITLE Do we reach our emission goals?
+:X-LABEL Year
+:SCALE
+:VAR "Total annual emission from trucks (tank to wheel)"|Total annual emission from trucks (tank to wheel)
+:Y-MIN 0
+:LINE-WIDTH 2
+:VAR Emission goal for 2030 compared to 2010|Goal of emission level in 2030
+:Y-MIN 0
+:LINE-WIDTH 2
+:VAR Emission goal for 2045 compared to 2010|Goal of emission level in 2045
+:Y-MIN 0
+:LINE-WIDTH 2
+
+:GRAPH Scenario_graph_Do_we_reach_our_emission_goals?_2
+:TITLE Do we reach our emission goals?
+:X-LABEL Year
+:SCALE
+:VAR emission reduction factor compared to 2010 level|emission level compared to 2010: Base
+:Y-MIN 0
+:Y-MAX 1
+:DATASET Base
+:LINE-WIDTH 2
+:VAR emission reduction factor compared to 2010 level|emission level compared to 2010: Low Electrification
+:Y-MIN 0
+:Y-MAX 1
+:DATASET Low Electrification
+:LINE-WIDTH 2
+:VAR emission reduction factor compared to 2010 level|emission level compared to 2010: High Electrification
+:Y-MIN 0
+:Y-MAX 1
+:DATASET High Electrification
+:LINE-WIDTH 2
+:VAR emission reduction factor compared to 2010 level|emission level compared to 2010: Unstable Policies
+:Y-MIN 0
+:Y-MAX 1
+:DATASET Unstable Policies
+:LINE-WIDTH 2
+:VAR emission level goal for 2030|emission level goal for 2030
+:Y-MIN 0
+:Y-MAX 1
+:DATASET Base
+:LINE-WIDTH 2
+:VAR emission level goal for 2045|emission level goal for 2045
+:Y-MIN 0
+:Y-MAX 1
+:DATASET Base
+:LINE-WIDTH 2
+
+:GRAPH Scenario_graphs_2_Effect_of_no_government_and_private_investment_on_the_availability_of_charging_stations_0_1
+:TITLE E-truck share: no public money vs. prolonged construction
+:X-LABEL Year
+:SCALE
+:VAR "e-truck share in total fleet"|e-truck market share: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|e-truck market share: No public investment in charging
+:DATASET No government investment in charging
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|e-truck market share: Prolonged construction of a station
+:DATASET Longer time to build a station
+:LINE-WIDTH 2
+
+:GRAPH Scenario_e-truck_fleet_size__Differentiation_regarding_different_charging_strategies
+:TITLE E-truck fleet size in different charging strategies
+:SCALE
+:VAR "E-truck Fleet Size"|E-truck Fleet Size: Base
+:Y-MAX 160000
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "E-truck Fleet Size"|E-truck Fleet Size: system with more depot charging
+:Y-MAX 160000
+:DATASET system with more depot charging
+:LINE-WIDTH 2
+:VAR "E-truck Fleet Size"|E-truck Fleet Size: system with more public charging
+:Y-MAX 160000
+:DATASET system with more public charging
+:LINE-WIDTH 2
+
+:GRAPH Scenario_e-truck_share__Differentiation_regarding_different_charging_strategies
+:TITLE E-truck share in total fleet in different charging strategies
+:SCALE
+:VAR "e-truck share in total fleet"|e-truck share: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|e-truck share: system with more depot charging
+:DATASET system with more depot charging
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|e-truck share: system with more public charging
+:DATASET system with more public charging
+:LINE-WIDTH 2
+
+:GRAPH Scenario_charging_station_profitability_index__Differentiation_regarding_different_charging_strategies_0
+:TITLE charging station profitability in different charging strategies
+:SCALE
+:VAR charging station profitability index|charging station profitability: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR charging station profitability index|charging station profitability: system with more depot charging
+:DATASET system with more depot charging
+:LINE-WIDTH 2
+:VAR charging station profitability index|charging station profitability: system with more public charging
+:DATASET system with more public charging
+:LINE-WIDTH 2
+
+:GRAPH Scenario_charge_retail_price__Differentiation_regarding_different_charging_strategies_0_0
+:TITLE charge retail price in different charging strategies
+:SCALE
+:VAR CHARGE RETAIL PRICE|charge retail price: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR CHARGE RETAIL PRICE|charge retail price: system with more depot charging
+:DATASET system with more depot charging
+:LINE-WIDTH 2
+:VAR CHARGE RETAIL PRICE|charge retail price: system with more public charging
+:DATASET system with more public charging
+:LINE-WIDTH 2
+
+:GRAPH Scenario_"Utility_Function_of_E-truck"__Differentiation_regarding_different_charging_strategies_0_0_0
+:TITLE Utility Function of E-truck in different charging strategies
+:SCALE
+:VAR "Utility Function of E-truck"
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "Utility Function of E-truck"
+:DATASET system with more depot charging
+:LINE-WIDTH 2
+:VAR "Utility Function of E-truck"
+:DATASET system with more public charging
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Availability_of_charging_station-percentage__Differentiation_regarding_different_charging_strategies_0_0_0_0
+:TITLE Availability of charging station in different charging strategies
+:SCALE
+:VAR "Availability of charging station-percentage"|Availability of charging station: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|Availability of charging station: system with more depot charging
+:DATASET system with more depot charging
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|Availability of charging station: system with more public charging
+:DATASET system with more public charging
+:LINE-WIDTH 2
+
+:GRAPH Scenario_e-truck_fleet_size__different_vehicle_size_0
+:TITLE E-truck fleet size in different vehicle sizes
+:SCALE
+:VAR "E-truck Fleet Size"|E-truck Fleet Size: Base
+:Y-MAX 160000
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "E-truck Fleet Size"|E-truck Fleet Size: Trucks heavier than 40 tons
+:Y-MAX 160000
+:DATASET Trucks heavier than 40 tons
+:LINE-WIDTH 2
+:VAR "E-truck Fleet Size"|E-truck Fleet Size: Trucks between 3.5 and 40 tons
+:Y-MAX 160000
+:DATASET Trucks between 3.5 and 40 tons
+:LINE-WIDTH 2
+
+:GRAPH Scenario_e-truck_share__vehicle_sizes
+:TITLE E-truck share in total fleet in different vehicle sizes
+:SCALE
+:VAR "e-truck share in total fleet"|e-truck share: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|e-truck share: Trucks heavier than 40 tons
+:DATASET Trucks heavier than 40 tons
+:LINE-WIDTH 2
+:VAR "e-truck share in total fleet"|e-truck share: Trucks between 3.5 and 40 tons
+:DATASET Trucks between 3.5 and 40 tons
+:LINE-WIDTH 2
+
+:GRAPH Scenario_"Utility_Function_of_E-truck"__vehicle_sizes
+:TITLE Utility Function of E-truck in different vehicle sizes
+:SCALE
+:VAR "Utility Function of E-truck"
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "Utility Function of E-truck"
+:DATASET Trucks heavier than 40 tons
+:LINE-WIDTH 2
+:VAR "Utility Function of E-truck"
+:DATASET Trucks between 3.5 and 40 tons
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Availability_of_charging_station-percentage__vehicle_sizes
+:TITLE Availability of charging station in different vehicle sizes
+:SCALE
+:VAR "Availability of charging station-percentage"|Availability of charging station: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|Availability of charging station: Trucks heavier than 40 tons
+:DATASET Trucks heavier than 40 tons
+:LINE-WIDTH 2
+:VAR "Availability of charging station-percentage"|Availability of charging station: Trucks between 3.5 and 40 tons
+:DATASET Trucks between 3.5 and 40 tons
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Technology_maturity___vehicle_sizes_0
+:TITLE Technology maturity in different vehicle sizes
+:SCALE
+:VAR "Effect of technology maturity-percentage"|Technology maturity: Base
+:DATASET Base
+:LINE-WIDTH 2
+:VAR "Effect of technology maturity-percentage"|Technology maturity: Trucks heavier than 40 tons
+:DATASET Trucks heavier than 40 tons
+:LINE-WIDTH 2
+:VAR "Effect of technology maturity-percentage"|Technology maturity: Trucks between 3.5 and 40 tons
+:DATASET Trucks between 3.5 and 40 tons
+:LINE-WIDTH 2
+
+:GRAPH Scenario_Installed_charging_stations___vehicle_sizes_0
+:TITLE Installed charging stations in different vehicle sizes
+:SCALE
+:VAR Installed Charging Stations
+:DATASET Base
+:LINE-WIDTH 2
+:VAR Installed Charging Stations
+:DATASET Trucks heavier than 40 tons
+:LINE-WIDTH 2
+:VAR Installed Charging Stations
+:DATASET Trucks between 3.5 and 40 tons
+:LINE-WIDTH 2
+:L<%^E!@
+1:Base.vdfx
+4:Time
+5:100 line
+9:Base
+19:75,0
+24:2017
+25:2060
+26:2060
+23:0
+18:Sensivity test 1.vsc
+20:Charging Infra new model, Step 27, Data.lst
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:1
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2015
+38:1
+39:1
+40:0
+41:0
+95:0
+96:0
+77:0
+78:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
